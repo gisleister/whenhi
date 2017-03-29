@@ -338,7 +338,12 @@ public class ClickUtil {
 
         });
 
+        commentBtn.setOnClickListener(new Button.OnClickListener(){//创建监听
+            public void onClick(View v) {
+                click(feed,view);
+            }
 
+        });
 
 
     }
