@@ -106,6 +106,7 @@
 
         <activity
             android:name=".activity.VideoFullActivity"
+            android:launchMode="singleTask"
             android:configChanges="orientation|keyboard"
             android:screenOrientation="portrait"></activity>
         <activity
@@ -136,16 +137,20 @@
 
         <activity
             android:name=".activity.VideoActivity"
+            android:launchMode="singleTask"
             android:configChanges="keyboard|orientation|screenSize"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.WebViewActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.PicActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.TextActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.CraftActivity"
