@@ -1,0 +1,584 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_sys"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/layout_toolbar_more" />
+
+    <ScrollView
+        android:id="@+id/main_content"
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:id="@+id/more"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+
+            <RelativeLayout
+                android:id="@+id/user_info_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:background="@drawable/shape_selector"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/user_avater"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@mipmap/user_default" />
+
+                <TextView
+                    android:id="@+id/user_nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="66dp"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:textColor="#333333"
+                    android:textSize="16sp"
+                    android:text="点击登录"/>
+
+
+
+                <Button
+                    android:id="@+id/user_checkin"
+                    android:layout_width="50dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/shape_button"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:textColor="#ffffff"
+                    android:textSize="12sp"
+                    android:text="签到"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:background="@drawable/bg_space"/>
+
+
+            <LinearLayout
+                android:id="@+id/user_income_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <RelativeLayout
+                    android:id="@+id/user_income_title_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="16dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingBottom="16dp"
+                    android:background="@drawable/shape_selector"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/user_income_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/caifu" />
+
+                    <TextView
+                        android:id="@+id/user_income_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="38dp"
+                        android:textColor="#000000"
+                        android:textSize="14sp"
+                        android:text="我的财富"
+                        android:gravity="center"
+                        android:layout_centerVertical="true"/>
+
+
+
+                    <ImageView
+                        android:id="@+id/user_income_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/gengduo" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/user_income_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#333333"
+                    android:textSize="28sp"
+                    android:text="0"
+                    android:layout_gravity="center"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/user_income_hb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="12dp"
+                    android:textColor="#ffa015"
+                    android:textSize="14sp"
+                    android:text="嗨币"
+                    android:layout_gravity="center"
+                    android:gravity="center"/>
+
+
+                <ProgressBar
+                    android:id="@+id/user_jingyan"
+                    style="@style/StyleProgressBarMini"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="16dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:max="1000"
+                    android:progress="0"
+                    android:visibility="gone"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:background="@drawable/bg_space"/>
+
+
+            <RelativeLayout
+                android:id="@+id/user_reward_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:background="@drawable/shape_selector"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/user_reward_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/zhengce" />
+
+                <TextView
+                    android:id="@+id/user_reward_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="38dp"
+                    android:textColor="#333333"
+                    android:textSize="14sp"
+                    android:text="奖励政策"
+                    android:layout_centerVertical="true"/>
+
+
+
+                <ImageView
+                    android:id="@+id/user_reward_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/gengduo" />
+
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/bg_space"/>
+
+
+            <RelativeLayout
+                android:id="@+id/user_about_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:background="@drawable/shape_selector"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/user_about_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/guanyu" />
+
+                <TextView
+                    android:id="@+id/user_about_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="38dp"
+                    android:textColor="#333333"
+                    android:textSize="14sp"
+                    android:text="关于我们"
+                    android:layout_centerVertical="true"/>
+
+
+
+                <ImageView
+                    android:id="@+id/user_about_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/gengduo" />
+
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:background="@drawable/bg_space"/>
+
+
+            <RelativeLayout
+                android:id="@+id/user_fav_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:background="@drawable/shape_selector"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/user_fav_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/shoucang1" />
+
+                <TextView
+                    android:id="@+id/user_fav_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="38dp"
+                    android:textColor="#333333"
+                    android:textSize="14sp"
+                    android:text="我的收藏"
+                    android:layout_centerVertical="true"/>
+
+
+
+                <ImageView
+                    android:id="@+id/user_fav_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/gengduo" />
+
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/bg_space"/>
+
+
+            <RelativeLayout
+                android:id="@+id/user_recharge_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:background="@drawable/shape_selector"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/user_recharge_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/chongzhi" />
+
+                <TextView
+                    android:id="@+id/user_recharge_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="38dp"
+                    android:textColor="#333333"
+                    android:textSize="14sp"
+                    android:text="手机充值(免费)"
+                    android:layout_centerVertical="true"/>
+
+
+
+                <ImageView
+                    android:id="@+id/user_recharge_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/gengduo" />
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/bg_space"/>
+
+
+            <RelativeLayout
+                android:id="@+id/user_recharge_record_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:background="@drawable/shape_selector"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/user_recharge_record_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/chohngzhi" />
+
+                <TextView
+                    android:id="@+id/user_recharge_record_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="38dp"
+                    android:textColor="#333333"
+                    android:textSize="14sp"
+                    android:text="手机充值记录"
+                    android:layout_centerVertical="true"/>
+
+
+
+                <ImageView
+                    android:id="@+id/user_recharge_record_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/gengduo" />
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:background="@drawable/bg_space"/>
+
+
+            <RelativeLayout
+                android:id="@+id/user_code_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:background="@drawable/shape_selector"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/user_code_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/yaoqingma" />
+
+                <TextView
+                    android:id="@+id/user_code_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="38dp"
+                    android:textColor="#333333"
+                    android:textSize="14sp"
+                    android:text="输入邀请码"
+                    android:layout_centerVertical="true"/>
+
+
+
+                <ImageView
+                    android:id="@+id/user_code_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/gengduo" />
+
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/bg_space"/>
+
+
+            <RelativeLayout
+                android:id="@+id/user_invite_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:background="@drawable/shape_selector"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/user_invite_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/yaoqing" />
+
+                <TextView
+                    android:id="@+id/user_invite_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="38dp"
+                    android:textColor="#333333"
+                    android:textSize="14sp"
+                    android:text="邀请好友"
+                    android:layout_centerVertical="true"/>
+
+
+
+                <ImageView
+                    android:id="@+id/user_invite_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/gengduo" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:background="@drawable/bg_space"/>
+
+
+            <RelativeLayout
+                android:id="@+id/user_problem_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:background="@drawable/shape_selector"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/user_problem_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/fankui" />
+
+                <TextView
+                    android:id="@+id/user_problem_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="38dp"
+                    android:textColor="#333333"
+                    android:textSize="14sp"
+                    android:text="问题反馈"
+                    android:layout_centerVertical="true"/>
+
+
+
+                <ImageView
+                    android:id="@+id/user_problem_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/gengduo" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/bg_space"/>
+
+            <RelativeLayout
+                android:id="@+id/user_setup_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:background="@drawable/shape_selector"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/user_setup_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/shezhi" />
+
+                <TextView
+                    android:id="@+id/user_setup_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="38dp"
+                    android:textColor="#333333"
+                    android:textSize="14sp"
+                    android:text="设置"
+                    android:layout_centerVertical="true"/>
+
+
+
+                <ImageView
+                    android:id="@+id/user_setup_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/gengduo" />
+
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/bg_space"/>
+        </LinearLayout>
+
+
+
+
+
+    </ScrollView>
+</LinearLayout>

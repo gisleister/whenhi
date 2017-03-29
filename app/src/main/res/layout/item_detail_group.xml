@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_list"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/item_space"
+        layout="@layout/include_space_feed" />
+    <include
+        android:id="@+id/item_toolbar"
+        layout="@layout/include_toolbar" />
+    <include
+        android:id="@+id/item_space"
+        layout="@layout/include_space_feed" />
+    <TextView
+        android:id="@+id/item_comment_header_text"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:textSize="1sp"
+        android:background="#f0f0f0"
+        android:textColor="#f0f0f0"/>
+</LinearLayout>

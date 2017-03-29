@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/dialog_margin"
+    android:paddingBottom="@dimen/dialog_margin">
+
+
+    <Button
+        android:id="@+id/dialog_close_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_tab"
+        android:layout_toLeftOf="@+id/dialog_confirm_button"
+        android:layout_marginRight="@dimen/dialog_margin"
+        android:text="取消"
+        android:textColor="@color/app_sys_color"
+        android:textSize="@dimen/dialog_update_button_text_size"/>
+
+    <Button
+        android:id="@+id/dialog_confirm_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/app_sys_color"
+        android:layout_alignParentRight="true"
+        android:text="查看"
+        android:textColor="@color/bg_sys"
+        android:textSize="@dimen/dialog_update_button_text_size"/>
+
+</RelativeLayout>
+

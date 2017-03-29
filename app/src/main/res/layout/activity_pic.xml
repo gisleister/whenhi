@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_sys">
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/layout_toolbar_detail" />
+
+
+    <FrameLayout
+        android:id="@+id/fragment_detail_pic_container"
+        android:paddingTop="40dp"
+        android:paddingBottom="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:orientation="vertical"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/bg_sys"
+        android:layout_marginBottom="8dp"
+        android:layout_gravity="bottom" >
+
+        <TextView
+            android:id="@+id/comment_send"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="发送"
+            android:textColor="#ffa015"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/comment_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/bg_edittext_normal"
+            android:textCursorDrawable="@drawable/style_edittext_cursor"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/comment_send"
+            android:textSize="12sp"
+            android:paddingLeft="12dp"
+            android:hint="要不咱随便说点什么......"/>
+
+
+    </RelativeLayout>
+
+
+
+</android.support.design.widget.CoordinatorLayout>

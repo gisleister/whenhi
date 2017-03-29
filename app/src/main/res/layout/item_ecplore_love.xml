@@ -1,0 +1,73 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="328dp"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="16dp"
+    android:orientation="horizontal" >
+
+
+    <RelativeLayout
+        android:id="@+id/item_explore_love_content_image_layout"
+        android:layout_width="164dp"
+        android:layout_height="123dp">
+
+        <ImageView
+            android:id="@+id/item_explore_love_content_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:background="@mipmap/bg_image"/>
+
+
+        <ImageView
+            android:id="@+id/item_explore_love_content_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/play"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="164dp"
+        android:layout_height="123dp"
+        android:layout_toRightOf="@+id/item_explore_love_content_image_layout"
+        android:orientation="vertical">
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_user"
+            layout="@layout/include_user_mini" />
+
+        <TextView
+            android:id="@+id/item_explore_love_content_text"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/bg_explore_love"
+            android:textSize="12sp"
+            android:paddingLeft="12dp"
+            android:textColor="#cccccc"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:lineSpacingExtra="3dp"
+            android:lineSpacingMultiplier="1"
+            android:text="内容"/>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_toolbar"
+            layout="@layout/include_toolbar_mini"/>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

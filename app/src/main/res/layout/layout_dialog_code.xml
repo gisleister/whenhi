@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_feed_detail_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:orientation="vertical" >
+
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="#333333"
+        android:ellipsize="end"
+        android:gravity="center_horizontal"
+        android:text="输入邀请码"/>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        android:background="@color/bg_sys"/>
+
+    <EditText
+        android:id="@+id/code_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:background="@drawable/bg_edittext_normal"
+        android:hint="请收入邀请码"
+        android:textSize="12sp"
+        android:text=""/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:background="@color/bg_sys"/>
+
+    <TextView
+        android:id="@+id/code_ok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/app_sys_color"
+        android:textSize="12sp"
+        android:textColor="#333333"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:ellipsize="end"
+        android:gravity="center_horizontal"
+        android:text="下一步"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:background="@color/bg_sys"/>
+
+    <TextView
+        android:id="@+id/code_close"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_tab"
+        android:textSize="12sp"
+        android:textColor="#333333"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:ellipsize="end"
+        android:gravity="center_horizontal"
+        android:text="关闭本页"/>
+
+</LinearLayout>
+

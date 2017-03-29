@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/splash_image"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:background="@mipmap/loading"/>
+    <TextView
+        android:id="@+id/splash_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="跳过"
+        android:textSize="28dp"
+        android:textColor="@color/app_sys_color"
+        android:gravity="center"
+        android:background="@drawable/bg_splash_skip"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"/>
+
+<!--
+    <TextView
+        android:id="@+id/splash_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="我喜欢嗨 所以用很嗨"
+        android:textSize="@dimen/splash_text"
+        android:ems="1"
+        android:textColor="@color/app_sys_color"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"/>-->
+</RelativeLayout>

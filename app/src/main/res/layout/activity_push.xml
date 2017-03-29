@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00000000">
+
+    <!--<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:paddingLeft="8dp"
+        android:background="#efefef">
+
+        <ImageView
+            android:id="@+id/push_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/logo"/>
+
+
+
+        <TextView
+            android:id="@+id/push_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="13sp"
+            android:textColor="#1c1c1c"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/push_logo"
+            android:layout_marginLeft="22dp"/>
+
+        <TextView
+            android:id="@+id/push_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="123123"
+            android:textSize="11sp"
+            android:textColor="#666666"
+            android:layout_below="@+id/push_count"
+            android:layout_toRightOf="@+id/push_logo"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="刚刚"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"/>
+
+    </RelativeLayout>-->
+
+</RelativeLayout>

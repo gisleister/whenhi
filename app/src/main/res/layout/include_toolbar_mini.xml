@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_toolbar_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_explore_love"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:orientation="horizontal">
+
+    <Button
+        android:id = "@+id/toolbar_love"
+        android:layout_width="match_parent"
+        android:layout_height="22dp"
+        android:layout_weight="1.0"
+        android:drawableLeft="@mipmap/zan"
+        android:background="@color/bg_explore_love"
+        android:gravity="center_vertical"
+        android:drawablePadding="12dp"
+        android:textColor="#999999"
+        android:textSize="10sp"
+        android:text="10"/>
+
+    <Button
+        android:id = "@+id/toolbar_fav"
+        android:layout_width="match_parent"
+        android:layout_height="22dp"
+        android:layout_weight="1.0"
+        android:drawableLeft="@mipmap/shoucang"
+        android:background="@color/bg_explore_love"
+        android:gravity="center_vertical"
+        android:drawablePadding="12dp"
+        android:textColor="#999999"
+        android:textSize="10sp"
+        android:text="10"/>
+
+
+    <Button
+        android:id = "@+id/toolbar_share"
+        android:layout_width="match_parent"
+        android:layout_height="22dp"
+        android:layout_weight="1.0"
+        android:drawableLeft="@mipmap/fenxiang"
+        android:background="@color/bg_explore_love"
+        android:gravity="center_vertical"
+        android:drawablePadding="12dp"
+        android:textColor="#999999"
+        android:textSize="10sp"
+        android:text="10"/>
+
+
+    <Button
+        android:id = "@+id/toolbar_comment"
+        android:layout_width="match_parent"
+        android:layout_height="22dp"
+        android:layout_weight="1.0"
+        android:drawableLeft="@mipmap/pinglun"
+        android:background="@color/bg_explore_love"
+        android:gravity="center_vertical"
+        android:drawablePadding="12dp"
+        android:textColor="#999999"
+        android:textSize="10sp"
+        android:text="10"/>
+
+</LinearLayout>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_feed_rec"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_list"
+    android:orientation="vertical" >
+
+
+    <include
+        android:id="@+id/item_space1"
+        layout="@layout/include_space_feed" />
+
+    <include
+        android:id="@+id/item_user"
+        layout="@layout/include_user_feed" />
+
+    <include
+        android:id="@+id/item_space2"
+        layout="@layout/include_space_feed" />
+
+
+    <LinearLayout
+        android:id="@+id/item_feed_rec_content_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/item_feed_rec_content_image"
+                android:layout_width="fill_parent"
+                android:layout_height="202dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:background="@mipmap/bg_image"/>
+            <ImageView
+                android:id="@+id/item_feed_rec_content_play"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/play"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+        <include
+            android:id="@+id/item_space3"
+            layout="@layout/include_space_feed" />
+
+        <TextView
+            android:id="@+id/item_feed_rec_content_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:textSize="14sp"
+            android:textColor="#333333"
+            android:ellipsize="end"
+            android:lineSpacingExtra="8dp"
+            android:lineSpacingMultiplier="1"
+            android:text="内容"/>
+
+    </LinearLayout>
+
+    <include
+        android:id="@+id/item_space4"
+        layout="@layout/include_space_feed" />
+
+
+    <include
+        android:id="@+id/item_toolbar"
+        layout="@layout/include_toolbar" />
+    <include
+        android:id="@+id/item_space5"
+        layout="@layout/include_space_feed" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#cccccc"/>
+
+
+
+</LinearLayout>

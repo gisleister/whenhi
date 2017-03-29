@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_sys"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/layout_toolbar" />
+
+        <EditText
+            android:id="@+id/user_problem_text"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="12dp"
+            android:gravity="left"
+            android:lines="5"
+            android:background="@drawable/bg_edittext_normal"
+            android:textCursorDrawable="@drawable/style_edittext_cursor"
+            android:textSize="12sp"
+            android:hint="请输入您的反馈意见(字数500以内)！"
+            android:text=""/>
+
+
+        <TextView
+            android:id="@+id/user_problem_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/app_sys_color"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:textSize="12sp"
+            android:textColor="#333333"
+            android:layout_marginTop="16dp"
+            android:ellipsize="end"
+            android:gravity="center_horizontal"
+            android:text="提交反馈"/>
+
+
+
+
+</LinearLayout>

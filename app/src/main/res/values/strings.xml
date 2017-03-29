@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">很嗨</string>
+
+
+    <string name="dialog_share_wechat_title">微信</string>
+    <string name="dialog_share_circlefriend_title">朋友圈</string>
+    <string name="dialog_share_weibo_title">微博</string>
+    <string name="dialog_share_qq_title">QQ</string>
+    <string name="dialog_share_qqzone_title">QQ空间</string>
+    <string name="dialog_update_header_title">系统通知</string>
+    <string name="dialog_update_footer_button_close">取消</string>
+    <string name="dialog_update_footer_button_confirm">升级</string>
+    <string name="dialog_update_content">升级内容简介</string>
+
+    <string name="favorite_btn_delete">点击查看大图或者其他扯淡万一</string>
+
+    <string name="title_activity_push">PushActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+</resources>

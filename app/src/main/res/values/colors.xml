@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- 使用 -->
+    <color name="bg_list">#ffffff</color>
+    <color name="bg_tab">#f5f5f5</color>
+    <color name="bg_sys">#ffffff</color>
+    <color name="bg_bottom">#ffffff</color>
+    <color name="msg_badge">#ffa051</color>
+    <color name="app_sys_color">#ffa051</color>
+    <color name="bottom_bar_inactive">#666666</color>
+    <color name="bottom_bar_active">#ffa051</color>
+    <color name="translate">#00000000</color>
+    <color name="bg_explore_love">#37363c</color>
+
+
+</resources>
