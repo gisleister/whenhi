@@ -1,1 +1,1 @@
-include ':app', ':loadlibrary', ':playerlibrary'
+include ':app', ':loadlibrary', ':playerlibrary', ':xtablayoutlibrary'

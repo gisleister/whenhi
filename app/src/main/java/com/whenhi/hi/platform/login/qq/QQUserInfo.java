@@ -40,7 +40,7 @@ public class QQUserInfo implements Parcelable {
     public String level;
     public String figureurl_2;
     public String province;
-    public String gender;
+    public String gender;//性别
     public String is_yellow_vip;
     public String figureurl;
 

@@ -13,16 +13,32 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:elevation="@dimen/toolbar_elevation">
 
+        <!--
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             app:tabSelectedTextColor="#ffa015"
             app:tabTextColor="#333333"
             app:tabIndicatorColor="#ffa015"
             app:tabIndicatorHeight="2dp"
+            app:tabGravity="fill"
             app:tabBackground="@color/bg_tab"
-            app:tabTextAppearance="@style/TabLayoutTextStyle"/>
+            app:tabTextAppearance="@style/TabLayoutTextStyle"/>-->
+
+        <com.androidkun.xtablayout.XTabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:xTabBackgroundColor="@color/bg_tab"
+            app:xTabMode="scrollable"
+            app:xTabIndicatorColor="#ffa015"
+            app:xTabIndicatorHeight="2dp"
+            app:xTabIndicatorWidth="18dp"
+            app:xTabSelectedTextColor="#ffa015"
+            app:xTabTextColor="#333333"
+            app:xTabTextSize="16sp"
+            app:xTabSelectedTextSize="18sp"/>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager

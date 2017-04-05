@@ -51,7 +51,7 @@ public class WeiboUserInfo implements Parcelable {
     public boolean verified;
     public String domain;
     public String province;
-    public String gender;
+    public String gender;//用户性别
     public String created_at;
     public int user_ability;
     public String weihao;
