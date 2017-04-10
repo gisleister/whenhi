@@ -28,12 +28,14 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
 
             <ImageView
                 android:id="@+id/item_feed_rec_content_image"
                 android:layout_width="fill_parent"
-                android:layout_height="202dp"
+                android:layout_height="200dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
                 android:background="@mipmap/bg_image"/>

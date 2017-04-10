@@ -10,6 +10,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.whenhi.hi.App;
@@ -208,7 +211,7 @@ public class ClickUtil {
 
 
 
-    public static void toolbarClick(final Button loveBtn, final Button shareBtn, final Button favBtn, final Button commentBtn, final Context context, final View view, final Feed feed){
+    public static void toolbarClick(final TextView loveText, final TextView favText,final ImageView favImage, final ImageView loveImage, final LinearLayout loveBtn, final LinearLayout shareBtn, final LinearLayout favBtn, final LinearLayout commentBtn, final Context context, final View view, final Feed feed){
 
         if(feed == null)
             return;
@@ -221,12 +224,11 @@ public class ClickUtil {
                             @Override
                             public void onSuccess(BaseModel baseModel) {
                                 if(baseModel.getState() == 0){
-                                    Drawable drawable = context.getResources().getDrawable(R.mipmap.zan);
-                                    drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-                                    loveBtn.setCompoundDrawables(drawable, null, null, null);
+                                    loveImage.setImageResource(R.mipmap.zan);
+
                                     feed.setLikeCount(feed.getLikeCount()-1);
                                     feed.setLikeState(0);
-                                    loveBtn.setText(""+(feed.getLikeCount()));
+                                    loveText.setText(""+(feed.getLikeCount()));
                                 }else {
                                     Toast.makeText(view.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
                                 }
@@ -244,12 +246,10 @@ public class ClickUtil {
                             @Override
                             public void onSuccess(BaseModel baseModel) {
                                 if(baseModel.getState() == 0){
-                                    Drawable drawable = context.getResources().getDrawable(R.mipmap.zan_click);
-                                    drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-                                    loveBtn.setCompoundDrawables(drawable, null, null, null);
+                                    loveImage.setImageResource(R.mipmap.zan_click);
                                     feed.setLikeCount(feed.getLikeCount()+1);
                                     feed.setLikeState(1);
-                                    loveBtn.setText(""+(feed.getLikeCount()));
+                                    loveText.setText(""+(feed.getLikeCount()));
                                 }else {
                                     Toast.makeText(view.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
                                 }
@@ -289,12 +289,10 @@ public class ClickUtil {
                             public void onSuccess(BaseModel baseModel) {
 
                                 if(baseModel.getState() == 0){
-                                    Drawable drawable = context.getResources().getDrawable(R.mipmap.shoucang);
-                                    drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-                                    favBtn.setCompoundDrawables(drawable, null, null, null);
+                                    favImage.setImageResource(R.mipmap.shoucang);
                                     feed.setFavoriteCount(feed.getFavoriteCount()-1);
                                     feed.setFavoriteState(0);
-                                    favBtn.setText(""+(feed.getFavoriteCount()));
+                                    favText.setText(""+(feed.getFavoriteCount()));
                                 }else {
                                     Toast.makeText(view.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
                                 }
@@ -311,12 +309,10 @@ public class ClickUtil {
                             @Override
                             public void onSuccess(BaseModel baseModel) {
                                 if(baseModel.getState() == 0){
-                                    Drawable drawable = context.getResources().getDrawable(R.mipmap.shoucang_click);
-                                    drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-                                    favBtn.setCompoundDrawables(drawable, null, null, null);
+                                    favImage.setImageResource(R.mipmap.shoucang_click);
                                     feed.setFavoriteCount(feed.getFavoriteCount()+1);
                                     feed.setFavoriteState(1);
-                                    favBtn.setText(""+(feed.getFavoriteCount()));
+                                    favText.setText(""+(feed.getFavoriteCount()));
                                 }else {
                                     Toast.makeText(view.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
                                 }

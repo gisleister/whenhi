@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -198,14 +200,10 @@ public class WebViewCommentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private void onBindGroupHolder(GroupHolder holder) {
         holder.headerText.setText("热门评论");
 
-        final Context context = holder.itemView.getContext();
+        Context context = holder.itemView.getContext();
 
-        holder.loveBtn.setText(""+mFeed.getLikeCount());
-        holder.favBtn.setText(""+mFeed.getLikeCount());
-        holder.shareBtn.setText(""+mFeed.getCommentCount());
-        holder.commentBtn.setText(""+mFeed.getCommentCount());
+        showToolbarContent(holder,mFeed,context);
 
-        ClickUtil.toolbarClick(holder.loveBtn,holder.shareBtn,holder.favBtn,holder.commentBtn,context,holder.itemView,mFeed);
     }
 
     private void onBindChildHolder(ChildHolder holder, int childPosition) {
@@ -262,17 +260,45 @@ public class WebViewCommentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     static class GroupHolder extends RecyclerView.ViewHolder {
         TextView headerText;
-        Button loveBtn;
-        Button favBtn;
-        Button shareBtn;
-        Button commentBtn;
+        RelativeLayout toolbar;
+
+        LinearLayout loveBtn;
+        LinearLayout favBtn;
+        LinearLayout shareBtn;
+        LinearLayout commentBtn;
+
+        ImageView loveImage;
+        ImageView favImage;
+        ImageView shareImage;
+        ImageView commentImage;
+
+
+        TextView loveText;
+        TextView favText;
+        TextView shareText;
+        TextView commentText;
         public GroupHolder(View itemView) {
             super(itemView);
             headerText = (TextView) itemView.findViewById(R.id.item_comment_header_text);
-            loveBtn = (Button) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_love);
-            shareBtn = (Button) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_share);
-            favBtn = (Button) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_fav);
-            commentBtn = (Button) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_comment);
+            toolbar = (RelativeLayout) itemView.findViewById(R.id.item_toolbar);
+
+            loveBtn = (LinearLayout) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_love_layout);
+            shareBtn = (LinearLayout) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_share_layout);
+            favBtn = (LinearLayout) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_fav_layout);
+            commentBtn = (LinearLayout) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_comment_layout);
+
+
+            loveImage = (ImageView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_love_image);
+            shareImage = (ImageView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_share_image);
+            favImage = (ImageView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_fav_image);
+            commentImage = (ImageView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_comment_image);
+
+
+            loveText = (TextView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_love_text);
+            shareText = (TextView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_share_text);
+            favText = (TextView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_fav_text);
+            commentText = (TextView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_comment_text);
+
         }
     }
 
@@ -290,6 +316,32 @@ public class WebViewCommentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         }
     }
+
+
+
+    private void showToolbarContent(GroupHolder holder, Feed feed,Context context){
+
+        holder.loveText.setText(""+feed.getLikeCount());
+        holder.favText.setText(""+feed.getFavoriteCount());
+        holder.shareText.setText(""+feed.getShareCount());
+        holder.commentText.setText(""+feed.getCommentCount());
+
+        if(feed.getLikeState() == 1){
+            holder.loveImage.setImageResource(R.mipmap.zan_click);
+        }else{
+            holder.loveImage.setImageResource(R.mipmap.zan);
+        }
+
+        if(feed.getFavoriteState() == 1){
+            holder.favImage.setImageResource(R.mipmap.shoucang_click);
+
+        }else{
+            holder.favImage.setImageResource(R.mipmap.shoucang);
+        }
+        ClickUtil.toolbarClick(holder.loveText,holder.favText,holder.favImage,holder.loveImage,holder.loveBtn,holder.shareBtn,holder.favBtn,holder.commentBtn,context,holder.itemView,feed);
+
+    }
+
 
 
 }

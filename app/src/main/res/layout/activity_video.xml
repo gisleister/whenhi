@@ -24,7 +24,24 @@
         android:layout_height="40dp"
         android:layout_marginBottom="8dp"
         android:background="@color/bg_sys"
-        android:layout_gravity="bottom" >
+        android:layout_gravity="bottom">
+
+        <include
+            android:id="@+id/item_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            layout="@layout/include_toolbar" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/bg_sys"
+        android:layout_gravity="bottom"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/comment_send"

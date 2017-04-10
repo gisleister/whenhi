@@ -134,7 +134,6 @@ public class LoveIndexAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 .into(target);
 
         showContent(holder,feed,context);//显示内容
-        showToolbarContent(holder,feed,context);//显示工具栏
 
     }
 
@@ -280,40 +279,4 @@ public class LoveIndexAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
     }
-
-    private void showToolbarContent(FeedHolder holder, Feed feed,Context context){
-        holder.nicknameUser.setText(feed.getUserName());
-        holder.loveBtn.setText(""+feed.getLikeCount());
-        holder.favBtn.setText(""+feed.getFavoriteCount());
-        holder.shareBtn.setText(""+feed.getShareCount());
-        holder.commentBtn.setText(""+feed.getCommentCount());
-
-        if(feed.getLikeState() == 1){
-            Drawable drawable = context.getResources().getDrawable(R.mipmap.zan_click);
-            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-            holder.loveBtn.setCompoundDrawables(drawable, null, null, null);
-        }else{
-            Drawable drawable = context.getResources().getDrawable(R.mipmap.zan);
-            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-            holder.loveBtn.setCompoundDrawables(drawable, null, null, null);
-        }
-
-        if(feed.getFavoriteState() == 1){
-            Drawable drawable = context.getResources().getDrawable(R.mipmap.shoucang_click);
-            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-            holder.favBtn.setCompoundDrawables(drawable, null, null, null);
-        }else{
-            Drawable drawable = context.getResources().getDrawable(R.mipmap.shoucang);
-            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-            holder.favBtn.setCompoundDrawables(drawable, null, null, null);
-        }
-        ClickUtil.toolbarClick(holder.loveBtn,holder.shareBtn,holder.favBtn,holder.commentBtn,context,holder.itemView,feed);
-
-    }
-
-
-
-
-
-
 }

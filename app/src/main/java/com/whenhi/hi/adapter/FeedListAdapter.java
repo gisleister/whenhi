@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -17,6 +18,7 @@ import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
 import com.whenhi.hi.fragment.BaseFragment;
+import com.whenhi.hi.image.RoundTransform;
 import com.whenhi.hi.listener.OnItemClickListener;
 import com.whenhi.hi.listener.OnItemLongClickListener;
 import com.whenhi.hi.image.CircleTransform;
@@ -122,6 +124,8 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         mGlideListener.setFeedCategory(feed.getFeedCategory());
         mGlideListener.setFeedId(feed.getId());
 
+
+        holder.nicknameUser.setText(feed.getUserName());
         WeakReference<ImageView> imageViewWeakReference = new WeakReference<>(holder.avatarUser);
         ImageView target = imageViewWeakReference.get();
 
@@ -150,16 +154,31 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         ImageView imageContent;
         TextView textContent;
         ImageView imagePlay;
-        Button loveBtn;
-        Button favBtn;
-        Button shareBtn;
-        Button commentBtn;
-        LinearLayout toolbar;
+
+
         LinearLayout userbar;
         LinearLayout space2;
         LinearLayout space3;
         LinearLayout space4;
         LinearLayout space5;
+
+        RelativeLayout toolbar;
+
+        LinearLayout loveBtn;
+        LinearLayout favBtn;
+        LinearLayout shareBtn;
+        LinearLayout commentBtn;
+
+        ImageView loveImage;
+        ImageView favImage;
+        ImageView shareImage;
+        ImageView commentImage;
+
+
+        TextView loveText;
+        TextView favText;
+        TextView shareText;
+        TextView commentText;
 
         public FeedHolder(View itemView) {
             super(itemView);
@@ -170,12 +189,29 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             textContent = (TextView) itemView.findViewById(R.id.item_feed_rec_content_text);
 
             imagePlay = (ImageView) itemView.findViewById(R.id.item_feed_rec_content_play);
-            loveBtn = (Button) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_love);
-            shareBtn = (Button) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_share);
-            favBtn = (Button) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_fav);
-            commentBtn = (Button) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_comment);
 
-            toolbar = (LinearLayout) itemView.findViewById(R.id.item_toolbar);
+            toolbar = (RelativeLayout) itemView.findViewById(R.id.item_toolbar);
+
+            loveBtn = (LinearLayout) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_love_layout);
+            shareBtn = (LinearLayout) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_share_layout);
+            favBtn = (LinearLayout) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_fav_layout);
+            commentBtn = (LinearLayout) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_comment_layout);
+
+
+            loveImage = (ImageView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_love_image);
+            shareImage = (ImageView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_share_image);
+            favImage = (ImageView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_fav_image);
+            commentImage = (ImageView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_comment_image);
+
+
+            loveText = (TextView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_love_text);
+            shareText = (TextView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_share_text);
+            favText = (TextView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_fav_text);
+            commentText = (TextView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_comment_text);
+
+
+
+
             userbar = (LinearLayout) itemView.findViewById(R.id.item_user);
 
             space2 = (LinearLayout)itemView.findViewById(R.id.item_space2);
@@ -239,6 +275,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         .skipMemoryCache(true)
                         .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                         .listener(mGlideListener.getListener())
+                        .transform(new RoundTransform(context,30))
                         .error(R.mipmap.bg_image)
                         //.override(width, height)
                         .into(target);
@@ -263,6 +300,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                                 .skipMemoryCache(true)
                                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                                 .listener(mGlideListener.getListener())
+                                .transform(new RoundTransform(context,30))
                                 .error(R.mipmap.bg_image)
                                 //.override(600, 200)
                                 //.fitCenter()
@@ -298,6 +336,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                                 .skipMemoryCache(true)
                                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                                 .listener(mGlideListener.getListener())
+                                .transform(new RoundTransform(context,30))
                                 .error(R.mipmap.bg_image)
                                 //.override(width, height)
                                 .into(new GlideDrawableImageViewTarget(target, 1));
@@ -323,6 +362,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         .skipMemoryCache(true)
                         .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                         .listener(mGlideListener.getListener())
+                        .transform(new RoundTransform(context,30))
                         .error(R.mipmap.bg_image)
                         //.override(width, height)
                         .into(target);
@@ -340,6 +380,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         .skipMemoryCache(true)
                         .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                         .listener(mGlideListener.getListener())
+                        .transform(new RoundTransform(context,30))
                         .error(R.mipmap.bg_image)
                         //.override(width, height)
                         .into(target);
@@ -353,32 +394,25 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     private void showToolbarContent(FeedHolder holder, Feed feed,Context context){
-        holder.nicknameUser.setText(feed.getUserName());
-        holder.loveBtn.setText(""+feed.getLikeCount());
-        holder.favBtn.setText(""+feed.getFavoriteCount());
-        holder.shareBtn.setText(""+feed.getShareCount());
-        holder.commentBtn.setText(""+feed.getCommentCount());
+
+        holder.loveText.setText(""+feed.getLikeCount());
+        holder.favText.setText(""+feed.getFavoriteCount());
+        holder.shareText.setText(""+feed.getShareCount());
+        holder.commentText.setText(""+feed.getCommentCount());
 
         if(feed.getLikeState() == 1){
-            Drawable drawable = context.getResources().getDrawable(R.mipmap.zan_click);
-            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-            holder.loveBtn.setCompoundDrawables(drawable, null, null, null);
+            holder.loveImage.setImageResource(R.mipmap.zan_click);
         }else{
-            Drawable drawable = context.getResources().getDrawable(R.mipmap.zan);
-            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-            holder.loveBtn.setCompoundDrawables(drawable, null, null, null);
+            holder.loveImage.setImageResource(R.mipmap.zan);
         }
 
         if(feed.getFavoriteState() == 1){
-            Drawable drawable = context.getResources().getDrawable(R.mipmap.shoucang_click);
-            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-            holder.favBtn.setCompoundDrawables(drawable, null, null, null);
+            holder.favImage.setImageResource(R.mipmap.shoucang_click);
+
         }else{
-            Drawable drawable = context.getResources().getDrawable(R.mipmap.shoucang);
-            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-            holder.favBtn.setCompoundDrawables(drawable, null, null, null);
+            holder.favImage.setImageResource(R.mipmap.shoucang);
         }
-        ClickUtil.toolbarClick(holder.loveBtn,holder.shareBtn,holder.favBtn,holder.commentBtn,context,holder.itemView,feed);
+        ClickUtil.toolbarClick(holder.loveText,holder.favText,holder.favImage,holder.loveImage,holder.loveBtn,holder.shareBtn,holder.favBtn,holder.commentBtn,context,holder.itemView,feed);
 
     }
 
