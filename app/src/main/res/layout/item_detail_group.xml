@@ -4,6 +4,106 @@
     android:layout_height="wrap_content"
     android:background="#f0f0f0"
     android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/item_toolbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp">
+
+            <ImageView
+                android:id = "@+id/toolbar_love_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/zan"/>
+
+            <ImageView
+                android:id = "@+id/toolbar_fav_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:src="@mipmap/shoucang"/>
+
+            <ImageView
+                android:id = "@+id/toolbar_comment_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="80dp"
+                android:src="@mipmap/pinglun"/>
+
+
+            <ImageView
+                android:id = "@+id/toolbar_share_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/fenxiang"/>
+
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:id = "@+id/toolbar_love_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#999999"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:text="100赞"/>
+
+            <TextView
+                android:id = "@+id/toolbar_fav_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="26dp"
+                android:textColor="#999999"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:text="100收藏"/>
+
+
+            <TextView
+                android:id = "@+id/toolbar_comment_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="66dp"
+                android:textColor="#999999"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:text="100评论"/>
+
+
+            <TextView
+                android:id = "@+id/toolbar_share_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="126dp"
+                android:textColor="#999999"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:text="100分享"/>
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
     <TextView
         android:id="@+id/item_comment_header_text"
         android:layout_width="match_parent"

@@ -12,49 +12,56 @@
     <FrameLayout
         android:id="@+id/fragment_detail_pic_container"
         android:paddingTop="40dp"
-        android:paddingBottom="40dp"
+        android:paddingBottom="48dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
         android:orientation="vertical"/>
 
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
         android:background="@color/bg_sys"
-        android:layout_marginBottom="8dp"
-        android:layout_gravity="bottom" >
+        android:layout_gravity="bottom">
 
-        <TextView
-            android:id="@+id/comment_send"
+        <Button
+            android:id="@+id/toolbar_comment_image"
+            android:layout_width="160dp"
+            android:layout_height="34dp"
+            android:background="@drawable/shape_edit"
+            android:layout_weight="1"
+            android:gravity="left|center_vertical"
+            android:text="随便说点"
+            android:paddingLeft="16dp"/>
+
+        <ImageView
+            android:id = "@+id/toolbar_love_image"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="发送"
-            android:textColor="#ffa015"
-            android:textSize="14sp" />
+            android:layout_weight="1"
+            android:src="@mipmap/zan"/>
 
-        <EditText
-            android:id="@+id/comment_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:background="@drawable/bg_edittext_normal"
-            android:textCursorDrawable="@drawable/style_edittext_cursor"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/comment_send"
-            android:textSize="12sp"
-            android:paddingLeft="12dp"
-            android:hint="要不咱随便说点什么......"/>
+        <ImageView
+            android:id = "@+id/toolbar_fav_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:src="@mipmap/shoucang"/>
 
 
-    </RelativeLayout>
+        <ImageView
+            android:id = "@+id/toolbar_share_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:src="@mipmap/fenxiang"/>
 
 
+
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

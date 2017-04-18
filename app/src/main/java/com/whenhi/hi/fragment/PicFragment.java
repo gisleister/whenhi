@@ -221,7 +221,4 @@ public class PicFragment extends BaseFragment implements OnRefreshListener, OnLo
         onRefresh();
     }
 
-    public void refreshComment(Comment comment){
-        mAdapter.refreshComment(comment);
-    }
 }

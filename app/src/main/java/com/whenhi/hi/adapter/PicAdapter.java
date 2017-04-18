@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
+import com.whenhi.hi.image.RoundTransform;
 import com.whenhi.hi.listener.OnItemClickListener;
 import com.whenhi.hi.listener.OnItemLongClickListener;
 import com.whenhi.hi.listener.GlideListener;
@@ -97,6 +98,7 @@ public class PicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             Glide.with(context)
                     .load(image.getContent())
                     .listener(mGlideListener.getListener())
+                    .transform(new RoundTransform(context,10))
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .error(R.mipmap.bg_image)
                     .into(target);

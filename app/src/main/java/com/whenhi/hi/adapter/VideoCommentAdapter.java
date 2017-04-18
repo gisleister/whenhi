@@ -223,7 +223,7 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 
 
-        showToolbarContent(holder,mFeed);
+
 
         holder.imageContent.setOnClickListener(new Button.OnClickListener(){//创建监听
             public void onClick(View v) {
@@ -241,7 +241,7 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private void onBindGroupHolder(final GroupHolder holder) {
         holder.headerText.setText("热门评论");
-
+        showToolbarContent(holder,mFeed);
     }
 
     private void onBindChildHolder(ChildHolder holder, int childPosition) {
@@ -298,16 +298,7 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         ImageView imageContent;
         ImageView imagePlay;
 
-        ImageView loveImage;
-        ImageView favImage;
-        ImageView shareImage;
-        ImageView commentImage;
 
-
-        TextView loveText;
-        TextView favText;
-        TextView shareText;
-        TextView commentText;
 
         public DetailHolder(View itemView) {
             super(itemView);
@@ -319,6 +310,31 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             imagePlay = (ImageView) itemView.findViewById(R.id.item_detail_content_play);
 
 
+
+
+
+        }
+
+    }
+
+    class GroupHolder extends RecyclerView.ViewHolder {
+        TextView headerText;
+
+        ImageView loveImage;
+        ImageView favImage;
+        ImageView shareImage;
+        ImageView commentImage;
+
+
+        TextView loveText;
+        TextView favText;
+        TextView shareText;
+        TextView commentText;
+
+
+        public GroupHolder(View itemView) {
+            super(itemView);
+            headerText = (TextView) itemView.findViewById(R.id.item_comment_header_text);
             loveImage = (ImageView) itemView.findViewById(R.id.toolbar_love_image);
             shareImage = (ImageView) itemView.findViewById(R.id.toolbar_share_image);
             favImage = (ImageView) itemView.findViewById(R.id.toolbar_fav_image);
@@ -329,19 +345,6 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             shareText = (TextView) itemView.findViewById(R.id.toolbar_share_text);
             favText = (TextView) itemView.findViewById(R.id.toolbar_fav_text);
             commentText = (TextView) itemView.findViewById(R.id.toolbar_comment_text);
-
-
-        }
-
-    }
-
-    class GroupHolder extends RecyclerView.ViewHolder {
-        TextView headerText;
-
-
-        public GroupHolder(View itemView) {
-            super(itemView);
-            headerText = (TextView) itemView.findViewById(R.id.item_comment_header_text);
 
 
         }
@@ -364,7 +367,7 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 
 
-    private void showToolbarContent(DetailHolder holder, Feed feed){
+    private void showToolbarContent(GroupHolder holder, Feed feed){
 
         holder.loveText.setText(""+feed.getLikeCount() + "赞");
         holder.favText.setText(" · "+feed.getFavoriteCount() + "收藏");

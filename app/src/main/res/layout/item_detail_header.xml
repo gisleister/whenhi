@@ -27,7 +27,7 @@
 
         <TextView
             android:id="@+id/user_nickname"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:paddingLeft="12dp"
@@ -42,7 +42,7 @@
 
     <TextView
         android:id="@+id/detail_text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
         android:paddingLeft="16dp"
