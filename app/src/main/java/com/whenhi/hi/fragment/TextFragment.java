@@ -222,7 +222,4 @@ public class TextFragment extends BaseFragment implements OnRefreshListener, OnL
         onRefresh();
     }
 
-    public void refreshComment(Comment comment){
-        mAdapter.refreshComment(comment);
-    }
 }

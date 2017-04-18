@@ -21,6 +21,7 @@ import com.whenhi.hi.App;
 import com.whenhi.hi.R;
 import com.whenhi.hi.activity.ShareActivity;
 import com.whenhi.hi.image.CircleTransform;
+import com.whenhi.hi.listener.CommentListener;
 import com.whenhi.hi.listener.OnChildItemClickListener;
 import com.whenhi.hi.listener.OnChildItemLongClickListener;
 import com.whenhi.hi.listener.OnGroupItemClickListener;
@@ -30,6 +31,7 @@ import com.whenhi.hi.model.Comment;
 import com.whenhi.hi.model.Feed;
 import com.whenhi.hi.model.Image;
 import com.whenhi.hi.network.HttpAPI;
+import com.whenhi.hi.receiver.NoticeTransfer;
 import com.whenhi.hi.util.ClickUtil;
 
 import java.lang.ref.WeakReference;
@@ -77,6 +79,9 @@ public class TextCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public TextCommentAdapter(Feed feed) {
         mFeed = feed;
         mComments = new ArrayList<>();
+
+        NoticeTransfer noticeTransfer = new NoticeTransfer();
+        noticeTransfer.setCommentListener(mCommentListener);
     }
 
     public void setList(List<Comment> comments) {
@@ -91,11 +96,6 @@ public class TextCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             notifyDataSetChanged();
         }
 
-    }
-
-    public void refreshComment(Comment comment){
-        mComments.add(0,comment);
-        notifyDataSetChanged();
     }
 
 
@@ -133,7 +133,7 @@ public class TextCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 itemView = inflate(viewGroup, R.layout.item_detail_group);
                 return new GroupHolder(itemView);
             case TYPE_CHILD:
-                itemView = inflate(viewGroup, R.layout.item_text_comment);
+                itemView = inflate(viewGroup, R.layout.item_video_comment);
                 final ChildHolder holder = new ChildHolder(itemView);
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -241,8 +241,8 @@ public class TextCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         public HeaderHolder(View itemView) {
             super(itemView);
-            userAvatar = (ImageView) itemView.findViewById(R.id.item_user).findViewById(R.id.user_avatar);
-            userNickName = (TextView) itemView.findViewById(R.id.item_user).findViewById(R.id.user_nickname);
+            userAvatar = (ImageView) itemView.findViewById(R.id.user_avatar);
+            userNickName = (TextView) itemView.findViewById(R.id.user_nickname);
             detailText = (TextView) itemView.findViewById(R.id.detail_text);
         }
     }
@@ -258,12 +258,7 @@ public class TextCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     static class GroupHolder extends RecyclerView.ViewHolder {
         TextView headerText;
-        RelativeLayout toolbar;
 
-        LinearLayout loveBtn;
-        LinearLayout favBtn;
-        LinearLayout shareBtn;
-        LinearLayout commentBtn;
 
         ImageView loveImage;
         ImageView favImage;
@@ -280,24 +275,16 @@ public class TextCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             headerText = (TextView) itemView.findViewById(R.id.item_comment_header_text);
 
 
-            toolbar = (RelativeLayout) itemView.findViewById(R.id.item_toolbar);
-
-            loveBtn = (LinearLayout) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_love_layout);
-            shareBtn = (LinearLayout) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_share_layout);
-            favBtn = (LinearLayout) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_fav_layout);
-            commentBtn = (LinearLayout) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_comment_layout);
+            loveImage = (ImageView) itemView.findViewById(R.id.toolbar_love_image);
+            shareImage = (ImageView) itemView.findViewById(R.id.toolbar_share_image);
+            favImage = (ImageView) itemView.findViewById(R.id.toolbar_fav_image);
+            commentImage = (ImageView) itemView.findViewById(R.id.toolbar_comment_image);
 
 
-            loveImage = (ImageView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_love_image);
-            shareImage = (ImageView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_share_image);
-            favImage = (ImageView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_fav_image);
-            commentImage = (ImageView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_comment_image);
-
-
-            loveText = (TextView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_love_text);
-            shareText = (TextView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_share_text);
-            favText = (TextView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_fav_text);
-            commentText = (TextView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_comment_text);
+            loveText = (TextView) itemView.findViewById(R.id.toolbar_love_text);
+            shareText = (TextView) itemView.findViewById(R.id.toolbar_share_text);
+            favText = (TextView) itemView.findViewById(R.id.toolbar_fav_text);
+            commentText = (TextView) itemView.findViewById(R.id.toolbar_comment_text);
 
 
         }
@@ -311,9 +298,9 @@ public class TextCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         public ChildHolder(View itemView) {
             super(itemView);
-            userNickName = (TextView) itemView.findViewById(R.id.item_comment).findViewById(R.id.comment_user_nickname);
-            userAvatar = (ImageView) itemView.findViewById(R.id.item_comment).findViewById(R.id.comment_user_avatar);
-            commentText = (TextView) itemView.findViewById(R.id.item_comment).findViewById(R.id.comment_text);
+            userNickName = (TextView) itemView.findViewById(R.id.user_nickname);
+            userAvatar = (ImageView) itemView.findViewById(R.id.user_avatar);
+            commentText = (TextView) itemView.findViewById(R.id.comment_text);
         }
     }
 
@@ -321,10 +308,10 @@ public class TextCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private void showToolbarContent(GroupHolder holder, Feed feed,Context context){
 
-        holder.loveText.setText(""+feed.getLikeCount());
-        holder.favText.setText(""+feed.getFavoriteCount());
-        holder.shareText.setText(""+feed.getShareCount());
-        holder.commentText.setText(""+feed.getCommentCount());
+        holder.loveText.setText(""+feed.getLikeCount() + "赞");
+        holder.favText.setText(" · "+feed.getFavoriteCount() + "收藏");
+        holder.shareText.setText(" · "+feed.getShareCount() + "分享");
+        holder.commentText.setText(" · "+feed.getCommentCount() + "评论");
 
         if(feed.getLikeState() == 1){
             holder.loveImage.setImageResource(R.mipmap.zan_click);
@@ -338,9 +325,17 @@ public class TextCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }else{
             holder.favImage.setImageResource(R.mipmap.shoucang);
         }
-        //ClickUtil.toolbarClick(holder.loveText,holder.favText,holder.favImage,holder.loveImage,holder.loveBtn,holder.shareBtn,holder.favBtn,holder.commentBtn,context,holder.itemView,feed);
+        ClickUtil.toolbarClick(holder.loveText,holder.favText,holder.favImage,holder.loveImage,holder.shareImage,holder.commentImage,holder.itemView,feed);
 
     }
+
+    private CommentListener mCommentListener = new CommentListener() {
+        @Override
+        public void commentSuccess(Comment comment) {
+            mComments.add(0,comment);
+            notifyItemInserted(3);
+        }
+    };
 
 
 }
