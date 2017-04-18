@@ -1,36 +1,25 @@
 package com.whenhi.hi.adapter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
-import com.whenhi.hi.activity.ShareActivity;
 import com.whenhi.hi.image.CircleTransform;
 import com.whenhi.hi.listener.CommentListener;
 import com.whenhi.hi.listener.OnChildItemClickListener;
 import com.whenhi.hi.listener.OnChildItemLongClickListener;
 import com.whenhi.hi.listener.OnGroupItemClickListener;
 import com.whenhi.hi.listener.OnGroupItemLongClickListener;
-import com.whenhi.hi.model.BaseModel;
 import com.whenhi.hi.model.Comment;
 import com.whenhi.hi.model.Feed;
-import com.whenhi.hi.model.Image;
-import com.whenhi.hi.network.HttpAPI;
 import com.whenhi.hi.receiver.NoticeTransfer;
 import com.whenhi.hi.util.ClickUtil;
 
@@ -133,7 +122,7 @@ public class TextCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 itemView = inflate(viewGroup, R.layout.item_detail_group);
                 return new GroupHolder(itemView);
             case TYPE_CHILD:
-                itemView = inflate(viewGroup, R.layout.item_video_comment);
+                itemView = inflate(viewGroup, R.layout.item_comment);
                 final ChildHolder holder = new ChildHolder(itemView);
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override

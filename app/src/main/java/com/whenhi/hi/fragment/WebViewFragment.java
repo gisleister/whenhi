@@ -225,7 +225,4 @@ public class WebViewFragment extends BaseFragment implements OnRefreshListener, 
 
     }
 
-    public void refreshComment(Comment comment){
-        mAdapter.refreshComment(comment);
-    }
 }
