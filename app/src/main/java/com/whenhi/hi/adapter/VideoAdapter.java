@@ -37,7 +37,6 @@ public class VideoAdapter{
         mActivity = (VideoActivity)activity;
         mFeed = feed;
         mVideoPlayer = videoPlayer;
-        mActivity.setVideoPlayer(videoPlayer);
         initData();
         initView();
         initListener();
@@ -49,7 +48,6 @@ public class VideoAdapter{
     }
 
     private void initData() {
-        //        mVideoUrl = "android.resource://" + getPackageName() + "/" + R.raw.shuai_dan_ge;
         mVideoUrl = mFeed.getPlayUrl();
     }
 
@@ -82,8 +80,7 @@ public class VideoAdapter{
     }
 
     public void goOnPlay(int lastTime){
-        //mVideoPlayer.loadAndStartVideo(mActivity, mVideoUrl);
-
+        mVideoPlayer.loadAndStartVideo(mActivity, mVideoUrl);
         mVideoPlayer.setLastUpdateTime(lastTime);
         mVideoPlayer.setLastPlayingPos(lastTime);
         //mVideoPlayer.startOrRestartPlay();

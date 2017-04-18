@@ -26,12 +26,16 @@
             app:tabBackground="@color/bg_tab"
             app:tabTextAppearance="@style/TabLayoutTextStyle"/>-->
 
+        <!-- xTabGravity xTabMode联合使用可以居中-->
         <com.androidkun.xtablayout.XTabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:xTabBackgroundColor="@color/bg_tab"
-            app:xTabMode="scrollable"
+            android:background="#ffffff"
+            app:xTabBackgroundColor="#ffffff"
+            app:xTabMode="fixed"
+            app:xTabGravity="1"
+            app:xTabMaxWidth="60dp"
             app:xTabIndicatorColor="#ffa015"
             app:xTabIndicatorHeight="2dp"
             app:xTabIndicatorWidth="18dp"

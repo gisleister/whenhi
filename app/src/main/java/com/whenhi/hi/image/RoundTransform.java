@@ -47,6 +47,8 @@ public class RoundTransform extends BitmapTransformation {
                 .ANTI_ALIAS_FLAG);
         paint.setShader(new BitmapShader(squared, BitmapShader.TileMode.CLAMP, BitmapShader
                 .TileMode.CLAMP));
+        paint.setAntiAlias(true);
+        paint.setFilterBitmap(true);
         canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, paint);
         return result;
     }

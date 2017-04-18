@@ -3,6 +3,7 @@ package com.whenhi.hi.receiver;
 import com.whenhi.hi.listener.CommentListener;
 import com.whenhi.hi.listener.LoginListener;
 import com.whenhi.hi.listener.NoticeListener;
+import com.whenhi.hi.model.Comment;
 
 /**
  * Created by 王雷 on 2017/1/20.
@@ -44,9 +45,9 @@ public class NoticeTransfer {
 
     }
 
-    public static void commentSuccess(){
+    public static void commentSuccess(Comment comment){
         if(mCommentListener != null){
-            mCommentListener.commentSuccess();
+            mCommentListener.commentSuccess(comment);
         }
 
     }

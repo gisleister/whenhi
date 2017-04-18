@@ -156,18 +156,12 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         ImageView imagePlay;
 
 
-        LinearLayout userbar;
-        LinearLayout space2;
-        LinearLayout space3;
-        LinearLayout space4;
-        LinearLayout space5;
 
-        RelativeLayout toolbar;
 
-        LinearLayout loveBtn;
+        /*LinearLayout loveBtn;
         LinearLayout favBtn;
         LinearLayout shareBtn;
-        LinearLayout commentBtn;
+        LinearLayout commentBtn;*/
 
         ImageView loveImage;
         ImageView favImage;
@@ -182,43 +176,25 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         public FeedHolder(View itemView) {
             super(itemView);
-            avatarUser = (ImageView) itemView.findViewById(R.id.item_user).findViewById(R.id.user_avatar);
-            nicknameUser = (TextView) itemView.findViewById(R.id.item_user).findViewById(R.id.user_nickname);
+            avatarUser = (ImageView) itemView.findViewById(R.id.user_avatar);
+            nicknameUser = (TextView) itemView.findViewById(R.id.user_nickname);
 
             imageContent = (ImageView) itemView.findViewById(R.id.item_feed_rec_content_image);
             textContent = (TextView) itemView.findViewById(R.id.item_feed_rec_content_text);
 
             imagePlay = (ImageView) itemView.findViewById(R.id.item_feed_rec_content_play);
 
-            toolbar = (RelativeLayout) itemView.findViewById(R.id.item_toolbar);
 
-            loveBtn = (LinearLayout) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_love_layout);
-            shareBtn = (LinearLayout) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_share_layout);
-            favBtn = (LinearLayout) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_fav_layout);
-            commentBtn = (LinearLayout) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_comment_layout);
-
-
-            loveImage = (ImageView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_love_image);
-            shareImage = (ImageView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_share_image);
-            favImage = (ImageView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_fav_image);
-            commentImage = (ImageView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_comment_image);
+            loveImage = (ImageView) itemView.findViewById(R.id.toolbar_love_image);
+            shareImage = (ImageView) itemView.findViewById(R.id.toolbar_share_image);
+            favImage = (ImageView) itemView.findViewById(R.id.toolbar_fav_image);
+            commentImage = (ImageView) itemView.findViewById(R.id.toolbar_comment_image);
 
 
-            loveText = (TextView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_love_text);
-            shareText = (TextView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_share_text);
-            favText = (TextView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_fav_text);
-            commentText = (TextView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_comment_text);
-
-
-
-
-            userbar = (LinearLayout) itemView.findViewById(R.id.item_user);
-
-            space2 = (LinearLayout)itemView.findViewById(R.id.item_space2);
-            space3 = (LinearLayout)itemView.findViewById(R.id.item_space2);
-            space4 = (LinearLayout)itemView.findViewById(R.id.item_space4);
-            space5 = (LinearLayout)itemView.findViewById(R.id.item_space5);
-
+            loveText = (TextView) itemView.findViewById(R.id.toolbar_love_text);
+            shareText = (TextView) itemView.findViewById(R.id.toolbar_share_text);
+            favText = (TextView) itemView.findViewById(R.id.toolbar_fav_text);
+            commentText = (TextView) itemView.findViewById(R.id.toolbar_comment_text);
 
 
         }
@@ -226,24 +202,12 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private void other(FeedHolder holder, int type){
         if( type == 8){
-            holder.toolbar.setVisibility(View.GONE);
-            holder.space2.setVisibility(View.GONE);
-            holder.space3.setVisibility(View.GONE);
-            holder.space4.setVisibility(View.GONE);
-            holder.space5.setVisibility(View.GONE);
+           // holder.toolbar.setVisibility(View.GONE);
 
         }else if(type == 4){
-            holder.toolbar.setVisibility(View.VISIBLE);
-            holder.space2.setVisibility(View.GONE);
-            holder.space3.setVisibility(View.GONE);
-            holder.space4.setVisibility(View.VISIBLE);
-            holder.space5.setVisibility(View.VISIBLE);
+            //holder.toolbar.setVisibility(View.VISIBLE);
         }else{
-            holder.toolbar.setVisibility(View.VISIBLE);
-            holder.space2.setVisibility(View.VISIBLE);
-            holder.space3.setVisibility(View.VISIBLE);
-            holder.space4.setVisibility(View.VISIBLE);
-            holder.space5.setVisibility(View.VISIBLE);
+           // holder.toolbar.setVisibility(View.VISIBLE);
         }
 
 
@@ -266,16 +230,17 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             holder.textContent.setText(feed.getContent());
             holder.imagePlay.setVisibility(View.VISIBLE);
             holder.imageContent.setVisibility(View.VISIBLE);
-            holder.userbar.setVisibility(View.VISIBLE);
+            //holder.userbar.setVisibility(View.VISIBLE);
             holder.textContent.setVisibility(View.VISIBLE);
             if (target != null) {
                 Glide.with(context)
                         .load(feed.getImageUrl()+para)
+                        .placeholder(R.mipmap.bg_image)
                         .centerCrop()
                         .skipMemoryCache(true)
                         .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                         .listener(mGlideListener.getListener())
-                        .transform(new RoundTransform(context,30))
+                        .transform(new RoundTransform(context,10))
                         .error(R.mipmap.bg_image)
                         //.override(width, height)
                         .into(target);
@@ -287,7 +252,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             holder.textContent.setText(feed.getContent());
             holder.imagePlay.setVisibility(View.GONE);
             holder.imageContent.setVisibility(View.VISIBLE);
-            holder.userbar.setVisibility(View.VISIBLE);
+            //holder.userbar.setVisibility(View.VISIBLE);
             holder.textContent.setVisibility(View.VISIBLE);
             List<Image> images = feed.getResList();
             if(images != null){
@@ -296,11 +261,12 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     if (target != null) {
                         Glide.with(context)
                                 .load(image.getContent()+para)
+                                .placeholder(R.mipmap.bg_image)
                                 .centerCrop()
                                 .skipMemoryCache(true)
                                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                                 .listener(mGlideListener.getListener())
-                                .transform(new RoundTransform(context,30))
+                                .transform(new RoundTransform(context,10))
                                 .error(R.mipmap.bg_image)
                                 //.override(600, 200)
                                 //.fitCenter()
@@ -315,14 +281,14 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             holder.textContent.setText(feed.getContent());
             holder.imageContent.setVisibility(View.GONE);
             holder.imagePlay.setVisibility(View.GONE);
-            holder.userbar.setVisibility(View.VISIBLE);
+            //holder.userbar.setVisibility(View.VISIBLE);
             holder.textContent.setVisibility(View.VISIBLE);
             feed.setImageUrl(App.getUserLogo());//给分享时候图片赋值为用户头像
         }else if(feed.getFeedCategory() == 5){//图片
             holder.textContent.setText(feed.getContent());
             holder.imagePlay.setVisibility(View.GONE);
             holder.imageContent.setVisibility(View.VISIBLE);
-            holder.userbar.setVisibility(View.VISIBLE);
+           // holder.userbar.setVisibility(View.VISIBLE);
             holder.textContent.setVisibility(View.VISIBLE);
 
             List<Image> images = feed.getResList();
@@ -332,11 +298,12 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     if (target != null) {
                         Glide.with(context)
                                 .load(image.getContent()+para)
+                                .placeholder(R.mipmap.bg_image)
                                 .centerCrop()
                                 .skipMemoryCache(true)
                                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                                 .listener(mGlideListener.getListener())
-                                .transform(new RoundTransform(context,30))
+                                .transform(new RoundTransform(context,10))
                                 .error(R.mipmap.bg_image)
                                 //.override(width, height)
                                 .into(new GlideDrawableImageViewTarget(target, 1));
@@ -353,16 +320,17 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             holder.textContent.setText(feed.getMaskContent());
             holder.imagePlay.setVisibility(View.GONE);
             holder.imageContent.setVisibility(View.VISIBLE);
-            holder.userbar.setVisibility(View.GONE);
+            //holder.userbar.setVisibility(View.GONE);
             holder.textContent.setVisibility(View.GONE);
             if (target != null) {
                 Glide.with(context)
                         .load(feed.getMaskUrl()+para)
+                        .placeholder(R.mipmap.bg_image)
                         .centerCrop()
                         .skipMemoryCache(true)
                         .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                         .listener(mGlideListener.getListener())
-                        .transform(new RoundTransform(context,30))
+                        .transform(new RoundTransform(context,10))
                         .error(R.mipmap.bg_image)
                         //.override(width, height)
                         .into(target);
@@ -371,16 +339,17 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             holder.textContent.setText(feed.getSummary());
             holder.imagePlay.setVisibility(View.GONE);
             holder.imageContent.setVisibility(View.VISIBLE);
-            holder.userbar.setVisibility(View.VISIBLE);
+           // holder.userbar.setVisibility(View.VISIBLE);
             holder.textContent.setVisibility(View.VISIBLE);
             if (target != null) {
                 Glide.with(context)
                         .load(feed.getImageUrl()+para)
+                        .placeholder(R.mipmap.bg_image)
                         .centerCrop()
                         .skipMemoryCache(true)
                         .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                         .listener(mGlideListener.getListener())
-                        .transform(new RoundTransform(context,30))
+                        .transform(new RoundTransform(context,10))
                         .error(R.mipmap.bg_image)
                         //.override(width, height)
                         .into(target);
@@ -395,10 +364,10 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private void showToolbarContent(FeedHolder holder, Feed feed,Context context){
 
-        holder.loveText.setText(""+feed.getLikeCount());
-        holder.favText.setText(""+feed.getFavoriteCount());
-        holder.shareText.setText(""+feed.getShareCount());
-        holder.commentText.setText(""+feed.getCommentCount());
+        holder.loveText.setText(""+feed.getLikeCount() + "赞");
+        holder.favText.setText(" · "+feed.getFavoriteCount() + "收藏");
+        holder.shareText.setText(" · "+feed.getShareCount() + "分享");
+        holder.commentText.setText(" · "+feed.getCommentCount() + "评论");
 
         if(feed.getLikeState() == 1){
             holder.loveImage.setImageResource(R.mipmap.zan_click);
@@ -412,7 +381,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }else{
             holder.favImage.setImageResource(R.mipmap.shoucang);
         }
-        ClickUtil.toolbarClick(holder.loveText,holder.favText,holder.favImage,holder.loveImage,holder.loveBtn,holder.shareBtn,holder.favBtn,holder.commentBtn,context,holder.itemView,feed);
+        ClickUtil.toolbarClick(holder.loveText,holder.favText,holder.favImage,holder.loveImage,holder.shareImage,holder.commentImage,holder.itemView,feed);
 
     }
 

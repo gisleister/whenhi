@@ -45,22 +45,6 @@ public class DetailFragmentAdapter implements FragmentNavigatorAdapter {
         return null;
     }
 
-    public void refresh(int position, Comment comment){
-        switch (position) {
-            case Constants.DETAIL_WEBVIEW:
-                mWebViewFragment.refreshComment(comment);
-                break;
-            case Constants.DETAIL_PIC:
-                mPicFragment.refreshComment(comment);
-                break;
-            case Constants.DETAIL_VIDEO:
-                mVideoFragment.refreshComment(comment);
-                break;
-            case Constants.DETAIL_TEXT:
-                mTextFragment.refreshComment(comment);
-                break;
-        }
-    }
 
     public void destroy(){
 

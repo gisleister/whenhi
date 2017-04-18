@@ -15,16 +15,23 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aspsine.fragmentnavigator.FragmentNavigator;
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.Holder;
+import com.orhanobut.dialogplus.OnClickListener;
+import com.orhanobut.dialogplus.OnDismissListener;
+import com.orhanobut.dialogplus.ViewHolder;
 import com.whenhi.hi.App;
 import com.whenhi.hi.Constants;
 import com.whenhi.hi.R;
@@ -46,13 +53,12 @@ public class VideoActivity extends BaseActivity{
 
     private FragmentNavigator mFragmentNavigator;
     private Feed mFeed;
-    private EditText mCommentEditText;
-    private TextView mCommentSend;
     private int targetType = 1;
     private int targetId = 0;
     private String content;
-
-    private VideoPlayer mVideoPlayer;
+    private EditText  commentEditText;
+    private Button commentBtn;
+    private DialogPlus dialog;
 
     private  Toolbar mToolbar;
     private TextView mTextView;
@@ -64,7 +70,7 @@ public class VideoActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
         Intent intent = getIntent();
-        mFeed = (Feed)intent.getSerializableExtra("Feed");
+        mFeed = (Feed) intent.getSerializableExtra("Feed");
         initView(savedInstanceState);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar).findViewById(R.id.toolbar);
@@ -75,93 +81,28 @@ public class VideoActivity extends BaseActivity{
 
         mToolbar.setNavigationIcon(R.mipmap.fanhui);
         mActionBar = getSupportActionBar();
-        if (mActionBar != null){
+        if (mActionBar != null) {
             mActionBar.setDisplayHomeAsUpEnabled(false);
             mActionBar.setDisplayShowTitleEnabled(false);
         }
 
-        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+        commentBtn = (Button) findViewById(R.id.toolbar_comment_image);
+        commentBtn.setOnClickListener(new Button.OnClickListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_share:
-                        if(Constants.DEBUG){
-                            if(App.isLogin()){
-                                HttpAPI.updateNoOk(mFeed,new HttpAPI.Callback<BaseModel>() {
-                                    @Override
-                                    public void onSuccess(BaseModel baseModel) {
-                                        if(baseModel.getState() == 0){
-                                            Toast.makeText(App.getContext(), "非优质内容上报成功", Toast.LENGTH_SHORT).show();
-                                        }else{
-                                            Toast.makeText(App.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
-                                        }
-
-                                    }
-
-                                    @Override
-                                    public void onFailure(Exception e) {
-                                        Toast.makeText(App.getContext(), "服务器出问题了", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            }else{
-                                ClickUtil.goToLogin(getWindow().getDecorView());
-                            }
-
-                        }else{
-                            Intent intent = new Intent(VideoActivity.this, ShareActivity.class);
-                            intent.putExtra("Feed", mFeed);
-                            startActivity(intent);
-                            overridePendingTransition(R.anim.activity_open,0);
-                        }
-
-                        break;
-                    default:
-                        break;
-                }
-                return true;
-            }
-        });
-
-
-        NoticeTransfer noticeTransfer = new NoticeTransfer();
-        noticeTransfer.setCommentListener(mCommentListener);
-
-
-        mCommentEditText = (EditText)findViewById(R.id.comment_edit_text);
-        mCommentSend = (TextView)findViewById(R.id.comment_send);
-        mCommentSend.setOnClickListener(new Button.OnClickListener(){//创建监听
             public void onClick(View v) {
 
-                if(targetType == 1){
-                    targetId = mFeed.getId();
-                }
 
-                content = mCommentEditText.getText().toString();
-                ClickUtil.addComment(mFeed,targetId,targetType,content,VideoActivity.this);
-                mCommentEditText.setText("");
+                commentInput();
             }
-
         });
 
     }
 
 
-    private CommentListener mCommentListener = new CommentListener() {
-        @Override
-        public void commentSuccess() {
-            Comment comment = new Comment();
-            comment.setUserId(Integer.parseInt(App.getUserId()));
-            comment.setUserLogo(App.getUserLogo());
-            comment.setUserName(App.getNickname());
-            comment.setContent(content);
-            comment.setFeedId(mFeed.getId());
-            mDetailFragmentAdapter.refresh(Constants.DETAIL_VIDEO,comment);
-        }
-    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        //getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -183,9 +124,6 @@ public class VideoActivity extends BaseActivity{
         setDefaultFrag();
     }
 
-    public void setVideoPlayer(VideoPlayer videoPlayer){
-        mVideoPlayer = videoPlayer;
-    }
 
 
     /*设置默认Fragment*/
@@ -207,35 +145,23 @@ public class VideoActivity extends BaseActivity{
     }
 
 
-    public void acceptCommentClick(Comment comment){
-        targetType = 2;
-        targetId = comment.getId();
-        mCommentEditText.setHint("@"+comment.getUserName());
-    }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(mVideoPlayer != null){
-            mVideoPlayer.onHostResume();
-        }
+
 
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if(mVideoPlayer != null) {
-            mVideoPlayer.onHostPause();
-        }
+
     }
 
     @Override
     public void onBackPressed() {
-        if(mVideoPlayer != null){
-            mVideoPlayer.onHostDestroy();
-        }
 
         finish();
     }
@@ -243,20 +169,119 @@ public class VideoActivity extends BaseActivity{
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(mVideoPlayer != null){
-            mVideoPlayer.stopPlay();
-            mVideoPlayer.onHostDestroy();
-        }
 
         mFragmentNavigator = null;
         mFeed = null;
-        mCommentEditText = null;
-        mCommentSend = null;
         mToolbar = null;
         mTextView = null;
         mActionBar = null;
         //mDetailFragmentAdapter.destroy();
 
+    }
+
+
+    private void commentInput(){
+        Holder holder = new ViewHolder(R.layout.layout_dialog_comment);
+
+        dialog = DialogPlus.newDialog(this)
+                .setContentHolder(holder)
+                .setCancelable(true)
+                .setGravity(Gravity.BOTTOM)
+                .setOnDismissListener(new OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogPlus dialog) {
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        if (imm != null) {
+                            View v = getCurrentFocus();
+                            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                        }
+
+                    }
+                })
+                .setExpanded(false)//设置扩展模式可控制dialog的高度
+
+                .setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(final DialogPlus dialog, View view) {
+                        switch (view.getId()) {
+                            case R.id.comment_send:
+                                updateComment();
+                                break;
+                        }
+
+                    }
+                })
+                .create();
+        dialog.show();
+
+        commentEditText = (EditText)findViewById(R.id.comment_edit_text);
+        commentEditText.setFocusable(true);
+        commentEditText.setFocusableInTouchMode(true);
+        commentEditText.requestFocus();
+
+        InputMethodManager imm = (InputMethodManager) commentEditText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+
+    }
+
+    private void updateComment(){
+        boolean isLogin = App.isLogin();
+
+        if(isLogin){
+            content = commentEditText.getText().toString();
+
+            if(targetType == 1){
+                targetId = mFeed.getId();
+            }
+
+            if(content.equals("")){
+                Toast.makeText(App.getContext(), "多少要写点东西哦", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            HttpAPI.addComment(mFeed.getId(),targetId,targetType,content,new HttpAPI.Callback<BaseModel>() {
+                @Override
+                public void onSuccess(BaseModel baseModel) {
+                    if(baseModel.getState() == 0){
+                        Toast.makeText(App.getContext(), "评论成功", Toast.LENGTH_SHORT).show();
+                        Comment comment = new Comment();
+                        comment.setUserId(Integer.parseInt(App.getUserId()));
+                        comment.setUserLogo(App.getUserLogo());
+                        comment.setUserName(App.getNickname());
+                        comment.setContent(content);
+                        comment.setFeedId(mFeed.getId());
+                        NoticeTransfer.commentSuccess(comment);
+                        commentEditText.setText("继续写点东西");
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        if (imm != null) {
+                            View v = getCurrentFocus();
+                            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                        }
+                        dialog.dismiss();
+
+                    }else{
+                        Toast.makeText(App.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+                    Toast.makeText(App.getContext(), "服务器貌似出问题了", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }else{
+            Intent intent = new Intent(VideoActivity.this, LoginActivity.class);
+            startActivity(intent);
+
+            overridePendingTransition(R.anim.activity_open,0);
+        }
+    }
+
+
+    public void acceptCommentClick(Comment comment){
+        targetType = 2;
+        targetId = comment.getId();
+        commentBtn.setText("@"+comment.getUserName());
     }
 
 }

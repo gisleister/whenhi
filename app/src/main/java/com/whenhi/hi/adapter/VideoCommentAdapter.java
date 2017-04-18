@@ -23,6 +23,8 @@ import com.whenhi.hi.activity.PicActivity;
 import com.whenhi.hi.activity.ShareActivity;
 import com.whenhi.hi.activity.VideoActivity;
 import com.whenhi.hi.activity.WebViewActivity;
+import com.whenhi.hi.image.RoundTransform;
+import com.whenhi.hi.listener.CommentListener;
 import com.whenhi.hi.listener.OnChildItemClickListener;
 import com.whenhi.hi.listener.OnChildItemLongClickListener;
 import com.whenhi.hi.listener.OnGroupItemClickListener;
@@ -32,6 +34,7 @@ import com.whenhi.hi.model.BaseModel;
 import com.whenhi.hi.model.Comment;
 import com.whenhi.hi.model.Feed;
 import com.whenhi.hi.network.HttpAPI;
+import com.whenhi.hi.receiver.NoticeTransfer;
 import com.whenhi.hi.util.ClickUtil;
 
 import org.lynxz.zzplayerlibrary.widget.VideoPlayer;
@@ -64,16 +67,7 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private VideoAdapter mVideoAdapter;
 
-    private boolean updateComment;
     private int lastTime;
-
-    public boolean getUpdateComment() {
-        return updateComment;
-    }
-
-    public void setUpdateComment(boolean updateComment) {
-        this.updateComment = updateComment;
-    }
 
     protected OnGroupItemClickListener mOnGroupItemClickListener;
 
@@ -95,6 +89,9 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         mFeed = feed;
         mComments = new ArrayList<>();
         mActivity = activity;
+
+        NoticeTransfer noticeTransfer = new NoticeTransfer();
+        noticeTransfer.setCommentListener(mCommentListener);
 
     }
 
@@ -193,7 +190,7 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     private void onBindHeaderHolder(HeaderHolder holder) {
-        holder.detailText.setText(mFeed.getContent());
+
         holder.userNickName.setText(mFeed.getUserName());
         final WeakReference<ImageView> imageViewWeakReference = new WeakReference<>(holder.userAvatar);
         ImageView target = imageViewWeakReference.get();
@@ -205,24 +202,45 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     .error(R.mipmap.user_default)
                     .into(target);
         }
+
+        holder.detailText.setText(mFeed.getContent());
     }
 
-    private void onBindDetailHolder(DetailHolder holder) {
+    private void onBindDetailHolder(final DetailHolder holder) {
 
-        if(getUpdateComment()){
-            mVideoAdapter.goOnPlay(lastTime);
-        }else{
-            mVideoAdapter = new VideoAdapter(mActivity,mFeed,holder.videoPlayer);
+
+        final WeakReference<ImageView> imageViewWeakReference = new WeakReference<>(holder.imageContent);
+        ImageView target = imageViewWeakReference.get();
+        Context context = App.getContext();
+        if (target != null) {
+            Glide.with(context)
+                    .load(mFeed.getImageUrl())
+                    .transform(new RoundTransform(context,10))
+                    .error(R.mipmap.bg_image)
+                    .into(target);
         }
+
+
+
+
+        showToolbarContent(holder,mFeed);
+
+        holder.imageContent.setOnClickListener(new Button.OnClickListener(){//创建监听
+            public void onClick(View v) {
+                mVideoAdapter = new VideoAdapter(mActivity,mFeed,holder.videoPlayer);
+                holder.videoPlayer.setVisibility(View.VISIBLE);
+                holder.imageContent.setVisibility(View.GONE);
+                holder.imagePlay.setVisibility(View.GONE);
+            }
+        });
+
+
 
 
     }
 
     private void onBindGroupHolder(final GroupHolder holder) {
         holder.headerText.setText("热门评论");
-
-        Context context = holder.itemView.getContext();
-        showToolbarContent(holder,mFeed,context);
 
     }
 
@@ -260,35 +278,25 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         TextView userNickName;
         TextView detailText;
 
+
+
         public HeaderHolder(View itemView) {
             super(itemView);
-            userAvatar = (ImageView) itemView.findViewById(R.id.item_user).findViewById(R.id.user_avatar);
-            userNickName = (TextView) itemView.findViewById(R.id.item_user).findViewById(R.id.user_nickname);
+            userAvatar = (ImageView) itemView.findViewById(R.id.user_avatar);
+            userNickName = (TextView) itemView.findViewById(R.id.user_nickname);
+
             detailText = (TextView) itemView.findViewById(R.id.detail_text);
+
         }
     }
 
     class DetailHolder extends RecyclerView.ViewHolder {
+
+
         VideoPlayer videoPlayer;
 
-        public DetailHolder(View itemView) {
-            super(itemView);
-            //superVideoPlayer = (SuperVideoPlayer) itemView.findViewById(R.id.detail_video);
-            //playerContainer = (FrameLayout) itemView.findViewById(R.id.detail_video);
-            videoPlayer = (VideoPlayer) itemView.findViewById(R.id.detail_video);
-
-        }
-
-    }
-
-    class GroupHolder extends RecyclerView.ViewHolder {
-        TextView headerText;
-        RelativeLayout toolbar;
-
-        LinearLayout loveBtn;
-        LinearLayout favBtn;
-        LinearLayout shareBtn;
-        LinearLayout commentBtn;
+        ImageView imageContent;
+        ImageView imagePlay;
 
         ImageView loveImage;
         ImageView favImage;
@@ -301,27 +309,40 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         TextView shareText;
         TextView commentText;
 
+        public DetailHolder(View itemView) {
+            super(itemView);
+            //superVideoPlayer = (SuperVideoPlayer) itemView.findViewById(R.id.detail_video);
+            //playerContainer = (FrameLayout) itemView.findViewById(R.id.detail_video);
+
+            videoPlayer = (VideoPlayer) itemView.findViewById(R.id.detail_video);
+            imageContent = (ImageView) itemView.findViewById(R.id.item_detail_content_image);
+            imagePlay = (ImageView) itemView.findViewById(R.id.item_detail_content_play);
+
+
+            loveImage = (ImageView) itemView.findViewById(R.id.toolbar_love_image);
+            shareImage = (ImageView) itemView.findViewById(R.id.toolbar_share_image);
+            favImage = (ImageView) itemView.findViewById(R.id.toolbar_fav_image);
+            commentImage = (ImageView) itemView.findViewById(R.id.toolbar_comment_image);
+
+
+            loveText = (TextView) itemView.findViewById(R.id.toolbar_love_text);
+            shareText = (TextView) itemView.findViewById(R.id.toolbar_share_text);
+            favText = (TextView) itemView.findViewById(R.id.toolbar_fav_text);
+            commentText = (TextView) itemView.findViewById(R.id.toolbar_comment_text);
+
+
+        }
+
+    }
+
+    class GroupHolder extends RecyclerView.ViewHolder {
+        TextView headerText;
+
+
         public GroupHolder(View itemView) {
             super(itemView);
             headerText = (TextView) itemView.findViewById(R.id.item_comment_header_text);
-            toolbar = (RelativeLayout) itemView.findViewById(R.id.item_toolbar);
 
-            loveBtn = (LinearLayout) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_love_layout);
-            shareBtn = (LinearLayout) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_share_layout);
-            favBtn = (LinearLayout) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_fav_layout);
-            commentBtn = (LinearLayout) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_comment_layout);
-
-
-            loveImage = (ImageView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_love_image);
-            shareImage = (ImageView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_share_image);
-            favImage = (ImageView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_fav_image);
-            commentImage = (ImageView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_comment_image);
-
-
-            loveText = (TextView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_love_text);
-            shareText = (TextView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_share_text);
-            favText = (TextView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_fav_text);
-            commentText = (TextView) itemView.findViewById(R.id.item_toolbar).findViewById(R.id.toolbar_comment_text);
 
         }
     }
@@ -334,21 +355,21 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         public ChildHolder(View itemView) {
             super(itemView);
-            userNickName = (TextView) itemView.findViewById(R.id.item_comment).findViewById(R.id.comment_user_nickname);
-            userAvatar = (ImageView) itemView.findViewById(R.id.item_comment).findViewById(R.id.comment_user_avatar);
-            commentText = (TextView) itemView.findViewById(R.id.item_comment).findViewById(R.id.comment_text);
+            userNickName = (TextView) itemView.findViewById(R.id.user_nickname);
+            userAvatar = (ImageView) itemView.findViewById(R.id.user_avatar);
+            commentText = (TextView) itemView.findViewById(R.id.comment_text);
 
         }
     }
 
 
 
-    private void showToolbarContent(GroupHolder holder, Feed feed,Context context){
+    private void showToolbarContent(DetailHolder holder, Feed feed){
 
-        holder.loveText.setText(""+feed.getLikeCount());
-        holder.favText.setText(""+feed.getFavoriteCount());
-        holder.shareText.setText(""+feed.getShareCount());
-        holder.commentText.setText(""+feed.getCommentCount());
+        holder.loveText.setText(""+feed.getLikeCount() + "赞");
+        holder.favText.setText(" · "+feed.getFavoriteCount() + "收藏");
+        holder.shareText.setText(" · "+feed.getShareCount() + "分享");
+        holder.commentText.setText(" · "+feed.getCommentCount() + "评论");
 
         if(feed.getLikeState() == 1){
             holder.loveImage.setImageResource(R.mipmap.zan_click);
@@ -362,10 +383,19 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }else{
             holder.favImage.setImageResource(R.mipmap.shoucang);
         }
-        ClickUtil.toolbarClick(holder.loveText,holder.favText,holder.favImage,holder.loveImage,holder.loveBtn,holder.shareBtn,holder.favBtn,holder.commentBtn,context,holder.itemView,feed);
+        ClickUtil.toolbarClick(holder.loveText,holder.favText,holder.favImage,holder.loveImage,holder.shareImage,holder.commentImage,holder.itemView,feed);
 
     }
 
+
+
+    private CommentListener mCommentListener = new CommentListener() {
+        @Override
+        public void commentSuccess(Comment comment) {
+            mComments.add(0,comment);
+            notifyItemInserted(3);
+        }
+    };
 
 
 }

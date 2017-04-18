@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_feed_detail_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/comment_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:paddingRight="40dp"
+        android:background="@drawable/shape_edit"
+        android:textCursorDrawable="@drawable/style_edittext_cursor"
+        android:textSize="12sp"
+        android:layout_marginRight="40dp"
+        android:hint="要不咱随便说点什么......"/>
+
+    <TextView
+        android:id="@+id/comment_send"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:text="发送"
+        android:textColor="#ffa015"
+        android:textSize="14sp" />
+
+
+
+</RelativeLayout>
+

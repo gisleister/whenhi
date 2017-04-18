@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_toolbar_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_list"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id = "@+id/toolbar_love_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/zan"/>
+
+        <ImageView
+            android:id = "@+id/toolbar_fav_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:src="@mipmap/shoucang"/>
+
+        <ImageView
+            android:id = "@+id/toolbar_comment_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:src="@mipmap/pinglun"/>
+
+
+        <ImageView
+            android:id = "@+id/toolbar_share_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/fenxiang"/>
+
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id = "@+id/toolbar_love_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#999999"
+            android:textSize="12sp"
+            android:text="100赞"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36dp"
+            android:textColor="#999999"
+            android:textSize="12sp"
+            android:text="."/>
+
+        <TextView
+            android:id = "@+id/toolbar_fav_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="56dp"
+            android:textColor="#999999"
+            android:textSize="12sp"
+            android:text="100收藏"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="76dp"
+            android:textColor="#999999"
+            android:textSize="12sp"
+            android:text="."/>
+
+
+
+        <TextView
+            android:id = "@+id/toolbar_comment_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="96dp"
+            android:textColor="#999999"
+            android:textSize="12sp"
+            android:text="100评论"/>
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="106dp"
+            android:textColor="#999999"
+            android:textSize="12sp"
+            android:text="."/>
+
+
+        <TextView
+            android:id = "@+id/toolbar_share_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="126dp"
+            android:textColor="#999999"
+            android:textSize="12sp"
+            android:text="100分享"/>
+
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

@@ -3,42 +3,63 @@
     android:id="@+id/item_feed_rec"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@color/bg_list"
+    android:background="#f0f0f0"
+    android:paddingTop="12dp"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
     android:orientation="vertical" >
 
 
-    <include
-        android:id="@+id/item_space1"
-        layout="@layout/include_space_feed" />
-
-    <include
-        android:id="@+id/item_user"
-        layout="@layout/include_user_feed" />
-
-    <include
-        android:id="@+id/item_space2"
-        layout="@layout/include_space_feed" />
-
-
     <LinearLayout
-        android:id="@+id/item_feed_rec_content_layout"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/shape_feed"
         android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/item_user_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingLeft="16dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/user_avatar"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/user_default"/>
+
+            <TextView
+                android:id="@+id/user_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="12dp"
+                android:textSize="14sp"
+                android:textColor="#333333"
+                android:textStyle="bold"
+                android:ellipsize="end"
+                android:text="昵称"/>
+
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
             <ImageView
                 android:id="@+id/item_feed_rec_content_image"
                 android:layout_width="fill_parent"
-                android:layout_height="200dp"
+                android:layout_height="170dp"
                 android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:background="@mipmap/bg_image"/>
+                android:scaleType="fitXY"/>
             <ImageView
                 android:id="@+id/item_feed_rec_content_play"
                 android:layout_width="fill_parent"
@@ -49,41 +70,124 @@
 
         </RelativeLayout>
 
-        <include
-            android:id="@+id/item_space3"
-            layout="@layout/include_space_feed" />
-
         <TextView
             android:id="@+id/item_feed_rec_content_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:textColor="#333333"
             android:ellipsize="end"
             android:lineSpacingExtra="8dp"
             android:lineSpacingMultiplier="1"
             android:text="内容"/>
 
+
+        <LinearLayout
+            android:id="@+id/item_toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingBottom="8dp">
+
+                <ImageView
+                    android:id = "@+id/toolbar_love_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/zan"/>
+
+                <ImageView
+                    android:id = "@+id/toolbar_fav_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:src="@mipmap/shoucang"/>
+
+                <ImageView
+                    android:id = "@+id/toolbar_comment_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="80dp"
+                    android:src="@mipmap/pinglun"/>
+
+
+                <ImageView
+                    android:id = "@+id/toolbar_share_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:src="@mipmap/fenxiang"/>
+
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="16dp">
+
+                <TextView
+                    android:id = "@+id/toolbar_love_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#999999"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:text="100赞"/>
+
+                <TextView
+                    android:id = "@+id/toolbar_fav_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="26dp"
+                    android:textColor="#999999"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:text="100收藏"/>
+
+
+                <TextView
+                    android:id = "@+id/toolbar_comment_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="66dp"
+                    android:textColor="#999999"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:text="100评论"/>
+
+
+                <TextView
+                    android:id = "@+id/toolbar_share_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="126dp"
+                    android:textColor="#999999"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:text="100分享"/>
+
+
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+
+
+
+
     </LinearLayout>
-
-    <include
-        android:id="@+id/item_space4"
-        layout="@layout/include_space_feed" />
-
-
-    <include
-        android:id="@+id/item_toolbar"
-        layout="@layout/include_toolbar" />
-    <include
-        android:id="@+id/item_space5"
-        layout="@layout/include_space_feed" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#cccccc"/>
 
 
 

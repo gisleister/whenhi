@@ -111,9 +111,6 @@ public class TextActivity extends BaseActivity{
         });
 
 
-        NoticeTransfer noticeTransfer = new NoticeTransfer();
-        noticeTransfer.setCommentListener(mCommentListener);
-
         mCommentEditText = (EditText)findViewById(R.id.comment_edit_text);
         mCommentSend = (TextView)findViewById(R.id.comment_send);
         mCommentSend.setOnClickListener(new Button.OnClickListener(){//创建监听
@@ -125,7 +122,7 @@ public class TextActivity extends BaseActivity{
 
                 content = mCommentEditText.getText().toString();
 
-                ClickUtil.addComment(mFeed,targetId,targetType,content,TextActivity.this);
+                //ClickUtil.addComment(mFeed,targetId,targetType,content,TextActivity.this);
                 mCommentEditText.setText("");
             }
 
@@ -133,18 +130,6 @@ public class TextActivity extends BaseActivity{
 
     }
 
-    private CommentListener mCommentListener = new CommentListener() {
-        @Override
-        public void commentSuccess() {
-            Comment comment = new Comment();
-            comment.setUserId(Integer.parseInt(App.getUserId()));
-            comment.setUserLogo(App.getUserLogo());
-            comment.setUserName(App.getNickname());
-            comment.setContent(content);
-            comment.setFeedId(mFeed.getId());
-            mDetailFragmentAdapter.refresh(Constants.DETAIL_TEXT,comment);
-        }
-    };
 
 
     @Override

@@ -108,8 +108,6 @@ public class PicActivity extends BaseActivity{
             }
         });
 
-        NoticeTransfer noticeTransfer = new NoticeTransfer();
-        noticeTransfer.setCommentListener(mCommentListener);
 
         mCommentEditText = (EditText)findViewById(R.id.comment_edit_text);
         mCommentSend = (TextView)findViewById(R.id.comment_send);
@@ -122,7 +120,7 @@ public class PicActivity extends BaseActivity{
 
                 content = mCommentEditText.getText().toString();
 
-                ClickUtil.addComment(mFeed,targetId,targetType,content,PicActivity.this);
+                //ClickUtil.addComment(mFeed,targetId,targetType,content,PicActivity.this);
                 mCommentEditText.setText("");
             }
 
@@ -130,19 +128,6 @@ public class PicActivity extends BaseActivity{
 
     }
 
-
-    private CommentListener mCommentListener = new CommentListener() {
-        @Override
-        public void commentSuccess() {
-            Comment comment = new Comment();
-            comment.setUserId(Integer.parseInt(App.getUserId()));
-            comment.setUserLogo(App.getUserLogo());
-            comment.setUserName(App.getNickname());
-            comment.setContent(content);
-            comment.setFeedId(mFeed.getId());
-            mDetailFragmentAdapter.refresh(Constants.DETAIL_PIC,comment);
-        }
-    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -222,10 +222,6 @@ public class VideoFragment extends BaseFragment implements OnRefreshListener, On
         onRefresh();
     }
 
-    public void refreshComment(Comment comment){
-        mAdapter.setUpdateComment(true);
-        mAdapter.refreshComment(comment);
-    }
 
 
 }

@@ -41,7 +41,7 @@ public class HomeNavFragment extends BaseNavPagerFragment {
 
     @Override
     protected String[] getTitles() {
-        return new String[]{"推荐","视频","漫画", "图片", "段子"};
+        return new String[]{"推荐","视频"};
     }
 
     @Override

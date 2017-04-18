@@ -171,51 +171,13 @@ public class ClickUtil {
     }
 
 
-    public static void addComment(Feed feed, int targetId, int targetType, String content, final Activity activity){
-
-        boolean isLogin = App.isLogin();
-
-        if(isLogin){
-            if(content.equals("")){
-                Toast.makeText(activity, "多少要写点东西哦", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            HttpAPI.addComment(feed.getId(),targetId,targetType,content,new HttpAPI.Callback<BaseModel>() {
-                @Override
-                public void onSuccess(BaseModel baseModel) {
-                    if(baseModel.getState() == 0){
-                        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-                        Toast.makeText(activity, "评论成功", Toast.LENGTH_SHORT).show();
-                        NoticeTransfer.commentSuccess();
-                    }else{
-                        Toast.makeText(activity, baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-
-                @Override
-                public void onFailure(Exception e) {
-                    Toast.makeText(activity, "服务器貌似出问题了", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }else{
-            Intent intent = new Intent(activity, LoginActivity.class);
-            activity.startActivity(intent);
-
-            activity.overridePendingTransition(R.anim.activity_open,0);
-        }
 
 
-    }
-
-
-
-    public static void toolbarClick(final TextView loveText, final TextView favText,final ImageView favImage, final ImageView loveImage, final LinearLayout loveBtn, final LinearLayout shareBtn, final LinearLayout favBtn, final LinearLayout commentBtn, final Context context, final View view, final Feed feed){
+    public static void toolbarClick(final TextView loveText, final TextView favText,final ImageView favImage, final ImageView loveImage, final ImageView shareImage, final ImageView commentImage, final View view, final Feed feed){
 
         if(feed == null)
             return;
-        loveBtn.setOnClickListener(new Button.OnClickListener(){//创建监听
+        loveImage.setOnClickListener(new Button.OnClickListener(){//创建监听
             public void onClick(View v) {
 
                 if(App.isLogin()){
@@ -228,7 +190,7 @@ public class ClickUtil {
 
                                     feed.setLikeCount(feed.getLikeCount()-1);
                                     feed.setLikeState(0);
-                                    loveText.setText(""+(feed.getLikeCount()));
+                                    loveText.setText(""+(feed.getLikeCount()) + "赞");
                                 }else {
                                     Toast.makeText(view.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
                                 }
@@ -249,7 +211,7 @@ public class ClickUtil {
                                     loveImage.setImageResource(R.mipmap.zan_click);
                                     feed.setLikeCount(feed.getLikeCount()+1);
                                     feed.setLikeState(1);
-                                    loveText.setText(""+(feed.getLikeCount()));
+                                    loveText.setText(""+(feed.getLikeCount()) + "赞");
                                 }else {
                                     Toast.makeText(view.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
                                 }
@@ -273,14 +235,14 @@ public class ClickUtil {
 
         });
 
-        shareBtn.setOnClickListener(new Button.OnClickListener(){//创建监听
+        shareImage.setOnClickListener(new Button.OnClickListener(){//创建监听
             public void onClick(View v) {
                 goToShare(view,feed);
             }
 
         });
 
-        favBtn.setOnClickListener(new Button.OnClickListener(){//创建监听
+        favImage.setOnClickListener(new Button.OnClickListener(){//创建监听
             public void onClick(View v) {
                 if(App.isLogin()){
                     if(feed.getFavoriteState() == 1){
@@ -292,7 +254,7 @@ public class ClickUtil {
                                     favImage.setImageResource(R.mipmap.shoucang);
                                     feed.setFavoriteCount(feed.getFavoriteCount()-1);
                                     feed.setFavoriteState(0);
-                                    favText.setText(""+(feed.getFavoriteCount()));
+                                    favText.setText(" · "+(feed.getFavoriteCount()) + "收藏");
                                 }else {
                                     Toast.makeText(view.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
                                 }
@@ -312,7 +274,7 @@ public class ClickUtil {
                                     favImage.setImageResource(R.mipmap.shoucang_click);
                                     feed.setFavoriteCount(feed.getFavoriteCount()+1);
                                     feed.setFavoriteState(1);
-                                    favText.setText(""+(feed.getFavoriteCount()));
+                                    favText.setText(" · "+(feed.getFavoriteCount()) + "收藏");
                                 }else {
                                     Toast.makeText(view.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
                                 }
@@ -334,7 +296,7 @@ public class ClickUtil {
 
         });
 
-        commentBtn.setOnClickListener(new Button.OnClickListener(){//创建监听
+        commentImage.setOnClickListener(new Button.OnClickListener(){//创建监听
             public void onClick(View v) {
                 click(feed,view);
             }
