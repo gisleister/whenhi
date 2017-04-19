@@ -21,7 +21,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@drawable/bg_space"/>
 
             <RelativeLayout
                 android:id="@+id/user_info_layout"
@@ -69,90 +72,95 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="12dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_height="1dp"
                 android:background="@drawable/bg_space"/>
 
 
             <LinearLayout
                 android:id="@+id/user_income_layout"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:background="#ffffff"
+                android:layout_height="60dp"
+                android:orientation="horizontal">
 
 
-                <RelativeLayout
-                    android:id="@+id/user_income_title_layout"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="16dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:paddingBottom="16dp"
-                    android:background="@drawable/shape_selector"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/user_income_image"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/caifu" />
+                        <TextView
+                            android:id="@+id/user_income_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="10dp"
+                            android:textColor="#999999"
+                            android:textSize="12sp"
+                            android:layout_gravity="center_horizontal"
+                            android:text="我的嗨币"/>
+
+                        <TextView
+                            android:id="@+id/user_income_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="4dp"
+                            android:textColor="#ffa015"
+                            android:textSize="14sp"
+                            android:layout_gravity="center_horizontal"
+                            android:text="100"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/user_income_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="38dp"
-                        android:textColor="#000000"
+                        android:layout_gravity="center_horizontal"
+                        android:paddingTop="20dp"
+                        android:textColor="#f0f0f0"
+                        android:textSize="12sp"
+                        android:text="|"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/user_fav_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingTop="10dp"
+                        android:textColor="#999999"
+                        android:textSize="12sp"
+                        android:text="我的收藏"/>
+
+                    <TextView
+                        android:id="@+id/user_fav_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingTop="4dp"
+                        android:textColor="#ffa015"
                         android:textSize="14sp"
-                        android:text="我的财富"
-                        android:gravity="center"
-                        android:layout_centerVertical="true"/>
+                        android:text="0"/>
+
+                </LinearLayout>
 
 
-
-                    <ImageView
-                        android:id="@+id/user_income_more"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@mipmap/gengduo" />
-
-                </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/user_income_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#333333"
-                    android:textSize="28sp"
-                    android:text="0"
-                    android:layout_gravity="center"
-                    android:gravity="center"/>
-
-                <TextView
-                    android:id="@+id/user_income_hb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="12dp"
-                    android:textColor="#ffa015"
-                    android:textSize="14sp"
-                    android:text="嗨币"
-                    android:layout_gravity="center"
-                    android:gravity="center"/>
-
-
-                <ProgressBar
-                    android:id="@+id/user_jingyan"
-                    style="@style/StyleProgressBarMini"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="16dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:max="1000"
-                    android:progress="0"
-                    android:visibility="gone"/>
             </LinearLayout>
 
             <View
@@ -251,52 +259,6 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="12dp"
-                android:background="@drawable/bg_space"/>
-
-
-            <RelativeLayout
-                android:id="@+id/user_fav_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:background="@drawable/shape_selector"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/user_fav_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/shoucang1" />
-
-                <TextView
-                    android:id="@+id/user_fav_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="38dp"
-                    android:textColor="#333333"
-                    android:textSize="14sp"
-                    android:text="我的收藏"
-                    android:layout_centerVertical="true"/>
-
-
-
-                <ImageView
-                    android:id="@+id/user_fav_more"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/gengduo" />
-
-            </RelativeLayout>
-
-
-            <View
-                android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
@@ -327,7 +289,7 @@
                     android:layout_marginLeft="38dp"
                     android:textColor="#333333"
                     android:textSize="14sp"
-                    android:text="手机充值(免费)"
+                    android:text="兑换话费"
                     android:layout_centerVertical="true"/>
 
 
@@ -362,7 +324,7 @@
                     android:id="@+id/user_recharge_record_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/chohngzhi" />
+                    android:src="@mipmap/jilu" />
 
                 <TextView
                     android:id="@+id/user_recharge_record_label"
@@ -371,7 +333,7 @@
                     android:layout_marginLeft="38dp"
                     android:textColor="#333333"
                     android:textSize="14sp"
-                    android:text="手机充值记录"
+                    android:text="兑换记录"
                     android:layout_centerVertical="true"/>
 
 
@@ -387,7 +349,9 @@
             </RelativeLayout>
             <View
                 android:layout_width="match_parent"
-                android:layout_height="12dp"
+                android:layout_height="1dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 android:background="@drawable/bg_space"/>
 
 
@@ -480,7 +444,9 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="12dp"
+                android:layout_height="1dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 android:background="@drawable/bg_space"/>
 
 

@@ -62,7 +62,6 @@ public class MoreNavFragment extends BaseFragment {
     private View mView;
     private ImageView userAvatar;
     private TextView userNickname;
-    private ProgressBar progressBar;
     private TextView incomeCount;
 
     public static Fragment newInstance() {
@@ -112,7 +111,6 @@ public class MoreNavFragment extends BaseFragment {
         checkIn = (Button)view.findViewById(R.id.user_checkin);
         userAvatar= (ImageView) view.findViewById(R.id.user_avater);
         userNickname= (TextView) view.findViewById(R.id.user_nickname);
-        progressBar = (ProgressBar)view.findViewById(R.id.user_jingyan);
         incomeCount = (TextView)view.findViewById(R.id.user_income_count);
 
         checkIn.setOnClickListener(new View.OnClickListener() {
@@ -147,7 +145,7 @@ public class MoreNavFragment extends BaseFragment {
 
         });
 
-        LinearLayout income = (LinearLayout)view.findViewById(R.id.user_income_layout);
+        TextView income = (TextView)view.findViewById(R.id.user_income_text);
         income.setOnClickListener(new RelativeLayout.OnClickListener(){//创建监听
             public void onClick(View v) {
 
@@ -163,7 +161,7 @@ public class MoreNavFragment extends BaseFragment {
         });
 
 
-        RelativeLayout fav = (RelativeLayout)view.findViewById(R.id.user_fav_layout);
+        TextView fav = (TextView)view.findViewById(R.id.user_fav_text);
         fav.setOnClickListener(new RelativeLayout.OnClickListener(){//创建监听
             public void onClick(View v) {
 
@@ -331,8 +329,6 @@ public class MoreNavFragment extends BaseFragment {
             @Override
             public void onSuccess(UserModel userModel) {
                 if(userModel.getState() == 0){
-                    progressBar.setMax(1000);
-                    progressBar.setProgress(800);
 
                     incomeCount.setText(""+userModel.getData().getScore());
 
@@ -467,8 +463,6 @@ public class MoreNavFragment extends BaseFragment {
         @Override
         public void logout(boolean is) {
             isLogin = App.isLogin();
-            progressBar.setMax(1000);
-            progressBar.setProgress(0);
 
             incomeCount.setText("0");
 
