@@ -52,15 +52,19 @@ public class ExploreNavFragment extends BaseFragment {
     private FragmentNavigator loveFragmentNavigator;
     private FragmentNavigator shareFragmentNavigator;
 
+    private FragmentNavigator indexFragmentNavigator;
+
 
 
     public static Fragment newInstance() {
         ExploreNavFragment fragment = new ExploreNavFragment();
+
         return fragment;
     }
 
     public ExploreNavFragment() {
         // Required empty public constructor
+
     }
 
     @Override
@@ -93,7 +97,7 @@ public class ExploreNavFragment extends BaseFragment {
 
         }
 
-        ImageView craft = (ImageView)view.findViewById(R.id.explore_craft);
+        /*ImageView craft = (ImageView)view.findViewById(R.id.explore_craft);
         craft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,7 +132,9 @@ public class ExploreNavFragment extends BaseFragment {
                 Intent intent = new Intent(view.getContext(), IncomeIndexActivity.class);
                 view.getContext().startActivity(intent);
             }
-        });
+        });*/
+
+
 
 
 
@@ -144,6 +150,7 @@ public class ExploreNavFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
 
         initData(savedInstanceState);
+
 
     }
 
@@ -164,6 +171,7 @@ public class ExploreNavFragment extends BaseFragment {
         incomeFragmentNavigator = null;
         loveFragmentNavigator = null;
         shareFragmentNavigator = null;
+        indexFragmentNavigator = null;
     }
 
     private void initData(final Bundle savedInstanceState){
@@ -172,9 +180,10 @@ public class ExploreNavFragment extends BaseFragment {
             public void onSuccess(DiscoveryModel discoveryModel) {
                 if(discoveryModel.getState() == 0){
 
-                    initLove(savedInstanceState,discoveryModel);
+                    //initLove(savedInstanceState,discoveryModel);
                     initIncome(savedInstanceState,discoveryModel);
-                    initShare(savedInstanceState,discoveryModel);
+                    initIndex(savedInstanceState);
+                    //initShare(savedInstanceState,discoveryModel);
                 }else{
                     //// TODO: 2017/1/10 提示用户系统出问题
                 }
@@ -191,13 +200,13 @@ public class ExploreNavFragment extends BaseFragment {
 
 
 
-    private void initLove(Bundle savedInstanceState, DiscoveryModel discoveryModel){
+    /*private void initLove(Bundle savedInstanceState, DiscoveryModel discoveryModel){
         OtherFragmentAdapter otherFragmentAdapter = new OtherFragmentAdapter();
         otherFragmentAdapter.setDiscoveryModel(discoveryModel);
         loveFragmentNavigator = new FragmentNavigator(getChildFragmentManager(), otherFragmentAdapter, R.id.fragment_other_love_sub_container);
         loveFragmentNavigator.onCreate(savedInstanceState);
         loveFragmentNavigator.showFragment(Constants.OTHER_LOVE_INDEX_SUB);
-    }
+    }*/
 
     private void initIncome(Bundle savedInstanceState,DiscoveryModel discoveryModel){
         OtherFragmentAdapter otherFragmentAdapter = new OtherFragmentAdapter();
@@ -207,12 +216,19 @@ public class ExploreNavFragment extends BaseFragment {
         incomeFragmentNavigator.showFragment(Constants.OTHER_INCOME_INDEX_SUB);
     }
 
-    private void initShare(Bundle savedInstanceState,DiscoveryModel discoveryModel){
+   /* private void initShare(Bundle savedInstanceState,DiscoveryModel discoveryModel){
         OtherFragmentAdapter otherFragmentAdapter = new OtherFragmentAdapter();
         otherFragmentAdapter.setDiscoveryModel(discoveryModel);
         shareFragmentNavigator = new FragmentNavigator(getChildFragmentManager(), otherFragmentAdapter, R.id.fragment_other_share_sub_container);
         shareFragmentNavigator.onCreate(savedInstanceState);
         shareFragmentNavigator.showFragment(Constants.OTHER_SHARE_INDEX_SUB);
+    }*/
+
+    private void initIndex(Bundle savedInstanceState){
+        OtherFragmentAdapter otherFragmentAdapter = new OtherFragmentAdapter();
+        indexFragmentNavigator = new FragmentNavigator(getChildFragmentManager(), otherFragmentAdapter, R.id.fragment_other_index_container);
+        indexFragmentNavigator.onCreate(savedInstanceState);
+        indexFragmentNavigator.showFragment(Constants.OTHER_INDEX);
     }
 
 

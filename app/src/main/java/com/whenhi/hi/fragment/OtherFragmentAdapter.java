@@ -61,6 +61,8 @@ public class OtherFragmentAdapter implements FragmentNavigatorAdapter {
                 return MessageListFragment.newInstance();
             case Constants.OTHER_CHARGE_RECORD:
                 return ChargeRecordListFragment.newInstance();
+            case Constants.OTHER_INDEX:
+                return IndexNavFragment.newInstance();
         }
         return null;
     }
@@ -99,6 +101,6 @@ public class OtherFragmentAdapter implements FragmentNavigatorAdapter {
 
     @Override
     public int getCount() {
-        return 12;
+        return 13;
     }
 }

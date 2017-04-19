@@ -144,10 +144,10 @@ public class IncomeIndexAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         public FeedHolder(View itemView) {
             super(itemView);
-            avatarUser = (ImageView) itemView.findViewById(R.id.item_user).findViewById(R.id.user_avatar);
-            nicknameUser = (TextView) itemView.findViewById(R.id.item_user).findViewById(R.id.user_nickname);
+            avatarUser = (ImageView) itemView.findViewById(R.id.user_avatar);
+            nicknameUser = (TextView) itemView.findViewById(R.id.user_nickname);
 
-            textContent = (TextView) itemView.findViewById(R.id.item_explore_income_text);
+            textContent = (TextView) itemView.findViewById(R.id.user_income);
 
 
         }

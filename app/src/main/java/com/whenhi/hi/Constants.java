@@ -83,6 +83,7 @@ public class Constants {
  public static final int OTHER_INCOME_INDEX_SUB = 9;
  public static final int OTHER_MESSAGE = 10;
  public static final int OTHER_CHARGE_RECORD = 11;
+ public static final int OTHER_INDEX = 12;
 
 
 

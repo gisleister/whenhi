@@ -1,9 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:widget="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_sys"
+    android:background="#f0f0f0"
     android:orientation="vertical">
     <include
         android:id="@+id/toolbar"
@@ -13,7 +12,6 @@
         android:scrollbars="none"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
-
         <LinearLayout
             android:id="@+id/explore_income_layout"
             android:layout_width="match_parent"
@@ -28,166 +26,54 @@
                 android:scaleType="centerCrop"
                 android:src="@mipmap/chuansuo"/>
 
-            <RelativeLayout
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:background="@drawable/shape_selector"
-                android:orientation="vertical">
+                android:layout_height="48dp"
+                android:background="#ffffff"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                android:textStyle="bold"
+                android:ellipsize="end"
+                android:text="「 收入榜 」"/>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/juxingkuai" />
-
-                <TextView
-                    android:id="@+id/income_index_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="12dp"
-                    android:textColor="#333333"
-                    android:textSize="16sp"
-                    android:text="收入排行"
-                    android:layout_centerVertical="true"/>
-
-
-
-                <TextView
-                    android:id="@+id/income_index_more"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:textColor="#999999"
-                    android:textSize="12sp"
-                    android:text="更多"
-                    android:layout_centerVertical="true"/>
-
-            </RelativeLayout>
 
             <FrameLayout
                 android:id="@+id/fragment_other_income_sub_container"
+                android:paddingTop="2dp"
                 android:layout_width="match_parent"
-                android:layout_height="110dp"
-                android:orientation="vertical"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@drawable/bg_space"/>
-
-
-            <RelativeLayout
-                android:id="@+id/explore_love_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:background="@drawable/shape_selector"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/juxingkuai" />
-
-                <TextView
-                    android:id="@+id/love_index_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="12dp"
-                    android:textColor="#333333"
-                    android:textSize="16sp"
-                    android:text="人气排行"
-                    android:layout_centerVertical="true"/>
-
-
-
-                <TextView
-                    android:id="@+id/love_index_more"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:textColor="#999999"
-                    android:textSize="12sp"
-                    android:text="更多"
-                    android:layout_centerVertical="true"/>
-
-            </RelativeLayout>
-
-            <FrameLayout
-                android:id="@+id/fragment_other_love_sub_container"
-                android:layout_width="match_parent"
-                android:layout_height="123dp"
+                android:layout_height="130dp"
                 android:orientation="vertical"/>
 
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@drawable/bg_space"/>
-
-            <RelativeLayout
-                android:id="@+id/explore_share_layout"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:background="@drawable/shape_selector"
+                android:paddingTop="4dp"
+                android:background="#ffffff"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/juxingkuai" />
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="34dp"
+                    android:background="@drawable/shape_button_black"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="14sp"
+                    android:textColor="#ffa015"
+                    android:text="查看更多"/>
 
-                <TextView
-                    android:id="@+id/share_index_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="12dp"
-                    android:textColor="#333333"
-                    android:textSize="16sp"
-                    android:text="分享排行"
-                    android:layout_centerVertical="true"/>
+            </LinearLayout>
 
-
-
-                <TextView
-                    android:id="@+id/share_index_more"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:textColor="#999999"
-                    android:textSize="12sp"
-                    android:text="更多"
-                    android:layout_centerVertical="true"/>
-
-            </RelativeLayout>
 
 
             <FrameLayout
-                android:id="@+id/fragment_other_share_sub_container"
+                android:id="@+id/fragment_other_index_container"
                 android:layout_width="match_parent"
-                android:layout_height="184dp"
+                android:layout_height="560dp"
                 android:orientation="vertical"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="@drawable/bg_space"/>
 
         </LinearLayout>
-
-
-
     </ScrollView>
+
 </LinearLayout>

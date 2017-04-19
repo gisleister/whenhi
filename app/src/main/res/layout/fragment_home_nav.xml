@@ -35,7 +35,7 @@
             app:xTabBackgroundColor="#ffffff"
             app:xTabMode="fixed"
             app:xTabGravity="1"
-            app:xTabMaxWidth="60dp"
+            app:xTabMaxWidth="100dp"
             app:xTabIndicatorColor="#ffa015"
             app:xTabIndicatorHeight="2dp"
             app:xTabIndicatorWidth="18dp"
