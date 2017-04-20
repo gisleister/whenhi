@@ -138,7 +138,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 .into(target);
 
         showContent(holder,feed,context);//显示内容
-        showToolbarContent(holder,feed,context);//显示工具栏
+        showToolbarContent(holder,feed);//显示工具栏
         other(holder,feed.getFeedCategory());//工具栏是否隐藏
 
 
@@ -158,10 +158,13 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
 
-        /*LinearLayout loveBtn;
+        LinearLayout loveBtn;
         LinearLayout favBtn;
         LinearLayout shareBtn;
-        LinearLayout commentBtn;*/
+        LinearLayout commentBtn;
+
+        LinearLayout userLayout;
+        LinearLayout toolbarLayout;
 
         ImageView loveImage;
         ImageView favImage;
@@ -176,6 +179,10 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         public FeedHolder(View itemView) {
             super(itemView);
+
+            userLayout = (LinearLayout) itemView.findViewById(R.id.item_user_layout);
+            toolbarLayout = (LinearLayout) itemView.findViewById(R.id.item_toolbar_layout);
+
             avatarUser = (ImageView) itemView.findViewById(R.id.user_avatar);
             nicknameUser = (TextView) itemView.findViewById(R.id.user_nickname);
 
@@ -197,17 +204,23 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             commentText = (TextView) itemView.findViewById(R.id.toolbar_comment_text);
 
 
+            loveBtn = (LinearLayout) itemView.findViewById(R.id.toolbar_love_btn);
+            favBtn = (LinearLayout) itemView.findViewById(R.id.toolbar_fav_btn);
+            shareBtn = (LinearLayout) itemView.findViewById(R.id.toolbar_share_btn);
+            commentBtn = (LinearLayout) itemView.findViewById(R.id.toolbar_comment_btn);
+
+
         }
     }
 
     private void other(FeedHolder holder, int type){
         if( type == 8){
-           // holder.toolbar.setVisibility(View.GONE);
+            holder.userLayout.setVisibility(View.GONE);
+            holder.toolbarLayout.setVisibility(View.GONE);
 
-        }else if(type == 4){
-            //holder.toolbar.setVisibility(View.VISIBLE);
         }else{
-           // holder.toolbar.setVisibility(View.VISIBLE);
+            holder.userLayout.setVisibility(View.VISIBLE);
+            holder.toolbarLayout.setVisibility(View.VISIBLE);
         }
 
 
@@ -362,7 +375,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     }
 
-    private void showToolbarContent(FeedHolder holder, Feed feed,Context context){
+    private void showToolbarContent(FeedHolder holder, Feed feed){
 
         holder.loveText.setText(""+feed.getLikeCount() + "赞");
         holder.favText.setText(" · "+feed.getFavoriteCount() + "收藏");
@@ -381,7 +394,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }else{
             holder.favImage.setImageResource(R.mipmap.shoucang);
         }
-        ClickUtil.toolbarClick(holder.loveText,holder.favText,holder.favImage,holder.loveImage,holder.shareImage,holder.commentImage,holder.itemView,feed);
+        ClickUtil.toolbarClick(holder.loveImage, holder.favImage,holder.loveText,holder.favText,holder.favBtn,holder.loveBtn,holder.shareBtn,holder.commentBtn,holder.itemView,feed);
 
     }
 

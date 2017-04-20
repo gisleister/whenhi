@@ -120,6 +120,17 @@ public class IncomeIndexAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         holder.nicknameUser.setText(user.getUserName());
         holder.textContent.setText(""+user.getScore());
 
+        if(position == 0){
+            holder.incomeIndex.setText("No.2");
+            holder.incomeImage.setImageResource(R.mipmap.no2);
+        }else if(position == 1){
+            holder.incomeIndex.setText("No.1");
+            holder.incomeImage.setImageResource(R.mipmap.no1);
+        }else if(position == 2){
+            holder.incomeIndex.setText("No.3");
+            holder.incomeImage.setImageResource(R.mipmap.no3);
+        }
+
 
 
         Glide.with(context)
@@ -140,6 +151,8 @@ public class IncomeIndexAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         ImageView avatarUser;
         TextView nicknameUser;
         TextView textContent;
+        TextView incomeIndex;
+        ImageView incomeImage;
 
 
         public FeedHolder(View itemView) {
@@ -148,6 +161,9 @@ public class IncomeIndexAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             nicknameUser = (TextView) itemView.findViewById(R.id.user_nickname);
 
             textContent = (TextView) itemView.findViewById(R.id.user_income);
+
+            incomeIndex = (TextView) itemView.findViewById(R.id.user_income_index);
+            incomeImage = (ImageView) itemView.findViewById(R.id.user_income_image);
 
 
         }

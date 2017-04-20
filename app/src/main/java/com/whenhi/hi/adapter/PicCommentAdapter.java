@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -276,6 +277,12 @@ public class PicCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         TextView shareText;
         TextView commentText;
 
+
+        LinearLayout loveBtn;
+        LinearLayout favBtn;
+        LinearLayout shareBtn;
+        LinearLayout commentBtn;
+
         public GroupHolder(View itemView) {
             super(itemView);
             headerText = (TextView) itemView.findViewById(R.id.item_comment_header_text);
@@ -291,6 +298,11 @@ public class PicCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             shareText = (TextView) itemView.findViewById(R.id.toolbar_share_text);
             favText = (TextView) itemView.findViewById(R.id.toolbar_fav_text);
             commentText = (TextView) itemView.findViewById(R.id.toolbar_comment_text);
+
+            loveBtn = (LinearLayout) itemView.findViewById(R.id.toolbar_love_btn);
+            favBtn = (LinearLayout) itemView.findViewById(R.id.toolbar_fav_btn);
+            shareBtn = (LinearLayout) itemView.findViewById(R.id.toolbar_share_btn);
+            commentBtn = (LinearLayout) itemView.findViewById(R.id.toolbar_comment_btn);
 
 
         }
@@ -333,7 +345,7 @@ public class PicCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }else{
             holder.favImage.setImageResource(R.mipmap.shoucang);
         }
-        ClickUtil.toolbarClick(holder.loveText,holder.favText,holder.favImage,holder.loveImage,holder.shareImage,holder.commentImage,holder.itemView,feed);
+        ClickUtil.toolbarClick(holder.loveImage, holder.favImage,holder.loveText,holder.favText,holder.favBtn,holder.loveBtn,holder.shareBtn,holder.commentBtn,holder.itemView,feed);
 
 
     }

@@ -23,6 +23,7 @@
             android:src="@mipmap/user_default"/>
 
         <ImageView
+            android:id="@+id/user_income_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -30,6 +31,7 @@
             android:src="@mipmap/no2"/>
 
         <TextView
+            android:id="@+id/user_income_index"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="26dp"

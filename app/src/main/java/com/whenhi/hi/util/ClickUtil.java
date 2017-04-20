@@ -173,11 +173,11 @@ public class ClickUtil {
 
 
 
-    public static void toolbarClick(final TextView loveText, final TextView favText,final ImageView favImage, final ImageView loveImage, final ImageView shareImage, final ImageView commentImage, final View view, final Feed feed){
+    public static void toolbarClick(final ImageView loveImage, final ImageView favImage,final TextView loveText, final TextView favText,final LinearLayout favBtn, final LinearLayout loveBtn, final LinearLayout shareBtn, final LinearLayout commentBtn, final View view, final Feed feed){
 
         if(feed == null)
             return;
-        loveImage.setOnClickListener(new Button.OnClickListener(){//创建监听
+        loveBtn.setOnClickListener(new Button.OnClickListener(){//创建监听
             public void onClick(View v) {
 
                 if(App.isLogin()){
@@ -235,14 +235,14 @@ public class ClickUtil {
 
         });
 
-        shareImage.setOnClickListener(new Button.OnClickListener(){//创建监听
+        shareBtn.setOnClickListener(new Button.OnClickListener(){//创建监听
             public void onClick(View v) {
                 goToShare(view,feed);
             }
 
         });
 
-        favImage.setOnClickListener(new Button.OnClickListener(){//创建监听
+        favBtn.setOnClickListener(new Button.OnClickListener(){//创建监听
             public void onClick(View v) {
                 if(App.isLogin()){
                     if(feed.getFavoriteState() == 1){
@@ -296,12 +296,136 @@ public class ClickUtil {
 
         });
 
-        commentImage.setOnClickListener(new Button.OnClickListener(){//创建监听
+        commentBtn.setOnClickListener(new Button.OnClickListener(){//创建监听
             public void onClick(View v) {
                 click(feed,view);
             }
 
         });
+
+
+    }
+
+
+    public static void toolbarClickDetail(final ImageView favImage, final ImageView loveImage, final ImageView shareImage, final View view, final Feed feed){
+
+        if(feed == null)
+            return;
+        loveImage.setOnClickListener(new Button.OnClickListener(){//创建监听
+            public void onClick(View v) {
+
+                if(App.isLogin()){
+                    if(feed.getLikeState() == 1){
+                        HttpAPI.disLoveFeed(feed.getId(),new HttpAPI.Callback<BaseModel>() {
+                            @Override
+                            public void onSuccess(BaseModel baseModel) {
+                                if(baseModel.getState() == 0){
+                                    loveImage.setImageResource(R.mipmap.zan1);
+
+                                    feed.setLikeCount(feed.getLikeCount()-1);
+                                    feed.setLikeState(0);
+                                }else {
+                                    Toast.makeText(view.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
+                                }
+
+
+                            }
+
+                            @Override
+                            public void onFailure(Exception e) {
+
+                            }
+                        });
+                    }else{
+                        HttpAPI.loveFeed(feed.getId(),new HttpAPI.Callback<BaseModel>() {
+                            @Override
+                            public void onSuccess(BaseModel baseModel) {
+                                if(baseModel.getState() == 0){
+                                    loveImage.setImageResource(R.mipmap.zan_click1);
+                                    feed.setLikeCount(feed.getLikeCount()+1);
+                                    feed.setLikeState(1);
+                                }else {
+                                    Toast.makeText(view.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
+                                }
+
+
+                            }
+
+                            @Override
+                            public void onFailure(Exception e) {
+
+                            }
+                        });
+                    }
+
+
+                }else{
+                    goToLogin(view);
+                }
+
+            }
+
+        });
+
+        shareImage.setOnClickListener(new Button.OnClickListener(){//创建监听
+            public void onClick(View v) {
+                goToShare(view,feed);
+            }
+
+        });
+
+        favImage.setOnClickListener(new Button.OnClickListener(){//创建监听
+            public void onClick(View v) {
+                if(App.isLogin()){
+                    if(feed.getFavoriteState() == 1){
+                        HttpAPI.disFavFeed(feed.getId(),feed.getFeedCategory(),new HttpAPI.Callback<BaseModel>() {
+                            @Override
+                            public void onSuccess(BaseModel baseModel) {
+
+                                if(baseModel.getState() == 0){
+                                    favImage.setImageResource(R.mipmap.shoucang1);
+                                    feed.setFavoriteCount(feed.getFavoriteCount()-1);
+                                    feed.setFavoriteState(0);
+                                }else {
+                                    Toast.makeText(view.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+
+                            @Override
+                            public void onFailure(Exception e) {
+
+                            }
+                        });
+                    }else{
+                        HttpAPI.favFeed(feed.getId(),feed.getFeedCategory(),new HttpAPI.Callback<BaseModel>() {
+                            @Override
+                            public void onSuccess(BaseModel baseModel) {
+                                if(baseModel.getState() == 0){
+                                    favImage.setImageResource(R.mipmap.shoucang_click1);
+                                    feed.setFavoriteCount(feed.getFavoriteCount()+1);
+                                    feed.setFavoriteState(1);
+                                }else {
+                                    Toast.makeText(view.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+
+                            @Override
+                            public void onFailure(Exception e) {
+
+                            }
+                        });
+                    }
+
+                }else{
+                    goToLogin(view);
+                }
+
+            }
+
+        });
+
 
 
     }

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#f0f0f0"
+    android:background="#ffffff"
     android:orientation="vertical">
 
     <LinearLayout
@@ -12,7 +12,8 @@
         android:background="#ffffff"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -20,37 +21,79 @@
             android:paddingTop="16dp"
             android:paddingBottom="8dp">
 
-            <ImageView
-                android:id = "@+id/toolbar_love_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/zan"/>
+            <LinearLayout
+                android:id="@+id/toolbar_love_btn"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <ImageView
-                android:id = "@+id/toolbar_fav_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:src="@mipmap/shoucang"/>
+                <ImageView
+                    android:id = "@+id/toolbar_love_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:src="@mipmap/zan"/>
 
-            <ImageView
-                android:id = "@+id/toolbar_comment_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="80dp"
-                android:src="@mipmap/pinglun"/>
+            </LinearLayout>
 
 
-            <ImageView
-                android:id = "@+id/toolbar_share_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+
+            <LinearLayout
+                android:id="@+id/toolbar_fav_btn"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="50dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id = "@+id/toolbar_fav_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/shoucang"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/toolbar_comment_btn"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="120dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id = "@+id/toolbar_comment_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/pinglun"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/toolbar_share_btn"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
                 android:layout_alignParentRight="true"
-                android:src="@mipmap/fenxiang"/>
+                android:orientation="vertical">
+
+
+                <ImageView
+                    android:id = "@+id/toolbar_share_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:src="@mipmap/fenxiang"/>
+
+            </LinearLayout>
 
 
 
         </RelativeLayout>
+
 
 
         <RelativeLayout
@@ -82,7 +125,7 @@
                 android:id = "@+id/toolbar_comment_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="66dp"
+                android:layout_marginLeft="76dp"
                 android:textColor="#999999"
                 android:gravity="center"
                 android:textSize="12sp"
@@ -93,7 +136,7 @@
                 android:id = "@+id/toolbar_share_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="126dp"
+                android:layout_marginLeft="136dp"
                 android:textColor="#999999"
                 android:gravity="center"
                 android:textSize="12sp"
@@ -104,13 +147,27 @@
     </LinearLayout>
 
 
-    <TextView
-        android:id="@+id/item_comment_header_text"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
         android:paddingLeft="16dp"
-        android:textStyle="bold"
-        android:textSize="14sp"
-        android:textColor="#333333"/>
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/item_comment_header_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="#333333"/>
+
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/shape_sanjiao"/>
+
+    </LinearLayout>
+
 </LinearLayout>

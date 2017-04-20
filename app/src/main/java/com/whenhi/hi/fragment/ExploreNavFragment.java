@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -97,7 +98,16 @@ public class ExploreNavFragment extends BaseFragment {
 
         }
 
-        /*ImageView craft = (ImageView)view.findViewById(R.id.explore_craft);
+        Button incomeMore = (Button)view.findViewById(R.id.user_income_more);
+        incomeMore.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(view.getContext(), IncomeIndexActivity.class);
+                view.getContext().startActivity(intent);
+            }
+        });
+
+        ImageView craft = (ImageView)view.findViewById(R.id.explore_craft);
         craft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +117,7 @@ public class ExploreNavFragment extends BaseFragment {
         });
 
 
-        RelativeLayout loveIndex = (RelativeLayout)view.findViewById(R.id.explore_love_layout);
+        /*RelativeLayout loveIndex = (RelativeLayout)view.findViewById(R.id.explore_love_layout);
         loveIndex.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="1"
-            android:src="@mipmap/zan"/>
+            android:src="@mipmap/zan1"/>
 
         <ImageView
             android:id = "@+id/toolbar_fav_image"
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="1"
-            android:src="@mipmap/shoucang"/>
+            android:src="@mipmap/shoucang1"/>
 
 
         <ImageView
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="1"
-            android:src="@mipmap/fenxiang"/>
+            android:src="@mipmap/fenxiang1"/>
 
 
 

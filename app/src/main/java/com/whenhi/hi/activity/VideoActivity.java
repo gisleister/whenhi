@@ -22,6 +22,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -95,6 +96,32 @@ public class VideoActivity extends BaseActivity{
                 commentInput();
             }
         });
+
+        ImageView zan = (ImageView)findViewById(R.id.toolbar_love_image);
+        ImageView fav = (ImageView)findViewById(R.id.toolbar_fav_image);
+        ImageView share = (ImageView)findViewById(R.id.toolbar_share_image);
+        showToolbarContent(zan,fav,share);
+
+    }
+
+
+    private void showToolbarContent(ImageView zan, ImageView fav,ImageView share){
+
+        if(mFeed.getLikeState() == 1){
+            zan.setImageResource(R.mipmap.zan_click1);
+        }else{
+            zan.setImageResource(R.mipmap.zan1);
+        }
+
+        if(mFeed.getFavoriteState() == 1){
+            fav.setImageResource(R.mipmap.shoucang_click1);
+
+        }else{
+            fav.setImageResource(R.mipmap.shoucang1);
+        }
+
+
+        ClickUtil.toolbarClickDetail(fav,zan,share,getWindow().getDecorView(),mFeed);
 
     }
 
