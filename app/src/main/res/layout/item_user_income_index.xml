@@ -2,50 +2,50 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_user_score_layout"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#f0f0f0"
+    android:paddingTop="6dp"
+    android:paddingLeft="6dp"
+    android:paddingRight="6dp"
     android:orientation="vertical" >
 
 
+
     <RelativeLayout
-        android:id="@+id/score_layout"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/shape_index"
         android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:orientation="horizontal"
-        android:visibility="visible">
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp">
 
         <TextView
             android:id="@+id/item_user_score_index"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="10dp"
             android:textSize="14sp"
-            android:textColor="#9b9b9b"
-            android:layout_centerVertical="true"
-            android:text="1"/>
+            android:textStyle="bold"
+            android:textColor="#9b9b9b"/>
 
         <ImageView
             android:id="@+id/item_user_score_avatar"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:paddingLeft="20dp"
-            android:src="@mipmap/user_default" />
+            android:layout_marginLeft="20dp"
+            android:src="@mipmap/user_default"/>
 
         <TextView
             android:id="@+id/item_user_score_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="56dp"
+            android:layout_marginLeft="80dp"
+            android:paddingTop="10dp"
             android:textColor="#1a1a1a"
+            android:textStyle="bold"
             android:textSize="14sp"
-            android:ellipsize="end"
-            android:layout_centerVertical="true"
-            android:text="张三"/>
-
-
+            android:ellipsize="end"/>
 
 
         <TextView
@@ -53,19 +53,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:paddingTop="10dp"
             android:textColor="#ff6000"
             android:textSize="14sp"
-            android:ellipsize="end"
-            android:layout_centerVertical="true"
-            android:text="100"/>
+            android:textStyle="bold"
+            android:ellipsize="end"/>
 
 
 
     </RelativeLayout>
 
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@drawable/bg_space"/>
 </LinearLayout>

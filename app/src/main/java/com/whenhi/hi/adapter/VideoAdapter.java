@@ -97,6 +97,7 @@ public class VideoAdapter{
         @Override
         public void onOrientationChange() {
 
+            mVideoPlayer.pausePlay();
             Intent intent = new Intent(mActivity, VideoFullActivity.class);
             Bundle bundle=new Bundle();
             //传递name参数为tinyphp

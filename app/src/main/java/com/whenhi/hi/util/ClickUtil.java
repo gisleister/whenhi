@@ -190,7 +190,14 @@ public class ClickUtil {
 
                                     feed.setLikeCount(feed.getLikeCount()-1);
                                     feed.setLikeState(0);
-                                    loveText.setText(""+(feed.getLikeCount()) + "赞");
+
+                                    if(feed.getLikeCount() == 0){
+                                        loveText.setText("赞");
+                                    }else{
+                                        loveText.setText(""+feed.getLikeCount() + "赞");
+                                    }
+
+
                                 }else {
                                     Toast.makeText(view.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
                                 }
@@ -211,7 +218,11 @@ public class ClickUtil {
                                     loveImage.setImageResource(R.mipmap.zan_click);
                                     feed.setLikeCount(feed.getLikeCount()+1);
                                     feed.setLikeState(1);
-                                    loveText.setText(""+(feed.getLikeCount()) + "赞");
+                                    if(feed.getLikeCount() == 0){
+                                        loveText.setText("赞");
+                                    }else{
+                                        loveText.setText(""+feed.getLikeCount() + "赞");
+                                    }
                                 }else {
                                     Toast.makeText(view.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
                                 }
@@ -254,7 +265,11 @@ public class ClickUtil {
                                     favImage.setImageResource(R.mipmap.shoucang);
                                     feed.setFavoriteCount(feed.getFavoriteCount()-1);
                                     feed.setFavoriteState(0);
-                                    favText.setText(" · "+(feed.getFavoriteCount()) + "收藏");
+                                    if(feed.getFavoriteCount() == 0){
+                                        favText.setText(" · 收藏");
+                                    }else{
+                                        favText.setText(" · "+feed.getFavoriteCount() + "收藏");
+                                    }
                                 }else {
                                     Toast.makeText(view.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
                                 }
@@ -274,7 +289,11 @@ public class ClickUtil {
                                     favImage.setImageResource(R.mipmap.shoucang_click);
                                     feed.setFavoriteCount(feed.getFavoriteCount()+1);
                                     feed.setFavoriteState(1);
-                                    favText.setText(" · "+(feed.getFavoriteCount()) + "收藏");
+                                    if(feed.getFavoriteCount() == 0){
+                                        favText.setText(" · 收藏");
+                                    }else{
+                                        favText.setText(" · "+feed.getFavoriteCount() + "收藏");
+                                    }
                                 }else {
                                     Toast.makeText(view.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
                                 }

@@ -45,6 +45,9 @@ public class LoginActivity extends BaseActivity {
 
 
     private ILifecycleListener mLifeListener;
+    public static boolean dialogcancel = true;
+
+
 
 
     private static WechatLoginHandler mWechatHandler;
@@ -213,11 +216,12 @@ public class LoginActivity extends BaseActivity {
         Holder holder = new ViewHolder(R.layout.layout_dialog_login);
         final DialogPlus dialog = DialogPlus.newDialog(this)
                 .setContentHolder(holder)
-                .setCancelable(true)
+                .setCancelable(dialogcancel)
                 .setGravity(Gravity.BOTTOM)
                 .setOnDismissListener(new OnDismissListener() {
                     @Override
                     public void onDismiss(DialogPlus dialog) {
+                        dialogcancel = true;
                         finish();
                     }
                 })

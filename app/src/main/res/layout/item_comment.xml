@@ -18,34 +18,43 @@
             android:id="@+id/user_avatar"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
             android:src="@mipmap/user_default"/>
 
-        <TextView
-            android:id="@+id/user_nickname"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:paddingLeft="12dp"
-            android:textSize="12sp"
-            android:textColor="#ffa015"
-            android:ellipsize="end"
-            android:text="昵称"/>
+            android:paddingBottom="12dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/user_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:paddingBottom="6dp"
+                android:textSize="12sp"
+                android:textColor="#666666"
+                android:ellipsize="end"
+                android:text="昵称"/>
+
+            <TextView
+                android:id="@+id/comment_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#999999"
+                android:ellipsize="end"
+                android:layout_gravity="clip_vertical"
+                android:text="内容"/>
+
+        </LinearLayout>
+
+
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/comment_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:textColor="#333333"
-        android:paddingLeft="60dp"
-        android:paddingBottom="12dp"
-        android:ellipsize="end"
-        android:layout_gravity="clip_vertical"
-        android:text="内容"/>
+
 
     <View
         android:layout_width="match_parent"

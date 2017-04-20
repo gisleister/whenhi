@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,14 +22,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aspsine.fragmentnavigator.FragmentNavigator;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
+import com.whenhi.hi.App;
 import com.whenhi.hi.Constants;
 import com.whenhi.hi.R;
 import com.whenhi.hi.activity.CraftActivity;
 import com.whenhi.hi.activity.IncomeIndexActivity;
 import com.whenhi.hi.activity.LoveIndexActivity;
+import com.whenhi.hi.activity.MaleActivity;
 import com.whenhi.hi.activity.ShareIndexActivity;
 import com.whenhi.hi.adapter.IncomeIndexAdapter;
 import com.whenhi.hi.adapter.LoveIndexAdapter;
@@ -38,6 +42,7 @@ import com.whenhi.hi.model.DiscoveryModel;
 import com.whenhi.hi.model.Feed;
 import com.whenhi.hi.model.FeedModel;
 import com.whenhi.hi.network.HttpAPI;
+import com.whenhi.hi.util.ClickUtil;
 import com.whenhi.hi.view.horizontal.HorizontalListView;
 
 import java.util.List;
@@ -111,8 +116,33 @@ public class ExploreNavFragment extends BaseFragment {
         craft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(view.getContext(), CraftActivity.class);
                 view.getContext().startActivity(intent);
+
+
+            }
+        });
+
+        ImageView male = (ImageView)view.findViewById(R.id.explore_male);
+        male.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String gender = App.getGender();
+                if(!TextUtils.isEmpty(gender)){
+
+                    if(gender.equals("F")){
+                        Toast.makeText(App.getContext(), "只有男性才能进入哦!", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Intent intent = new Intent(view.getContext(), MaleActivity.class);
+                        view.getContext().startActivity(intent);
+                    }
+                }else{
+                    ClickUtil.goToLogin(view);
+                }
+
+
             }
         });
 

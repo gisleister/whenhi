@@ -156,6 +156,9 @@
             android:name=".activity.CraftActivity"
             android:screenOrientation="portrait"></activity>
         <activity
+            android:name=".activity.MaleActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
             android:name=".activity.ChargeActivity"
             android:screenOrientation="portrait"></activity>
         <activity

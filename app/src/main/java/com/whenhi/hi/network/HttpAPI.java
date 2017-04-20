@@ -204,6 +204,7 @@ public class HttpAPI {
         int authSrc = 0;
         String authOpenId = "";
         String authToken = "";
+        String gender = "U";
         int invitorId = 0;
         if( type== 1) {//qq登录
             QQUserInfo info = login.getqQUserInfo();
@@ -212,6 +213,11 @@ public class HttpAPI {
             authSrc = 1;
             authOpenId = login.getAuthResult().id;
             authToken = login.getAuthResult().accessToken;
+            if(info.gender.equals("男")){
+                gender = "M";
+            }else if(info.gender.equals("女")){
+                gender = "F";
+            }
             //信息发给服务器
         }else if(type == 2){//wx登录
             WechatUserInfo info = login.getWechatUserInfo();
@@ -220,6 +226,11 @@ public class HttpAPI {
             authSrc = 2;
             authOpenId = login.getAuthResult().id;
             authToken = login.getAuthResult().accessToken;
+            if(info.sex == 1){
+                gender = "M";
+            }else if(info.sex == 2) {
+                gender = "F";
+            }
             //信息发给服务器
         }else if(type == 3){//wb登录
             WeiboUserInfo info = login.getWeiboUserInfo();
@@ -228,8 +239,16 @@ public class HttpAPI {
             authSrc = 3;
             authOpenId = login.getAuthResult().id;
             authToken = login.getAuthResult().accessToken;
+            if(info.gender.equals("m")){
+                gender = "M";
+            }else if(info.gender.equals("w")){
+                gender = "F";
+            }
             //信息发给服务器
         }
+
+
+        App.userGender(gender);
 
         Map<String, String> params = new HashMap<>();
         params.put("appId", Constants.APP_ID);
@@ -247,6 +266,8 @@ public class HttpAPI {
         params.put("authOpenId", authOpenId);
         params.put("authToken", authToken);
         params.put("invitorId", ""+invitorId);
+        params.put("gender", gender);
+
 
 
         String str = ParamUtil.generateOrderedParamString(params,"",null);
@@ -827,6 +848,42 @@ public class HttpAPI {
         params.put("sig", sig);
 
         String url = buildUrl(Constants.API_DISCOVERY_PAST, params);;
+        Log.d(TAG,"url="+url);
+        final Request request = new Request.Builder().get().url(url).build();
+        OkHttpClient okHttpClient = OkHttp.getOkHttpClient();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new GsonCallbackWrapper<FeedModel>(callback, new TypeToken<FeedModel>() {
+        }));
+    }
+
+    public static void maleList(String extras, int pageNo,final Callback<FeedModel> callback) {
+        Map<String, String> params = new HashMap<>();
+        params.put("appId", Constants.APP_ID);
+        params.put("v", Constants.APP_INTERFACE_VERSION);
+        params.put("callId", ""+System.currentTimeMillis());
+        params.put("lon", ""+App.getLongitude());
+        params.put("lat", ""+App.getLatitude());
+        params.put("bno", ""+App.getAppVersionCode());
+
+        /**/params.put("uid", App.getUserId());
+        params.put("t", App.getToken());
+        params.put("did",App.getDeviceId());
+        params.put("gender", App.getGender());
+
+
+        params.put("pageNo", ""+pageNo);
+        if(!"".equals(extras)){
+            params.put("extras",extras);
+        }
+
+
+        String str = ParamUtil.generateOrderedParamString(params,"",null);
+        String sig = ParamUtil.generateSignature(str,Constants.APP_SECRET_KEY);
+
+        //Map<String, String> params = new HashMap<>();
+        params.put("sig", sig);
+
+        String url = buildUrl(Constants.API_DISCOVERY_MALE, params);;
         Log.d(TAG,"url="+url);
         final Request request = new Request.Builder().get().url(url).build();
         OkHttpClient okHttpClient = OkHttp.getOkHttpClient();

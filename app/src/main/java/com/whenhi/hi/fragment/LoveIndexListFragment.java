@@ -42,15 +42,6 @@ public class LoveIndexListFragment extends BaseFragment implements OnRefreshList
 
     private int mPageNo = 1;
 
-    private boolean viewCreate;
-
-    public boolean getViewCreate() {
-        return viewCreate;
-    }
-
-    public void setViewCreate(boolean viewCreate) {
-        this.viewCreate = viewCreate;
-    }
 
     public static LoveIndexListFragment newInstance() {
         LoveIndexListFragment fragment = new LoveIndexListFragment();
@@ -86,8 +77,6 @@ public class LoveIndexListFragment extends BaseFragment implements OnRefreshList
         mRecyclerView.setAdapter(mAdapter);
 
         mRecyclerView.getRecycledViewPool().setMaxRecycledViews(mAdapter.getItemViewType(0),3);
-
-        setViewCreate(true);
 
         mSwipeToLoadLayout.setOnRefreshListener(this);
         mSwipeToLoadLayout.setOnLoadMoreListener(this);
@@ -200,21 +189,12 @@ public class LoveIndexListFragment extends BaseFragment implements OnRefreshList
         return true;
     }
 
-    @Override
-    public void destroy() {
-        if(viewCreate){
-            mRecyclerView.removeAllViews();
-            mRecyclerView.setAdapter(null);
-            mRecyclerView.setAdapter(mAdapter);
-           // mAdapter.notifyDataSetChanged();
-        }
-    }
 
     @Override
     public void onvisible() {
-        if(viewCreate) {
+        /*if(viewCreate) {
             mSwipeToLoadLayout.setRefreshing(true);
         }
-        onRefresh();
+        onRefresh();*/
     }
 }

@@ -17,10 +17,10 @@ public class Constants {
                  + "follow_app_official_microblog," + "invitation_write";
 
 
- public static  final boolean DEBUG = true;//此处在发版本时候必须修改为false
+ //public static  final boolean DEBUG = true;//此处在发版本时候必须修改为false
 
- public static final String host = "http://api.whenhi.cn/";
- //public static final String host = "http://admin2.kanglejiating.com/";
+ //public static final String host = "http://api.whenhi.cn/";
+ public static final String host = "http://123.56.101.33/";
 
 
  public static final String API_FEED_LIST_URL = host+"api/feed/list/";
@@ -42,6 +42,7 @@ public class Constants {
  public static final String API_USER_DIS_FAV_URL = host+"api/feed/favorite/remove";
  public static final String API_COMMENT_ADD = host+"api/comment/add";
  public static final String API_DISCOVERY_HOME = host+"api/discovery/home";
+ public static final String API_DISCOVERY_MALE = host+"api/discovery/male";
  public static final String API_DISCOVERY_PAST = host+"api/discovery/past";
  public static final String API_USER_INVITECODE_INPUT = host+"api/user/invitecode/input";
  public static final String API_USER_CHARGES_ITEMS = host+"api/user/charge/items";
@@ -84,10 +85,11 @@ public class Constants {
  public static final int OTHER_MESSAGE = 10;
  public static final int OTHER_CHARGE_RECORD = 11;
  public static final int OTHER_INDEX = 12;
+ public static final int OTHER_MALE = 13;
 
 
 
  public static final String APP_ID = "3";
- public static final String APP_INTERFACE_VERSION = "1.0";
+ public static final String APP_INTERFACE_VERSION = "1.1";
  public static final String APP_SECRET_KEY = "173559e25f8433dea2ca36babb331be7";
 }

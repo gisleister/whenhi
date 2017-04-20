@@ -28,11 +28,10 @@ import com.whenhi.hi.util.ClickUtil;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ShareIndexListFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener,
+public class FunnyListFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener,
         OnItemClickListener<Feed>,
         OnItemLongClickListener<Feed> {
-    private static final String TAG = ShareIndexListFragment.class.getSimpleName();
-
+    private static final String TAG = FunnyListFragment.class.getSimpleName();
 
     private SwipeToLoadLayout mSwipeToLoadLayout;
 
@@ -43,19 +42,20 @@ public class ShareIndexListFragment extends BaseFragment implements OnRefreshLis
     private int mPageNo = 1;
 
 
-    public static ShareIndexListFragment newInstance() {
-        ShareIndexListFragment fragment = new ShareIndexListFragment();
+
+    public static Fragment newInstance() {
+        FunnyListFragment fragment = new FunnyListFragment();
         return fragment;
     }
 
-    public ShareIndexListFragment() {
+    public FunnyListFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new FeedListAdapter((BaseFragment) ShareIndexListFragment.newInstance());
+        mAdapter = new FeedListAdapter((BaseFragment) FunnyListFragment.newInstance());
     }
 
     @Override
@@ -95,6 +95,8 @@ public class ShareIndexListFragment extends BaseFragment implements OnRefreshLis
                 }
             }
         });
+
+
     }
 
     @Override
@@ -106,6 +108,7 @@ public class ShareIndexListFragment extends BaseFragment implements OnRefreshLis
                 mSwipeToLoadLayout.setRefreshing(true);
             }
         });
+
     }
 
     @Override
@@ -126,38 +129,39 @@ public class ShareIndexListFragment extends BaseFragment implements OnRefreshLis
 
     @Override
     public void onLoadMore() {
-        mSwipeToLoadLayout.setLoadingMore(false);
-        /*mPageNo++;
+        mPageNo++;
 
-        HttpAPI.shareList(mExtras,mPageNo, new HttpAPI.Callback<FeedModel>() {
+        HttpAPI.requestList("funny",App.getExtras("funny"),mPageNo, new HttpAPI.Callback<FeedModel>() {
             @Override
             public void onSuccess(FeedModel feedModel) {
+                mSwipeToLoadLayout.setLoadingMore(false);
                 if(feedModel.getState() == 0){
-                    mExtras = feedModel.getData().getExtras();
+                    App.setExtras("funny",feedModel.getData().getExtras());
                     mAdapter.append(feedModel.getData().getList());
-                    mSwipeToLoadLayout.setLoadingMore(false);
+
                 }else{
-                    //// TODO: 2017/1/10 提示用户服务器何种问题
+                    Toast.makeText(App.getContext(), feedModel.getMsgText(), Toast.LENGTH_SHORT).show();
                 }
 
             }
 
             @Override
             public void onFailure(Exception e) {
+                Toast.makeText(App.getContext(), "服务器异常", Toast.LENGTH_SHORT).show();
                 mSwipeToLoadLayout.setLoadingMore(false);
             }
-        });*/
+        });
     }
     @Override
     public void onRefresh() {
-        mPageNo = 1;
 
-       /**/ HttpAPI.shareList(App.getExtras("share"),mPageNo, new HttpAPI.Callback<FeedModel>() {
+        mPageNo = 1;
+       /**/ HttpAPI.requestList("funny",App.getExtras("funny"),mPageNo, new HttpAPI.Callback<FeedModel>() {
             @Override
             public void onSuccess(FeedModel feedModel) {
                 mSwipeToLoadLayout.setRefreshing(false);
                 if(feedModel.getState() == 0){
-                    App.setExtras("share",feedModel.getData().getExtras());
+                    App.setExtras("funny",feedModel.getData().getExtras());
                     mAdapter.setList(feedModel.getData().getList());
 
                 }else{
@@ -188,13 +192,15 @@ public class ShareIndexListFragment extends BaseFragment implements OnRefreshLis
     public boolean onClickItemLongClick(int groupPosition, Feed feed, View view) {
         ClickUtil.goToShare(view,feed);
 
+
         return true;
     }
 
 
+
     @Override
     public void onvisible() {
-       /* if(viewCreate) {
+        /*if(viewCreate) {
             mSwipeToLoadLayout.setRefreshing(true);
         }
         onRefresh();*/

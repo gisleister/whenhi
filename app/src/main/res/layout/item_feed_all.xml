@@ -57,7 +57,10 @@
             <ImageView
                 android:id="@+id/item_feed_rec_content_image"
                 android:layout_width="fill_parent"
-                android:layout_height="170dp"/>
+                android:layout_height="170dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:background="@mipmap/bg_image"/>
             <ImageView
                 android:id="@+id/item_feed_rec_content_play"
                 android:layout_width="fill_parent"
@@ -77,6 +80,7 @@
             android:textSize="16sp"
             android:textColor="#333333"
             android:ellipsize="end"
+            android:textStyle="bold"
             android:lineSpacingExtra="8dp"
             android:lineSpacingMultiplier="1"
             android:text="内容"/>
@@ -93,7 +97,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="16dp"
                 android:paddingBottom="8dp">
 
                 <LinearLayout
@@ -168,7 +171,6 @@
 
 
             </RelativeLayout>
-
 
             <RelativeLayout
                 android:layout_width="match_parent"

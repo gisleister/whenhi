@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
+import com.whenhi.hi.activity.LoginActivity;
 import com.whenhi.hi.adapter.FeedListAdapter;
 import com.whenhi.hi.listener.OnItemClickListener;
 import com.whenhi.hi.listener.OnItemLongClickListener;
@@ -28,11 +30,10 @@ import com.whenhi.hi.util.ClickUtil;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ShareIndexListFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener,
+public class XXListFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener,
         OnItemClickListener<Feed>,
         OnItemLongClickListener<Feed> {
-    private static final String TAG = ShareIndexListFragment.class.getSimpleName();
-
+    private static final String TAG = XXListFragment.class.getSimpleName();
 
     private SwipeToLoadLayout mSwipeToLoadLayout;
 
@@ -41,21 +42,22 @@ public class ShareIndexListFragment extends BaseFragment implements OnRefreshLis
     private FeedListAdapter mAdapter;
 
     private int mPageNo = 1;
+    private View mView;
 
 
-    public static ShareIndexListFragment newInstance() {
-        ShareIndexListFragment fragment = new ShareIndexListFragment();
+    public static Fragment newInstance() {
+        XXListFragment fragment = new XXListFragment();
         return fragment;
     }
 
-    public ShareIndexListFragment() {
+    public XXListFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new FeedListAdapter((BaseFragment) ShareIndexListFragment.newInstance());
+        mAdapter = new FeedListAdapter((BaseFragment) XXListFragment.newInstance());
     }
 
     @Override
@@ -68,6 +70,8 @@ public class ShareIndexListFragment extends BaseFragment implements OnRefreshLis
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mView = view;
+
         mSwipeToLoadLayout = (SwipeToLoadLayout) view.findViewById(R.id.swipeToLoadLayout);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.swipe_target);
         RecyclerView.LayoutManager layoutManager = null;
@@ -95,6 +99,7 @@ public class ShareIndexListFragment extends BaseFragment implements OnRefreshLis
                 }
             }
         });
+
     }
 
     @Override
@@ -106,6 +111,7 @@ public class ShareIndexListFragment extends BaseFragment implements OnRefreshLis
                 mSwipeToLoadLayout.setRefreshing(true);
             }
         });
+
     }
 
     @Override
@@ -126,43 +132,46 @@ public class ShareIndexListFragment extends BaseFragment implements OnRefreshLis
 
     @Override
     public void onLoadMore() {
-        mSwipeToLoadLayout.setLoadingMore(false);
-        /*mPageNo++;
-
-        HttpAPI.shareList(mExtras,mPageNo, new HttpAPI.Callback<FeedModel>() {
+        mPageNo++;
+        HttpAPI.requestList("x",App.getExtras("x"),mPageNo, new HttpAPI.Callback<FeedModel>() {
             @Override
             public void onSuccess(FeedModel feedModel) {
+                mSwipeToLoadLayout.setLoadingMore(false);
                 if(feedModel.getState() == 0){
-                    mExtras = feedModel.getData().getExtras();
+                    App.setExtras("x",feedModel.getData().getExtras());
                     mAdapter.append(feedModel.getData().getList());
-                    mSwipeToLoadLayout.setLoadingMore(false);
+
                 }else{
-                    //// TODO: 2017/1/10 提示用户服务器何种问题
+                    Toast.makeText(App.getContext(), feedModel.getMsgText(), Toast.LENGTH_SHORT).show();
                 }
+
+
 
             }
 
             @Override
             public void onFailure(Exception e) {
+                Toast.makeText(App.getContext(), "服务器异常", Toast.LENGTH_SHORT).show();
                 mSwipeToLoadLayout.setLoadingMore(false);
             }
-        });*/
+        });
     }
     @Override
     public void onRefresh() {
-        mPageNo = 1;
 
-       /**/ HttpAPI.shareList(App.getExtras("share"),mPageNo, new HttpAPI.Callback<FeedModel>() {
+        mPageNo = 1;
+        HttpAPI.requestList("x",App.getExtras("x"),mPageNo, new HttpAPI.Callback<FeedModel>() {
             @Override
             public void onSuccess(FeedModel feedModel) {
                 mSwipeToLoadLayout.setRefreshing(false);
                 if(feedModel.getState() == 0){
-                    App.setExtras("share",feedModel.getData().getExtras());
+                    App.setExtras("x",feedModel.getData().getExtras());
                     mAdapter.setList(feedModel.getData().getList());
 
                 }else{
                     Toast.makeText(App.getContext(), feedModel.getMsgText(), Toast.LENGTH_SHORT).show();
                 }
+
 
 
             }
@@ -181,6 +190,13 @@ public class ShareIndexListFragment extends BaseFragment implements OnRefreshLis
 
     @Override
     public void onItemClick(int position, Feed feed, View view) {
+
+        String gender = App.getGender();
+        if(TextUtils.isEmpty(gender)){
+            ClickUtil.goToLogin(mView);
+            return;
+        }
+
         ClickUtil.click(feed,view);
     }
 
@@ -194,9 +210,12 @@ public class ShareIndexListFragment extends BaseFragment implements OnRefreshLis
 
     @Override
     public void onvisible() {
-       /* if(viewCreate) {
-            mSwipeToLoadLayout.setRefreshing(true);
+        String gender = App.getGender();
+        if(TextUtils.isEmpty(gender)){
+            LoginActivity.dialogcancel = false;
+            ClickUtil.goToLogin(mView);
         }
-        onRefresh();*/
     }
+
+
 }

@@ -181,6 +181,12 @@ public class PicCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private void onBindHeaderHolder(HeaderHolder holder) {
         holder.detailText.setText(mFeed.getContent());
+
+        if(TextUtils.isEmpty(mFeed.getContent())){
+            holder.detailText.setVisibility(View.GONE);
+        }else{
+            holder.detailText.setVisibility(View.VISIBLE);
+        }
         holder.userNickName.setText(mFeed.getUserName());
         final WeakReference<ImageView> imageViewWeakReference = new WeakReference<>(holder.userAvatar);
         ImageView target = imageViewWeakReference.get();

@@ -39,6 +39,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -60,6 +61,7 @@ public class App extends Application {
     private LocationManager locationManager;
     private String locationProvider;
     private static Location mLocation;
+    private static String deviceId = "";
 
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -69,6 +71,34 @@ public class App extends Application {
         setStrictMode();
         sContext = getApplicationContext();
         spUtil = SPUtil.getInstance(sContext);
+        TelephonyManager tm = (TelephonyManager) sContext.getSystemService(Context.TELEPHONY_SERVICE);
+        String tmDevice = "";
+        String tmSerial = "";
+        String androidId = "";
+        try {
+            tmDevice = "" + tm.getDeviceId();
+        }catch (Exception e){
+
+        }
+
+        try {
+            tmSerial = "" + tm.getSimSerialNumber();
+
+        }catch (Exception e){
+
+        }
+
+        try {
+            androidId = "" + android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
+
+        }catch (Exception e){
+
+        }
+
+        UUID deviceUuid = new UUID(androidId.hashCode(), ((long)tmDevice.hashCode() << 32) | tmSerial.hashCode());
+        deviceId = deviceUuid.toString();
+
+
         if(TextUtils.isEmpty(App.getJPushRegisterID())){
             JPushInterface.init(getApplicationContext());
         }
@@ -225,10 +255,20 @@ public class App extends Application {
         spUtil.putString("token",loginModel.getData().getToken());
     }
 
+    public static void userGender(String gender){
+        spUtil.putString("gender",gender);
+    }
+
+    public static String getGender(){
+        String gender = spUtil.getString("gender","");
+        return gender;
+    }
+
     public static void loginout(){
         spUtil.putBoolean("isLogin", false);
         spUtil.putString("userId","0");
         spUtil.putString("token",null);
+        spUtil.putString("gender","");
     }
 
     public static void userInit(User user){
@@ -481,18 +521,7 @@ public class App extends Application {
 
     public static String getIMEI(){
 
-        String imei = "";
-        try {
-            imei = ((TelephonyManager) sContext.getSystemService(TELEPHONY_SERVICE))
-                    .getDeviceId();
-        }catch (Exception e){
-
-        }
-        if(!TextUtils.isEmpty(imei)){
-            return imei;
-        }else{
-            return "";
-        }
+        return deviceId;
 
 
     }
@@ -503,21 +532,8 @@ public class App extends Application {
      * @return
      */
     public static String getDeviceId() {
-        String deviceId = "";
-        try {
-            TelephonyManager tm = (TelephonyManager) sContext.getSystemService(Context.TELEPHONY_SERVICE);
-            deviceId = tm.getDeviceId();
 
-
-        }catch (Exception e){
-
-        }
-
-        if(!TextUtils.isEmpty(deviceId)){
-            return deviceId;
-        }else{
-            return "";
-        }
+        return deviceId;
 
 
     }

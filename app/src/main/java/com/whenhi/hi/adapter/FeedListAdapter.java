@@ -3,6 +3,7 @@ package com.whenhi.hi.adapter;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -243,8 +244,12 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             holder.textContent.setText(feed.getContent());
             holder.imagePlay.setVisibility(View.VISIBLE);
             holder.imageContent.setVisibility(View.VISIBLE);
-            //holder.userbar.setVisibility(View.VISIBLE);
-            holder.textContent.setVisibility(View.VISIBLE);
+            if(TextUtils.isEmpty(feed.getContent())){
+                holder.textContent.setVisibility(View.GONE);
+            }else{
+                holder.textContent.setVisibility(View.VISIBLE);
+            }
+
             if (target != null) {
                 Glide.with(context)
                         .load(feed.getImageUrl()+para)
@@ -265,8 +270,11 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             holder.textContent.setText(feed.getContent());
             holder.imagePlay.setVisibility(View.GONE);
             holder.imageContent.setVisibility(View.VISIBLE);
-            //holder.userbar.setVisibility(View.VISIBLE);
-            holder.textContent.setVisibility(View.VISIBLE);
+            if(TextUtils.isEmpty(feed.getContent())){
+                holder.textContent.setVisibility(View.GONE);
+            }else{
+                holder.textContent.setVisibility(View.VISIBLE);
+            }
             List<Image> images = feed.getResList();
             if(images != null){
                 if(images.size() > 0){
@@ -294,15 +302,21 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             holder.textContent.setText(feed.getContent());
             holder.imageContent.setVisibility(View.GONE);
             holder.imagePlay.setVisibility(View.GONE);
-            //holder.userbar.setVisibility(View.VISIBLE);
-            holder.textContent.setVisibility(View.VISIBLE);
+            if(TextUtils.isEmpty(feed.getContent())){
+                holder.textContent.setVisibility(View.GONE);
+            }else{
+                holder.textContent.setVisibility(View.VISIBLE);
+            }
             feed.setImageUrl(App.getUserLogo());//给分享时候图片赋值为用户头像
         }else if(feed.getFeedCategory() == 5){//图片
             holder.textContent.setText(feed.getContent());
             holder.imagePlay.setVisibility(View.GONE);
             holder.imageContent.setVisibility(View.VISIBLE);
-           // holder.userbar.setVisibility(View.VISIBLE);
-            holder.textContent.setVisibility(View.VISIBLE);
+            if(TextUtils.isEmpty(feed.getContent())){
+                holder.textContent.setVisibility(View.GONE);
+            }else{
+                holder.textContent.setVisibility(View.VISIBLE);
+            }
 
             List<Image> images = feed.getResList();
             if(images != null){
@@ -352,8 +366,11 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             holder.textContent.setText(feed.getSummary());
             holder.imagePlay.setVisibility(View.GONE);
             holder.imageContent.setVisibility(View.VISIBLE);
-           // holder.userbar.setVisibility(View.VISIBLE);
-            holder.textContent.setVisibility(View.VISIBLE);
+            if(TextUtils.isEmpty(feed.getContent())){
+                holder.textContent.setVisibility(View.GONE);
+            }else{
+                holder.textContent.setVisibility(View.VISIBLE);
+            }
             if (target != null) {
                 Glide.with(context)
                         .load(feed.getImageUrl()+para)
@@ -377,10 +394,33 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private void showToolbarContent(FeedHolder holder, Feed feed){
 
-        holder.loveText.setText(""+feed.getLikeCount() + "赞");
-        holder.favText.setText(" · "+feed.getFavoriteCount() + "收藏");
-        holder.shareText.setText(" · "+feed.getShareCount() + "分享");
-        holder.commentText.setText(" · "+feed.getCommentCount() + "评论");
+        if(feed.getLikeCount() == 0){
+            holder.loveText.setText("赞");
+        }else{
+            holder.loveText.setText(""+feed.getLikeCount() + "赞");
+        }
+
+        if(feed.getFavoriteCount() == 0){
+            holder.favText.setText(" · 收藏");
+        }else{
+            holder.favText.setText(" · "+feed.getFavoriteCount() + "收藏");
+        }
+
+        if(feed.getShareCount() == 0){
+            holder.shareText.setText(" · 分享");
+        }else{
+            holder.shareText.setText(" · "+feed.getShareCount() + "分享");
+        }
+
+        if(feed.getCommentCount() == 0){
+            holder.commentText.setText(" · 评论");
+        }else{
+            holder.commentText.setText(" · "+feed.getCommentCount() + "评论");
+        }
+
+
+
+
 
         if(feed.getLikeState() == 1){
             holder.loveImage.setImageResource(R.mipmap.zan_click);

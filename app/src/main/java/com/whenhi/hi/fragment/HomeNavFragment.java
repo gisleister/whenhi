@@ -50,9 +50,9 @@ public class HomeNavFragment extends BaseNavPagerFragment {
         Fragment fragment = null;
 
         if (title.equals("搞笑频道")) {
-            fragment = RecListFragment.newInstance();
+            fragment = FunnyListFragment.newInstance();
         } else if (title.equals("XX专区")) {
-            fragment = VideoListFragment.newInstance();
+            fragment = XXListFragment.newInstance();
         }  else if (title.equals("漫画")) {
             fragment = CartoonListFragment.newInstance();
         } else if (title.equals("图片")) {

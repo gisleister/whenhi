@@ -24,7 +24,16 @@
                 android:layout_height="120dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/chuansuo"/>
+                android:src="@mipmap/chuansuo"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/explore_male"
+                android:layout_width="fill_parent"
+                android:layout_height="120dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/male"/>
 
             <TextView
                 android:layout_width="match_parent"

@@ -2,6 +2,7 @@ package com.whenhi.hi.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -164,7 +165,15 @@ public class WebViewCommentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     private void onBindHeaderHolder(HeaderHolder holder) {
+
         holder.detailText.setText(mFeed.getContent());
+
+        if(TextUtils.isEmpty(mFeed.getContent())){
+            holder.detailText.setVisibility(View.GONE);
+        }else{
+            holder.detailText.setVisibility(View.VISIBLE);
+        }
+
         holder.userNickName.setText(mFeed.getUserName());
         final WeakReference<ImageView> imageViewWeakReference = new WeakReference<>(holder.userAvatar);
         ImageView target = imageViewWeakReference.get();

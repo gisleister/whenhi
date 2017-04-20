@@ -63,6 +63,7 @@ public class MoreNavFragment extends BaseFragment {
     private ImageView userAvatar;
     private TextView userNickname;
     private TextView incomeCount;
+    private TextView favCount;
 
     public static Fragment newInstance() {
         MoreNavFragment fragment = new MoreNavFragment();
@@ -112,6 +113,8 @@ public class MoreNavFragment extends BaseFragment {
         userAvatar= (ImageView) view.findViewById(R.id.user_avater);
         userNickname= (TextView) view.findViewById(R.id.user_nickname);
         incomeCount = (TextView)view.findViewById(R.id.user_income_count);
+        favCount = (TextView)view.findViewById(R.id.user_fav_count);
+
 
         checkIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -331,6 +334,7 @@ public class MoreNavFragment extends BaseFragment {
                 if(userModel.getState() == 0){
 
                     incomeCount.setText(""+userModel.getData().getScore());
+                    favCount.setText(""+userModel.getData().getFavoriteCount());
 
 
 
