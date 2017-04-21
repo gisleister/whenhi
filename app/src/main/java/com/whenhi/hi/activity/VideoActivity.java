@@ -61,6 +61,8 @@ public class VideoActivity extends BaseActivity{
     private Button commentBtn;
     private DialogPlus dialog;
 
+    private VideoPlayer mVideoPlayer;
+
     private  Toolbar mToolbar;
     private TextView mTextView;
     private ActionBar mActionBar;
@@ -102,6 +104,10 @@ public class VideoActivity extends BaseActivity{
         ImageView share = (ImageView)findViewById(R.id.toolbar_share_image);
         showToolbarContent(zan,fav,share);
 
+    }
+
+    public void setVideoPlayer(VideoPlayer videoPlayer){
+        mVideoPlayer = videoPlayer;
     }
 
 
@@ -177,19 +183,25 @@ public class VideoActivity extends BaseActivity{
     @Override
     protected void onResume() {
         super.onResume();
-
+        if(mVideoPlayer != null){
+            mVideoPlayer.onHostResume();
+        }
 
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-
+        if(mVideoPlayer != null) {
+            mVideoPlayer.onHostPause();
+        }
     }
 
     @Override
     public void onBackPressed() {
-
+        if(mVideoPlayer != null){
+            mVideoPlayer.onHostDestroy();
+        }
         finish();
     }
 
@@ -197,6 +209,10 @@ public class VideoActivity extends BaseActivity{
     protected void onDestroy() {
         super.onDestroy();
 
+        if(mVideoPlayer != null){
+            mVideoPlayer.stopPlay();
+            mVideoPlayer.onHostDestroy();
+        }
         mFragmentNavigator = null;
         mFeed = null;
         mToolbar = null;

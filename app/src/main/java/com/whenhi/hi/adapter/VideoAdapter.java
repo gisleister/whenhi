@@ -37,6 +37,7 @@ public class VideoAdapter{
         mActivity = (VideoActivity)activity;
         mFeed = feed;
         mVideoPlayer = videoPlayer;
+        mActivity.setVideoPlayer(videoPlayer);
         initData();
         initView();
         initListener();

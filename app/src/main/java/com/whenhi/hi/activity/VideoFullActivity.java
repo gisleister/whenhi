@@ -35,13 +35,18 @@ public class VideoFullActivity extends BaseActivity {
 
         setContentView(R.layout.activity_video_full);
 
-
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+
+        /*
+
+
         if(this.getResources().getConfiguration().orientation ==Configuration.ORIENTATION_PORTRAIT){
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        }
+        }*/
+
+
 
         Bundle bundle = this.getIntent().getExtras();
         mVideoUrl = bundle.getString("VideoUrl");
