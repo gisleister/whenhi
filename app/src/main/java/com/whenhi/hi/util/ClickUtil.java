@@ -88,7 +88,6 @@ public class ClickUtil {
 
         Bundle bundle=new Bundle();
         //传递name参数为tinyphp
-        bundle.putString("imageUrl", feed.getImageUrl());
         bundle.putString("titleText", feed.getContent());
         bundle.putString("score", ""+feed.getScore());
         bundle.putInt("type",3);

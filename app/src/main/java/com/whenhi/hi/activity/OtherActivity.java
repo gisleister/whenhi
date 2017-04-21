@@ -40,7 +40,6 @@ public class OtherActivity extends BaseActivity {
 
     private int type;
     private String mobile;
-    private String imageUrl;
     private String score;
     private int smsType;
     private String titleText;
@@ -56,7 +55,6 @@ public class OtherActivity extends BaseActivity {
         type = bundle.getInt("type");
         smsType = bundle.getInt("smsType");
         mobile = bundle.getString("mobile");
-        imageUrl = bundle.getString("imageUrl");
         score = bundle.getString("score");
         titleText = bundle.getString("titleText");
 
@@ -102,7 +100,7 @@ public class OtherActivity extends BaseActivity {
 
         DialogPlus dialog = DialogPlus.newDialog(this)
                 .setContentHolder(holder)
-                .setCancelable(false)
+                .setCancelable(true)
                 .setGravity(Gravity.CENTER)
                 .setOnDismissListener(new OnDismissListener() {
                     @Override
