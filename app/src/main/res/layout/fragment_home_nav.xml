@@ -42,7 +42,7 @@
             app:xTabSelectedTextColor="#ffa015"
             app:xTabTextColor="#333333"
             app:xTabTextSize="16sp"
-            app:xTabSelectedTextSize="18sp"/>
+            app:xTabSelectedTextSize="20sp"/>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager

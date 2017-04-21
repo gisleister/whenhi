@@ -59,6 +59,15 @@ public class ShareActivity extends BaseActivity implements IWeiboHandler.Respons
 
         Intent intent = getIntent();
         mFeed = (Feed) intent.getSerializableExtra("Feed");
+
+        String content = mFeed.getContent();
+        if(TextUtils.isEmpty(content)){
+            mFeed.setContent("全球最大的娱乐内容汇集地...");
+        }
+
+        mFeed.setTitle("很嗨-精彩内容不断");
+
+
         mWechatHandler = new WechatShareHandler(this);
         mWeiboShareHandler = new WeiboShareHandler(this);
         mQQShareHandler = new QQShareHandler(this);
