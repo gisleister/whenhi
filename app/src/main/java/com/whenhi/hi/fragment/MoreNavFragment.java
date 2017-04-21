@@ -469,10 +469,11 @@ public class MoreNavFragment extends BaseFragment {
             isLogin = App.isLogin();
 
             incomeCount.setText("0");
+            favCount.setText("0");
 
 
 
-            userNickname.setText("点击登录");
+            userNickname.setText("点击登录兑换话费");
             checkinState = 0;
             mobile = null;
             checkIn.setBackgroundResource(R.drawable.shape_button);

@@ -139,18 +139,18 @@ public class SettingActivity extends BaseActivity {
 
         final DialogPlus dialog = DialogPlus.newDialog(this)
                 .setContentHolder(holder)
-                .setHeader(R.layout.layout_dialog_header)
-                .setFooter(R.layout.layout_dialog_footer)
                 .setCancelable(false)
-                .setGravity(Gravity.BOTTOM)
-
+                .setGravity(Gravity.CENTER)
+                .setMargin(80, 0, 80, 0)
+                .setPadding(0, 0, 0, 0)
                 .setExpanded(false)//设置扩展模式可控制dialog的高度
+                .setContentBackgroundResource(R.drawable.shape_caidan)
 
                 .setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(DialogPlus dialog, View view) {
                         switch (view.getId()) {
-                            case R.id.dialog_confirm_button:
+                            case R.id.update_ok:
                                 Intent intent = new Intent();
                                 intent.setAction("android.intent.action.VIEW");
                                 Uri content_url = Uri.parse(url);
@@ -161,7 +161,7 @@ public class SettingActivity extends BaseActivity {
                                 }
 
                                 break;
-                            case R.id.dialog_close_button:
+                            case R.id.update_close:
                                 dialog.dismiss();
                                 break;
                         }
@@ -172,10 +172,10 @@ public class SettingActivity extends BaseActivity {
         dialog.show();
 
         //内容的更新要在dialog显示之后进行
-        TextView updateContent =  (TextView) holder.getInflatedView().findViewById(R.id.dialog_update_content);
+        TextView updateContent =  (TextView) holder.getInflatedView().findViewById(R.id.update_text);
         updateContent.setText(updateText);
 
-        Button button = (Button)holder.getFooter().findViewById(R.id.dialog_close_button);
+        Button button = (Button)holder.getInflatedView().findViewById(R.id.update_close);
         if(isForce){
             button.setVisibility(View.GONE);
         }

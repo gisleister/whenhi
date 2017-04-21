@@ -270,6 +270,7 @@ public class ClickUtil {
                                     }else{
                                         favText.setText(" · "+feed.getFavoriteCount() + "收藏");
                                     }
+                                    NoticeTransfer.refresh();
                                 }else {
                                     Toast.makeText(view.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
                                 }
@@ -294,6 +295,7 @@ public class ClickUtil {
                                     }else{
                                         favText.setText(" · "+feed.getFavoriteCount() + "收藏");
                                     }
+                                    NoticeTransfer.refresh();
                                 }else {
                                     Toast.makeText(view.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
                                 }
@@ -405,6 +407,7 @@ public class ClickUtil {
                                     favImage.setImageResource(R.mipmap.shoucang1);
                                     feed.setFavoriteCount(feed.getFavoriteCount()-1);
                                     feed.setFavoriteState(0);
+                                    NoticeTransfer.refresh();
                                 }else {
                                     Toast.makeText(view.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
                                 }
@@ -424,6 +427,7 @@ public class ClickUtil {
                                     favImage.setImageResource(R.mipmap.shoucang_click1);
                                     feed.setFavoriteCount(feed.getFavoriteCount()+1);
                                     feed.setFavoriteState(1);
+                                    NoticeTransfer.refresh();
                                 }else {
                                     Toast.makeText(view.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
                                 }
