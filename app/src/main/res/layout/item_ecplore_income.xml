@@ -3,8 +3,8 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    android:paddingLeft="22dp"
-    android:paddingRight="22dp"
+    android:paddingLeft="19dp"
+    android:paddingRight="19dp"
     android:paddingTop="8dp"
     android:paddingBottom="8dp"
     android:orientation="vertical" >
@@ -53,6 +53,8 @@
         android:textSize="14sp"
         android:textColor="#333333"
         android:textStyle="bold"
+        android:maxEms="4"
+        android:singleLine="true"
         android:ellipsize="end"
         android:text="昵称"/>
 

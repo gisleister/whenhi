@@ -73,7 +73,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:background="@drawable/bg_edittext_normal"
-        android:hint="请收入验证码"
+        android:hint="请输入验证码"
         android:textSize="12sp"
         android:textColor="#999999"
         android:text=""/>
