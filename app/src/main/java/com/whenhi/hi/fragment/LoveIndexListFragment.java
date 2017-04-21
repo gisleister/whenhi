@@ -87,7 +87,7 @@ public class LoveIndexListFragment extends BaseFragment implements OnRefreshList
         //layoutManager.setAutoMeasureEnabled(true);
 
         //final CustomLinearLayoutManager layoutManager = new CustomLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        // mRecyclerView.setNestedScrollingEnabled(false);
+        mRecyclerView.setNestedScrollingEnabled(false);
 
 
         mRecyclerView.setLayoutManager(layoutManager);

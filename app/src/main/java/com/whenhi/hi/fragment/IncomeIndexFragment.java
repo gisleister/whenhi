@@ -25,7 +25,7 @@ import java.util.List;
  */
 
 public class IncomeIndexFragment extends BaseFragment implements OnItemClickListener<User>, OnItemLongClickListener<User> {
-    private static final String TAG = LoveIndexListFragment.class.getSimpleName();
+    private static final String TAG = IncomeIndexFragment.class.getSimpleName();
 
 
     private RecyclerView mRecyclerView;
@@ -66,6 +66,9 @@ public class IncomeIndexFragment extends BaseFragment implements OnItemClickList
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+
+        //mRecyclerView.setNestedScrollingEnabled(false);
+
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
 

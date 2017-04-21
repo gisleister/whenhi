@@ -38,16 +38,6 @@ public class IncomeIndexListFragment extends BaseFragment implements OnRefreshLi
     private int mPageNo = 1;
     private String mExtras = "";
 
-    private boolean viewCreate;
-
-    public boolean getViewCreate() {
-        return viewCreate;
-    }
-
-    public void setViewCreate(boolean viewCreate) {
-        this.viewCreate = viewCreate;
-    }
-
     public static IncomeIndexListFragment newInstance() {
         IncomeIndexListFragment fragment = new IncomeIndexListFragment();
         return fragment;
@@ -75,15 +65,18 @@ public class IncomeIndexListFragment extends BaseFragment implements OnRefreshLi
         super.onViewCreated(view, savedInstanceState);
         mSwipeToLoadLayout = (SwipeToLoadLayout) view.findViewById(R.id.swipeToLoadLayout);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.swipe_target);
-        RecyclerView.LayoutManager layoutManager = null;
-        layoutManager = new LinearLayoutManager(getContext());
+
+        final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setAutoMeasureEnabled(true);
+
+
+        mRecyclerView.setNestedScrollingEnabled(false);
+
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
         mRecyclerView.getRecycledViewPool().setMaxRecycledViews(mAdapter.getItemViewType(0),3);
 
-        setViewCreate(true);
 
         mSwipeToLoadLayout.setOnRefreshListener(this);
         mSwipeToLoadLayout.setOnLoadMoreListener(this);
@@ -180,20 +173,20 @@ public class IncomeIndexListFragment extends BaseFragment implements OnRefreshLi
 
     @Override
     public void destroy() {
-        if(viewCreate){
+       /* if(viewCreate){
             mRecyclerView.removeAllViews();
             mRecyclerView.setAdapter(null);
             mRecyclerView.setAdapter(mAdapter);
            // mAdapter.notifyDataSetChanged();
-        }
+        }*/
     }
 
     @Override
     public void onvisible() {
-        if(viewCreate) {
+        /*if(viewCreate) {
             mSwipeToLoadLayout.setRefreshing(true);
         }
-        onRefresh();
+        onRefresh();*/
     }
 
 }

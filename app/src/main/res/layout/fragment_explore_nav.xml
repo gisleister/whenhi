@@ -10,8 +10,8 @@
 
     <ScrollView
         android:scrollbars="none"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
         <LinearLayout
             android:id="@+id/explore_income_layout"
             android:layout_width="match_parent"
@@ -79,7 +79,7 @@
             <FrameLayout
                 android:id="@+id/fragment_other_index_container"
                 android:layout_width="match_parent"
-                android:layout_height="560dp"
+                android:layout_height="8196dp"
                 android:orientation="vertical"/>
 
 
