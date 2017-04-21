@@ -1,15 +1,21 @@
 package com.whenhi.hi.fragment;
 
 
+import android.content.Context;
+import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
@@ -24,6 +30,8 @@ import com.whenhi.hi.model.Feed;
 import com.whenhi.hi.model.FeedModel;
 import com.whenhi.hi.network.HttpAPI;
 import com.whenhi.hi.util.ClickUtil;
+import com.whenhi.hi.view.linearLayout.CustomLinearLayoutManager;
+import com.whenhi.hi.view.linearLayout.WHLinearLayoutManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,9 +78,18 @@ public class ShareIndexListFragment extends BaseFragment implements OnRefreshLis
         super.onViewCreated(view, savedInstanceState);
         mSwipeToLoadLayout = (SwipeToLoadLayout) view.findViewById(R.id.swipeToLoadLayout);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.swipe_target);
-        RecyclerView.LayoutManager layoutManager = null;
-        layoutManager = new LinearLayoutManager(getContext());
+
+
+        final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setAutoMeasureEnabled(true);
+
+        //final RecyclerView.LayoutManager layoutManager = new WHLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false,getScreenHeight());
+        //layoutManager.setAutoMeasureEnabled(true);
+
+        //final CustomLinearLayoutManager layoutManager = new CustomLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+       mRecyclerView.setNestedScrollingEnabled(false);
+
+
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -95,6 +112,23 @@ public class ShareIndexListFragment extends BaseFragment implements OnRefreshLis
                 }
             }
         });
+
+    }
+
+    private int getScreenHeight() {
+        int measuredHeight;
+        Point size = new Point();
+        WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            wm.getDefaultDisplay().getSize(size);
+            measuredHeight = size.y;
+        } else {
+            Display d = wm.getDefaultDisplay();
+            measuredHeight = d.getHeight();
+        }
+
+        return measuredHeight;
     }
 
     @Override

@@ -172,7 +172,7 @@ public class TextCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             Glide.with(context)
                     .load(mFeed.getUserLogo())
                     .transform(new CircleTransform(context))
-                    .error(R.mipmap.user_default)
+                    .error(R.mipmap.logo)
                     .into(target);
         }
     }

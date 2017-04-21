@@ -182,7 +182,7 @@ public class WebViewCommentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             Glide.with(context)
                     .load(mFeed.getUserLogo())
                     .transform(new CircleTransform(context))
-                    .error(R.mipmap.user_default)
+                    .error(R.mipmap.logo)
                     .into(target);
         }
     }

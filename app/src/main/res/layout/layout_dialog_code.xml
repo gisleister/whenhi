@@ -4,73 +4,93 @@
     android:id="@+id/item_feed_detail_layout"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
+    android:background="#00000000"
     android:orientation="vertical" >
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/beijing">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/jinbi_icon"/>
+
+    </RelativeLayout>
 
     <TextView
+        android:id="@+id/code_title_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textColor="#333333"
-        android:ellipsize="end"
-        android:gravity="center_horizontal"
-        android:text="输入邀请码"/>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="12dp"
-        android:background="@color/bg_sys"/>
-
-    <EditText
-        android:id="@+id/code_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
-        android:background="@drawable/bg_edittext_normal"
-        android:hint="请收入邀请码"
-        android:textSize="12sp"
-        android:text=""/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:background="@color/bg_sys"/>
-
-    <TextView
-        android:id="@+id/code_ok"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/app_sys_color"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
         android:textSize="12sp"
         android:textColor="#333333"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
+        android:textStyle="bold"
         android:ellipsize="end"
-        android:gravity="center_horizontal"
-        android:text="下一步"/>
+        android:gravity="center"
+        android:text="验证邀请码"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:background="@color/bg_sys"/>
 
-    <TextView
-        android:id="@+id/code_close"
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bg_tab"
-        android:textSize="12sp"
-        android:textColor="#333333"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
-        android:ellipsize="end"
-        android:gravity="center_horizontal"
-        android:text="关闭本页"/>
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="10dp">
+
+        <EditText
+            android:id="@+id/code_text"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_edittext_normal"
+            android:textCursorDrawable="@drawable/style_edittext_cursor"
+            android:ellipsize="end"
+            android:textColor="#999999"
+            android:textSize="12sp"
+            android:hint="请输入邀请码"/>
+
+    </RelativeLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/code_close"
+            android:layout_width="60dp"
+            android:layout_height="34dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/shape_button"
+            android:textSize="14sp"
+            android:textColor="#ffffff"
+            android:text="取消"/>
+
+        <Button
+            android:id="@+id/code_ok"
+            android:layout_width="60dp"
+            android:layout_height="34dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/shape_button"
+            android:textSize="14sp"
+            android:textColor="#ffffff"
+            android:text="提交"/>
+
+    </LinearLayout>
+
 
 </LinearLayout>
 

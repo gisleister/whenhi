@@ -88,6 +88,12 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void setList(List<Comment> comments) {
         mComments.clear();
 
+        if(comments.size() == 0){
+            Comment comment = new Comment();
+            comment.setUserName("很嗨提示");
+            comment.setContent("暂时没有任何评论，呜呜！");
+            comments.add(comment);
+        }
         append(comments);
     }
 
@@ -197,7 +203,7 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             Glide.with(context)
                     .load(mFeed.getUserLogo())
                     .transform(new CircleTransform(context))
-                    .error(R.mipmap.user_default)
+                    .error(R.mipmap.logo)
                     .into(target);
         }
 
@@ -224,6 +230,12 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         holder.imageContent.setOnClickListener(new Button.OnClickListener(){//创建监听
             public void onClick(View v) {
+
+                String videoUrl = mFeed.getPlayUrl();
+
+                String vUrl = videoUrl.replaceFirst("https","http");
+                mFeed.setPlayUrl(vUrl);
+
                 mVideoAdapter = new VideoAdapter(mActivity,mFeed,holder.videoPlayer);
                 holder.videoPlayer.setVisibility(View.VISIBLE);
                 holder.imageContent.setVisibility(View.GONE);
@@ -253,7 +265,7 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             Glide.with(context)
                     .load(comment.getUserLogo())
                     .transform(new CircleTransform(context))
-                    .error(R.mipmap.user_default)
+                    .error(R.mipmap.logo)
                     .into(target);
         }
 

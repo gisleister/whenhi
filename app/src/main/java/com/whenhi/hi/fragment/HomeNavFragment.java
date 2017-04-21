@@ -41,7 +41,7 @@ public class HomeNavFragment extends BaseNavPagerFragment {
 
     @Override
     protected String[] getTitles() {
-        return new String[]{"搞笑频道","XX专区"};
+        return new String[]{"搞笑频道","X专区"};
     }
 
     @Override
@@ -51,7 +51,7 @@ public class HomeNavFragment extends BaseNavPagerFragment {
 
         if (title.equals("搞笑频道")) {
             fragment = FunnyListFragment.newInstance();
-        } else if (title.equals("XX专区")) {
+        } else if (title.equals("X专区")) {
             fragment = XXListFragment.newInstance();
         }  else if (title.equals("漫画")) {
             fragment = CartoonListFragment.newInstance();

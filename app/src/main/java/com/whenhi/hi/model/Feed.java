@@ -39,6 +39,16 @@ public class Feed implements Serializable {
     private String title;
     private String summary;
     private int type;//1代表邀请好友，2代表彩蛋 3代表充值成功
+    private int score;//彩蛋专用 标识获得的嗨币
+
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
 
     public String getTitle() {
         return title;

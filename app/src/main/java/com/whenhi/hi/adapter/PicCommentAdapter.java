@@ -195,7 +195,7 @@ public class PicCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             Glide.with(context)
                     .load(mFeed.getUserLogo())
                     .transform(new CircleTransform(context))
-                    .error(R.mipmap.user_default)
+                    .error(R.mipmap.logo)
                     .into(target);
         }
     }

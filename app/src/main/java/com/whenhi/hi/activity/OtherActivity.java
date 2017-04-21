@@ -41,8 +41,9 @@ public class OtherActivity extends BaseActivity {
     private int type;
     private String mobile;
     private String imageUrl;
-    private String contentText;
+    private String score;
     private int smsType;
+    private String titleText;
 
 
 
@@ -56,7 +57,8 @@ public class OtherActivity extends BaseActivity {
         smsType = bundle.getInt("smsType");
         mobile = bundle.getString("mobile");
         imageUrl = bundle.getString("imageUrl");
-        contentText = bundle.getString("contentText");
+        score = bundle.getString("score");
+        titleText = bundle.getString("titleText");
 
 
 
@@ -109,30 +111,24 @@ public class OtherActivity extends BaseActivity {
                     }
                 })
                 .setExpanded(false)//设置扩展模式可控制dialog的高度
+                .setMargin(80, 0, 80, 0)
+                .setPadding(0, 0, 0, 0)
+                .setContentBackgroundResource(R.drawable.shape_caidan)
 
                 .setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(final DialogPlus dialog, View view) {
                         switch (view.getId()) {
-                            case R.id.caidan_ok:
+
+                            case R.id.caidan_close:
                                 if(!App.isLogin()){
                                     ClickUtil.goToLogin(view);
                                 }else{
-                                    Feed feed = new Feed();//彩蛋type=2
-                                    feed.setType(2);
-                                    feed.setTitle("每月最多领取150元话费");
-                                    feed.setContent("很嗨-汇聚全世界最优质最搞笑的内容");
-                                    String invitePageUrl = App.getInvitePageUrl();
-                                    String userLogo = App.getUserLogo();
 
-                                    feed.setShareUrl(invitePageUrl);
-                                    feed.setImageUrl(userLogo);
-                                    ClickUtil.goToShare(view, feed);
                                 }
 
-                                break;
-                            case R.id.caidan_close:
                                 dialog.dismiss();
+
                                 break;
                         }
 
@@ -140,25 +136,17 @@ public class OtherActivity extends BaseActivity {
                 })
                 .create();
         dialog.show();
-
-        ImageView imageCaidan =  (ImageView) holder.getInflatedView().findViewById(R.id.caidan_image);
-        final WeakReference<ImageView> imageViewWeakReference = new WeakReference<>(imageCaidan);
-        ImageView target = imageViewWeakReference.get();
-        if (target != null) {
-            Glide.with(this)
-                    .load(imageUrl)
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .error(R.mipmap.bg_image)
-                    .into(target);
-        }
-
         TextView textCaidan = (TextView)holder.getInflatedView().findViewById(R.id.caidan_text);
-        textCaidan.setText(contentText);
+        textCaidan.setText("+ "+score);
+
+        TextView textTitle = (TextView)holder.getInflatedView().findViewById(R.id.caidan_title);
+        textTitle.setText(titleText);
 
         if(!App.isLogin()){
-            TextView okCaidan = (TextView)holder.getInflatedView().findViewById(R.id.caidan_ok);
-            okCaidan.setText("登录领取");
+            TextView close = (TextView)holder.getInflatedView().findViewById(R.id.caidan_close);
+            close.setText("登录领取");
         }
+
     }
 
 
@@ -181,6 +169,9 @@ public class OtherActivity extends BaseActivity {
                     }
                 })
                 .setExpanded(false)//设置扩展模式可控制dialog的高度
+                .setMargin(80, 0, 80, 0)
+                .setPadding(0, 0, 0, 0)
+                .setContentBackgroundResource(R.drawable.shape_caidan)
 
                 .setOnClickListener(new OnClickListener() {
                     @Override
@@ -261,10 +252,6 @@ public class OtherActivity extends BaseActivity {
                 .create();
         dialog.show();
 
-        if(smsType == 2){
-            TextView title =  (TextView) holder.getInflatedView().findViewById(R.id.sms_title_text);
-            title.setText("为了您保障您和邀请人的权益需要您验证手机号码 ");
-        }
 
 
 
@@ -300,6 +287,9 @@ public class OtherActivity extends BaseActivity {
                         }
                     })
                     .setExpanded(false)//设置扩展模式可控制dialog的高度
+                    .setMargin(80, 0, 80, 0)
+                    .setPadding(0, 0, 0, 0)
+                    .setContentBackgroundResource(R.drawable.shape_caidan)
 
                     .setOnClickListener(new OnClickListener() {
                         @Override

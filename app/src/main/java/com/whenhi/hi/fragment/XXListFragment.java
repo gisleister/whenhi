@@ -212,7 +212,6 @@ public class XXListFragment extends BaseFragment implements OnRefreshListener, O
     public void onvisible() {
         String gender = App.getGender();
         if(TextUtils.isEmpty(gender)){
-            LoginActivity.dialogcancel = false;
             ClickUtil.goToLogin(mView);
         }
     }

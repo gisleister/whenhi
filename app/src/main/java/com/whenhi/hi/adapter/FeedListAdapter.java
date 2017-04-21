@@ -135,7 +135,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .transform(new CircleTransform(context))
-                .error(R.mipmap.user_default)
+                .error(R.mipmap.logo)
                 .into(target);
 
         showContent(holder,feed,context);//显示内容
