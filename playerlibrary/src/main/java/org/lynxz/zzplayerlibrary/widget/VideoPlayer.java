@@ -617,7 +617,7 @@ public class VideoPlayer extends RelativeLayout implements View.OnTouchListener 
         if (animateEffect) {
             animateShowOrHideControlBar(show);
         } else {
-            forceShowOrHideControlBar(show);
+            forceShowOrHideTitleBar(show);
         }
     }
 
@@ -798,13 +798,13 @@ public class VideoPlayer extends RelativeLayout implements View.OnTouchListener 
             getLayoutParams().width = (int) width;
         } else {
             width = DensityUtil.getWidthInPx(mHostActivity.get());
-            height = DensityUtil.dip2px(mHostActivity.get(), 200f);
+            height = DensityUtil.getHeightInPx(mHostActivity.get());
         }
         getLayoutParams().height = (int) height;
         getLayoutParams().width = (int) width;
 
         //需要强制显示再隐藏控制条,不然若切换为横屏时控制条是隐藏的,首次触摸显示时,会显示在200dp的位置
-        forceShowOrHideControlBar(true);
+        forceShowOrHideTitleBar(true);
         sendAutoHideBarsMsg();
 
         //更新全屏图标
@@ -823,7 +823,7 @@ public class VideoPlayer extends RelativeLayout implements View.OnTouchListener 
         }
 
         //强制弹出标题栏和控制栏
-        forceShowOrHideControlBar(true);
+        forceShowOrHideTitleBar(false);
         sendAutoHideBarsMsg();
     }
 

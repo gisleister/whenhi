@@ -31,7 +31,7 @@
         android:textStyle="bold"
         android:ellipsize="end"
         android:gravity="center"
-        android:text="验证手机号"/>
+        android:text="免费充值"/>
 
 
 

@@ -105,6 +105,11 @@ public class VideoAdapter{
             bundle.putString("VideoUrl", mVideoUrl);
             bundle.putString("QiniuUrl", mFeed.getQiniuPlayUrl());
             bundle.putInt("LastUpdateTime",mVideoPlayer.getCurrentTime());
+            String title = mFeed.getContent();
+            if(TextUtils.isEmpty(title)){
+                title = "很嗨视频";
+            }
+            bundle.putString("title", title);
             intent.putExtras(bundle);
             mActivity.startActivity(intent);
 

@@ -253,6 +253,12 @@ public class OtherActivity extends BaseActivity {
 
 
 
+
+        if(smsType == 2){
+            TextView title = (TextView)holder.getInflatedView().findViewById(R.id.sms_title_text);
+            title.setText("请先绑定手机号再输入邀请码");
+        }
+
     }
 
     private void goToPhone(View view, String mobile){

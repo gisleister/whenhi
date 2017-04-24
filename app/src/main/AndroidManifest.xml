@@ -106,7 +106,8 @@
 
         <activity
             android:name=".activity.VideoFullActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:configChanges="keyboard|orientation|screenSize"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.LoginActivity"

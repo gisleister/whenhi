@@ -27,24 +27,17 @@ public class VideoFullActivity extends BaseActivity {
     private String mVideoUrl;
     private int mLastUpdateTime;
     private String qiniuUrl;
+    private String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);//隐藏标题
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);//设置全屏
 
         setContentView(R.layout.activity_video_full);
-
-        getWindow().setFormat(PixelFormat.TRANSLUCENT);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-
-        /*
-
-
-        if(this.getResources().getConfiguration().orientation ==Configuration.ORIENTATION_PORTRAIT){
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        }*/
 
 
 
@@ -52,6 +45,7 @@ public class VideoFullActivity extends BaseActivity {
         mVideoUrl = bundle.getString("VideoUrl");
         qiniuUrl = bundle.getString("QiniuUrl");
         mLastUpdateTime = bundle.getInt("LastUpdateTime");
+        title = bundle.getString("title");
         initView();
         initListener();
 
@@ -71,9 +65,9 @@ public class VideoFullActivity extends BaseActivity {
 
 
     private void initView() {
-       // OrientationUtil.changeOrientation(this);
+
         mVideoPlayer = (VideoPlayer) findViewById(R.id.video_full);
-        mVideoPlayer.setTitle("视频名称");
+        mVideoPlayer.setTitle(title);
         mVideoPlayer.loadAndStartVideo(this, mVideoUrl);
         mVideoPlayer.setLastUpdateTime(mLastUpdateTime);
         mVideoPlayer.setLastPlayingPos(mLastUpdateTime);
@@ -82,8 +76,8 @@ public class VideoFullActivity extends BaseActivity {
         //设置控制栏播放/暂停/全屏/退出全屏按钮图标
         mVideoPlayer.setIconPlay(R.mipmap.play);
         mVideoPlayer.setIconPause(R.mipmap.pause);
-        mVideoPlayer.setIconExpand(R.mipmap.shrink);
-        mVideoPlayer.setIconShrink(R.mipmap.shrink);
+        //mVideoPlayer.setIconExpand(R.mipmap.expand);
+        //mVideoPlayer.setIconShrink(R.mipmap.shrink);
         //隐藏/显示控制栏时间值信息
         // mVp.hideTimes();
         mVideoPlayer.showTimes();
@@ -95,16 +89,21 @@ public class VideoFullActivity extends BaseActivity {
         mVideoPlayer.setProgressLayerDrawables(R.drawable.shape_video_progressbar);//自定义的layer-list
 
         mVideoPlayer.setIOrientationImpl(iOrientationImpl);
+        OrientationUtil.changeOrientation(this);
 
     }
 
     private VideoPlayer.IOrientationImpl iOrientationImpl = new VideoPlayer.IOrientationImpl() {
         @Override
         public void onOrientationChange() {
-            if(mVideoPlayer != null){
-                mVideoPlayer.onHostDestroy();
-            }
-            finish();
+
+            OrientationUtil.changeOrientation(VideoFullActivity.this);
+            /*int orientation = OrientationUtil.getOrientation(VideoFullActivity.this);
+            if (orientation == OrientationUtil.HORIZONTAL) {
+                OrientationUtil.forceOrientation(VideoFullActivity.this, OrientationUtil.VERTICAL);
+            }else{
+                OrientationUtil.forceOrientation(VideoFullActivity.this, OrientationUtil.HORIZONTAL);
+            }*/
         }
     };
 
@@ -120,12 +119,7 @@ public class VideoFullActivity extends BaseActivity {
         public void onBack() {
             // 全屏播放时,单击左上角返回箭头,先回到竖屏状态,再关闭
             // 这里功能最好跟onBackPressed()操作一致
-            int orientation = OrientationUtil.getOrientation(VideoFullActivity.this);
-            if (orientation == OrientationUtil.HORIZONTAL) {
-                OrientationUtil.forceOrientation(VideoFullActivity.this, OrientationUtil.VERTICAL);
-            } else {
-                finish();
-            }
+            finish();
 
         }
 

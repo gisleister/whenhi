@@ -27,5 +27,7 @@
         android:layout_height="match_parent"
         android:ellipsize="marquee"
         android:gravity="center_vertical"
+        android:maxEms="10"
+        android:singleLine="true"
         android:text="zz_player"/>
 </LinearLayout>
