@@ -101,7 +101,7 @@ public class WeiboShareHandler extends BaseShareHandler {
         // 1. 初始化微博的分享消息
         WeiboMultiMessage weiboMessage = new WeiboMultiMessage();
         if (hasText) {
-            weiboMessage.textObject = getTextObject(title);
+            weiboMessage.textObject = getTextObject(des);
         }
 
         if (hasImage) {

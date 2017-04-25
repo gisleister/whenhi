@@ -77,6 +77,12 @@ public class WebViewCommentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public void setList(List<Comment> comments) {
         mComments.clear();
 
+        if(comments.size() == 0){
+            Comment comment = new Comment();
+            comment.setId(-1);
+            comment.setContent("暂时没有任何评论，赶紧坐沙发吧，再晚就没了。嘻嘻！");
+            comments.add(comment);
+        }
         append(comments);
     }
 
@@ -166,9 +172,9 @@ public class WebViewCommentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     private void onBindHeaderHolder(HeaderHolder holder) {
 
-        holder.detailText.setText(mFeed.getContent());
+        holder.detailText.setText(mFeed.getTitle());
 
-        if(TextUtils.isEmpty(mFeed.getContent())){
+        if(TextUtils.isEmpty(mFeed.getTitle())){
             holder.detailText.setVisibility(View.GONE);
         }else{
             holder.detailText.setVisibility(View.VISIBLE);
@@ -216,7 +222,14 @@ public class WebViewCommentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private void onBindChildHolder(ChildHolder holder, int childPosition) {
         //Character character = mSections.get(parentPosition).getCharacters().get(childPosition);
         Comment comment = mComments.get(childPosition);
+
         holder.commentText.setText(comment.getContent());
+
+        if(TextUtils.isEmpty(comment.getUserName())){
+            holder.userNickName.setVisibility(View.GONE);
+            holder.userAvatar.setVisibility(View.GONE);
+        }
+
         holder.userNickName.setText(comment.getUserName());
         final WeakReference<ImageView> imageViewWeakReference = new WeakReference<>(holder.userAvatar);
         ImageView target = imageViewWeakReference.get();
@@ -228,7 +241,6 @@ public class WebViewCommentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     .error(R.mipmap.user_default)
                     .into(target);
         }
-
 
     }
 

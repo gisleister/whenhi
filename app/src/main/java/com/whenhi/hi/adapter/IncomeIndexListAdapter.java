@@ -79,7 +79,7 @@ public class IncomeIndexListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         int index = position+1;
         holder.userScoreIndex.setText(""+index);
         holder.userNickName.setText(user.getUserName());
-        holder.userScore.setText(""+user.getScore() + " 嗨币");
+        holder.userScore.setText(""+user.getScore() + "嗨币");
 
         Context context = App.getContext();
         ImageUtil.avatarImage(context,user.getUserLogo(),holder.userAvatar);

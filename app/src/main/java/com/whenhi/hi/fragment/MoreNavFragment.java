@@ -316,8 +316,8 @@ public class MoreNavFragment extends BaseFragment {
     private void goToShare(View view){//我的里面邀请好友 type=1
         Feed feed = new Feed();
         feed.setType(1);
-        feed.setTitle("每月最多领取150元话费");
-        feed.setContent("很嗨-汇聚全世界最优质最搞笑的内容");
+        feed.setTitle("很嗨-每月领取150元话费");
+        feed.setContent("全球最大的娱乐内容汇集地...");
         String invitePageUrl = App.getInvitePageUrl();
         String userLogo = App.getUserLogo();
 

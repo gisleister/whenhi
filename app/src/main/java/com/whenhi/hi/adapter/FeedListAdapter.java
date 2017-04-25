@@ -344,7 +344,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }else if(feed.getFeedCategory() == 7){//分割线
 
         }else if(feed.getFeedCategory() == 8){//彩蛋
-            holder.textContent.setText(feed.getMaskContent());
+            //holder.textContent.setText(feed.getMaskContent());
             holder.imagePlay.setVisibility(View.GONE);
             holder.imageContent.setVisibility(View.VISIBLE);
             //holder.userbar.setVisibility(View.GONE);
@@ -366,7 +366,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             holder.textContent.setText(feed.getSummary());
             holder.imagePlay.setVisibility(View.GONE);
             holder.imageContent.setVisibility(View.VISIBLE);
-            if(TextUtils.isEmpty(feed.getContent())){
+            if(TextUtils.isEmpty(feed.getSummary())){
                 holder.textContent.setVisibility(View.GONE);
             }else{
                 holder.textContent.setVisibility(View.VISIBLE);

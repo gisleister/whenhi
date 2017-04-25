@@ -65,7 +65,13 @@ public class ShareActivity extends BaseActivity implements IWeiboHandler.Respons
             mFeed.setContent("全球最大的娱乐内容汇集地...");
         }
 
-        mFeed.setTitle("很嗨-精彩内容不断");
+        String title = mFeed.getTitle();
+
+        if(TextUtils.isEmpty(title)){
+            mFeed.setTitle("很嗨-精彩内容不断");
+        }
+
+
 
 
         mWechatHandler = new WechatShareHandler(this);
@@ -200,7 +206,7 @@ public class ShareActivity extends BaseActivity implements IWeiboHandler.Respons
             title = mFeed.getContent();
         }
 
-        mWeiboShareHandler.sendMultiMessage(false,true,true,false,ShareActivity.this,title,mFeed.getContent(),shareUrl,bp,full,new ShareListener());
+        mWeiboShareHandler.sendMultiMessage(true,true,true,false,ShareActivity.this,title,mFeed.getContent(),shareUrl,bp,full,new ShareListener());
 
     }
 

@@ -18,6 +18,7 @@
         android:background="@drawable/shape_index"
         android:paddingLeft="16dp"
         android:paddingTop="6dp"
+        android:paddingRight="16dp"
         android:paddingBottom="6dp">
 
         <TextView
@@ -54,8 +55,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:paddingTop="10dp"
-            android:textColor="#ff6000"
-            android:textSize="14sp"
+            android:textColor="#ffa015"
+            android:textSize="12sp"
             android:textStyle="bold"
             android:ellipsize="end"/>
 

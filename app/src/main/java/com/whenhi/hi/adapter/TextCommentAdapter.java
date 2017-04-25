@@ -3,6 +3,7 @@ package com.whenhi.hi.adapter;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,7 +77,12 @@ public class TextCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     public void setList(List<Comment> comments) {
         mComments.clear();
-
+        if(comments.size() == 0){
+            Comment comment = new Comment();
+            comment.setContent("暂时没有任何评论，赶紧坐沙发吧，再晚就没了。嘻嘻！");
+            comment.setId(-1);
+            comments.add(comment);
+        }
         append(comments);
     }
 
@@ -199,10 +205,15 @@ public class TextCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private void onBindChildHolder(ChildHolder holder, int childPosition) {
         Comment comment = mComments.get(childPosition);
         holder.commentText.setText(comment.getContent());
+
+        if(TextUtils.isEmpty(comment.getUserName())){
+            holder.userNickName.setVisibility(View.GONE);
+            holder.userAvatar.setVisibility(View.GONE);
+        }
         holder.userNickName.setText(comment.getUserName());
         final WeakReference<ImageView> imageViewWeakReference = new WeakReference<>(holder.userAvatar);
         ImageView target = imageViewWeakReference.get();
-        Context context = holder.itemView.getContext();
+        Context context = App.getContext();
         if (target != null) {
             Glide.with(context)
                     .load(comment.getUserLogo())

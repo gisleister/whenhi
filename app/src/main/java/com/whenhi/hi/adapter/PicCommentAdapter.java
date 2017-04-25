@@ -93,7 +93,12 @@ public class PicCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public void setList(List<Comment> comments) {
         mComments.clear();
-
+        if(comments.size() == 0){
+            Comment comment = new Comment();
+            comment.setId(-1);
+            comment.setContent("暂时没有任何评论，赶紧坐沙发吧，再晚就没了。嘻嘻！");
+            comments.add(comment);
+        }
         append(comments);
     }
 
@@ -221,10 +226,16 @@ public class PicCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         //Character character = mSections.get(parentPosition).getCharacters().get(childPosition);
         Comment comment = mComments.get(childPosition);
         holder.commentText.setText(comment.getContent());
+
+        if(TextUtils.isEmpty(comment.getUserName())){
+            holder.userNickName.setVisibility(View.GONE);
+            holder.userAvatar.setVisibility(View.GONE);
+        }
+
         holder.userNickName.setText(comment.getUserName());
         final WeakReference<ImageView> imageViewWeakReference = new WeakReference<>(holder.userAvatar);
         ImageView target = imageViewWeakReference.get();
-        Context context = holder.itemView.getContext();
+        Context context = App.getContext();
         if (target != null) {
             Glide.with(context)
                     .load(comment.getUserLogo())
@@ -232,8 +243,6 @@ public class PicCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     .error(R.mipmap.user_default)
                     .into(target);
         }
-
-
     }
 
 

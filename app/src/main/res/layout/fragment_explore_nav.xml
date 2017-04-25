@@ -79,7 +79,7 @@
             <FrameLayout
                 android:id="@+id/fragment_other_index_container"
                 android:layout_width="match_parent"
-                android:layout_height="8196dp"
+                android:layout_height="4096dp"
                 android:orientation="vertical"/>
 
 

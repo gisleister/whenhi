@@ -108,18 +108,21 @@ public class ClickUtil {
                     String data = baseModel.getData();
                     if(!TextUtils.isEmpty(data)){
                         NoticeTransfer.refresh();
-                        Toast.makeText(App.getContext(), data, Toast.LENGTH_SHORT).show();
+                        if(feed.getFeedCategory() != 8){
+                            Toast.makeText(App.getContext(), data, Toast.LENGTH_SHORT).show();
+                        }
+
                     }
 
                 }else{
-
+                    Toast.makeText(App.getContext(), "请求失败", Toast.LENGTH_SHORT).show();
                 }
 
             }
 
             @Override
             public void onFailure(Exception e) {
-
+                Toast.makeText(App.getContext(), "服务器异常", Toast.LENGTH_SHORT).show();
             }
         });
     }
