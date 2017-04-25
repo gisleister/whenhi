@@ -40,12 +40,11 @@
         android:id="@+id/update_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:gravity="center_horizontal|left"
         android:paddingLeft="6dp"
         android:paddingRight="6dp"
         android:textSize="14sp"
         android:textColor="#ffa015"
-        android:textStyle="bold"
         android:ellipsize="end"
         android:text="+ 1"/>
 
