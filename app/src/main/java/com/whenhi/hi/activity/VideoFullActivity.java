@@ -28,24 +28,29 @@ public class VideoFullActivity extends BaseActivity {
     private int mLastUpdateTime;
     private String qiniuUrl;
     private String title;
+    private boolean isPortrait;
+
+    public static final int VERTICAL = 0x00;
+    public static final int HORIZONTAL = 0x01;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-
-        requestWindowFeature(Window.FEATURE_NO_TITLE);//隐藏标题
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);//设置全屏
-
-        setContentView(R.layout.activity_video_full);
-
-
 
         Bundle bundle = this.getIntent().getExtras();
         mVideoUrl = bundle.getString("VideoUrl");
         qiniuUrl = bundle.getString("QiniuUrl");
         mLastUpdateTime = bundle.getInt("LastUpdateTime");
         title = bundle.getString("title");
+        isPortrait = bundle.getBoolean("isPortrait");
+
+
+        setContentView(R.layout.activity_video_full);
+
+
+
+
         initView();
         initListener();
 
@@ -76,8 +81,8 @@ public class VideoFullActivity extends BaseActivity {
         //设置控制栏播放/暂停/全屏/退出全屏按钮图标
         mVideoPlayer.setIconPlay(R.mipmap.play);
         mVideoPlayer.setIconPause(R.mipmap.pause);
-        //mVideoPlayer.setIconExpand(R.mipmap.expand);
-        //mVideoPlayer.setIconShrink(R.mipmap.shrink);
+        mVideoPlayer.setIconExpand(R.mipmap.shrink);
+        mVideoPlayer.setIconShrink(R.mipmap.shrink);
         //隐藏/显示控制栏时间值信息
         // mVp.hideTimes();
         mVideoPlayer.showTimes();
@@ -89,15 +94,21 @@ public class VideoFullActivity extends BaseActivity {
         mVideoPlayer.setProgressLayerDrawables(R.drawable.shape_video_progressbar);//自定义的layer-list
 
         mVideoPlayer.setIOrientationImpl(iOrientationImpl);
-        OrientationUtil.changeOrientation(this);
+
+        if(isPortrait){
+            OrientationUtil.forceOrientation(this,VERTICAL);
+        }else {
+            OrientationUtil.forceOrientation(this,HORIZONTAL);
+        }
+
 
     }
 
     private VideoPlayer.IOrientationImpl iOrientationImpl = new VideoPlayer.IOrientationImpl() {
         @Override
-        public void onOrientationChange() {
-
-            OrientationUtil.changeOrientation(VideoFullActivity.this);
+        public void onOrientationChange(boolean isPortrait) {
+            finish();
+            // OrientationUtil.changeOrientation(VideoFullActivity.this);
             /*int orientation = OrientationUtil.getOrientation(VideoFullActivity.this);
             if (orientation == OrientationUtil.HORIZONTAL) {
                 OrientationUtil.forceOrientation(VideoFullActivity.this, OrientationUtil.VERTICAL);

@@ -148,7 +148,7 @@ public class MoreNavFragment extends BaseFragment {
 
         });
 
-        TextView income = (TextView)view.findViewById(R.id.user_income_text);
+        LinearLayout income = (LinearLayout)view.findViewById(R.id.user_income_layout);
         income.setOnClickListener(new RelativeLayout.OnClickListener(){//创建监听
             public void onClick(View v) {
 
@@ -164,7 +164,7 @@ public class MoreNavFragment extends BaseFragment {
         });
 
 
-        TextView fav = (TextView)view.findViewById(R.id.user_fav_text);
+        LinearLayout fav = (LinearLayout)view.findViewById(R.id.user_fav_layout);
         fav.setOnClickListener(new RelativeLayout.OnClickListener(){//创建监听
             public void onClick(View v) {
 

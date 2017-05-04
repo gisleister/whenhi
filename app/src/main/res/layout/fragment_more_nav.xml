@@ -79,7 +79,7 @@
 
 
             <LinearLayout
-                android:id="@+id/user_income_layout"
+                android:id="@+id/user_other_layout"
                 android:layout_width="match_parent"
                 android:background="#ffffff"
                 android:layout_height="60dp"
@@ -87,6 +87,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/user_income_layout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -133,6 +134,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/user_fav_layout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

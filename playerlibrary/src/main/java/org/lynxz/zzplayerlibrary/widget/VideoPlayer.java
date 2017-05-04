@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.media.AudioManager;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.Uri;
@@ -43,6 +44,7 @@ import org.lynxz.zzplayerlibrary.util.OrientationUtil;
 
 import java.lang.ref.WeakReference;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -66,6 +68,7 @@ public class VideoPlayer extends RelativeLayout implements View.OnTouchListener 
     private Animation mExitFromTop;
     private Animation mExitFromBottom;
 
+    private boolean isPortrait = false;
 
     private int mDuration = 0;//视频长度
     private long mCurrentDownTime = 0;//当前action_down时的时间值
@@ -251,7 +254,8 @@ public class VideoPlayer extends RelativeLayout implements View.OnTouchListener 
         @Override
         public void onOrientationChange() {
             //OrientationUtil.changeOrientation(mHostActivity.get());
-            mIOrientationImpl.onOrientationChange();
+
+            mIOrientationImpl.onOrientationChange(isPortrait);
         }
     };
 
@@ -572,6 +576,17 @@ public class VideoPlayer extends RelativeLayout implements View.OnTouchListener 
 
         initNetworkMonitor();
         registerNetworkReceiver();
+        MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+        if (Build.VERSION.SDK_INT >= 14)
+            mmr.setDataSource(path, new HashMap<String, String>());
+        else
+            mmr.setDataSource(path);
+        int width = Integer.parseInt(mmr.extractMetadata(android.media.MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH));
+        int height = Integer.parseInt(mmr.extractMetadata(android.media.MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT));
+        if(height > width){
+            isPortrait = true;
+        }
+
     }
 
     public void loadAndStartVideo(@NonNull Activity act, @NonNull String path) {
@@ -1094,7 +1109,7 @@ public class VideoPlayer extends RelativeLayout implements View.OnTouchListener 
         /**
          * 触发全屏/退出全屏功能
          */
-        void onOrientationChange();
+        void onOrientationChange(boolean isPortrait);
     }
 
 }

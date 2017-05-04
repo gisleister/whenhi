@@ -59,8 +59,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="170dp"
                 android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:background="@mipmap/bg_image"/>
+                android:scaleType="centerCrop"/>
             <ImageView
                 android:id="@+id/item_feed_rec_content_play"
                 android:layout_width="fill_parent"
@@ -120,7 +119,7 @@
                     android:id="@+id/toolbar_fav_btn"
                     android:layout_width="40dp"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="50dp"
+                    android:layout_marginLeft="54dp"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -155,6 +154,7 @@
                     android:layout_width="40dp"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
+                    android:gravity="center"
                     android:orientation="vertical">
 
 

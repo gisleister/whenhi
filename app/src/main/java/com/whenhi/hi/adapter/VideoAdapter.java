@@ -96,7 +96,7 @@ public class VideoAdapter{
 
     private VideoPlayer.IOrientationImpl iOrientationImpl = new VideoPlayer.IOrientationImpl() {
         @Override
-        public void onOrientationChange() {
+        public void onOrientationChange(boolean isPortrait) {
 
             mVideoPlayer.pausePlay();
             Intent intent = new Intent(mActivity, VideoFullActivity.class);
@@ -105,6 +105,7 @@ public class VideoAdapter{
             bundle.putString("VideoUrl", mVideoUrl);
             bundle.putString("QiniuUrl", mFeed.getQiniuPlayUrl());
             bundle.putInt("LastUpdateTime",mVideoPlayer.getCurrentTime());
+            bundle.putBoolean("isPortrait",isPortrait);
             String title = mFeed.getContent();
             if(TextUtils.isEmpty(title)){
                 title = "很嗨视频";

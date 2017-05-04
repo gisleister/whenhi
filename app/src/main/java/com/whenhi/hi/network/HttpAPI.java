@@ -400,7 +400,7 @@ public class HttpAPI {
         params.put("regId", ""+ App.getJPushRegisterID());
         params.put("packageName",App.getAppPkg());
         params.put("buildNo",App.getBuildTime());
-        params.put("channel",App.getChannel("JPUSH_CHANNEL"));
+        params.put("channel",App.getChannel("UMENG_CHANNEL"));
         params.put("uid", ""+ App.getUserId());
         params.put("t", App.getToken());
         params.put("did",App.getDeviceId());
