@@ -20,10 +20,9 @@ import com.whenhi.hi.R;
 import com.whenhi.hi.adapter.FeedListAdapter;
 import com.whenhi.hi.listener.OnItemClickListener;
 import com.whenhi.hi.listener.OnItemLongClickListener;
-import com.whenhi.hi.model.FeedModel;
 import com.whenhi.hi.model.Feed;
+import com.whenhi.hi.model.FeedModel;
 import com.whenhi.hi.network.HttpAPI;
-import com.whenhi.hi.network.OkHttp;
 import com.whenhi.hi.util.ClickUtil;
 
 /**

@@ -27,7 +27,6 @@ import com.whenhi.hi.App;
 import com.whenhi.hi.Constants;
 import com.whenhi.hi.R;
 import com.whenhi.hi.fragment.DetailFragmentAdapter;
-import com.whenhi.hi.listener.CommentListener;
 import com.whenhi.hi.model.BaseModel;
 import com.whenhi.hi.model.Comment;
 import com.whenhi.hi.model.Feed;

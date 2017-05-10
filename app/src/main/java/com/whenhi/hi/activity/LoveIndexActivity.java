@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.aspsine.fragmentnavigator.FragmentNavigator;
 import com.whenhi.hi.Constants;
 import com.whenhi.hi.R;
-import com.whenhi.hi.fragment.DetailFragmentAdapter;
 import com.whenhi.hi.fragment.OtherFragmentAdapter;
 
 public class LoveIndexActivity extends BaseActivity{

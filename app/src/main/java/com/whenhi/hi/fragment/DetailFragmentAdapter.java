@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 
 import com.aspsine.fragmentnavigator.FragmentNavigatorAdapter;
 import com.whenhi.hi.Constants;
-import com.whenhi.hi.model.Comment;
 import com.whenhi.hi.model.Feed;
 
 /**

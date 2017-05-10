@@ -16,22 +16,11 @@
 
 package com.whenhi.hi.platform;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
 
-import com.tencent.connect.share.QQShare;
-import com.tencent.connect.share.QzoneShare;
 import com.tencent.open.utils.SystemUtils;
-import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
-import com.tencent.tauth.UiError;
 import com.whenhi.hi.platform.share.BaseShareHandler;
-import com.whenhi.hi.platform.share.IShareListener;
-
-import java.util.ArrayList;
 
 /**
  * QQ helper.

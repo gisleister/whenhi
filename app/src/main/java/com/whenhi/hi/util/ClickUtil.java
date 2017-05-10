@@ -3,12 +3,9 @@ package com.whenhi.hi.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,16 +15,15 @@ import android.widget.Toast;
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
 import com.whenhi.hi.activity.LoginActivity;
+import com.whenhi.hi.activity.LuckpanActivity;
 import com.whenhi.hi.activity.OtherActivity;
 import com.whenhi.hi.activity.PicActivity;
 import com.whenhi.hi.activity.ShareActivity;
 import com.whenhi.hi.activity.TextActivity;
 import com.whenhi.hi.activity.VideoActivity;
 import com.whenhi.hi.activity.WebViewActivity;
-import com.whenhi.hi.adapter.FeedListAdapter;
 import com.whenhi.hi.model.BaseModel;
 import com.whenhi.hi.model.Feed;
-import com.whenhi.hi.model.LoginModel;
 import com.whenhi.hi.network.HttpAPI;
 import com.whenhi.hi.receiver.NoticeTransfer;
 
@@ -48,7 +44,6 @@ public class ClickUtil {
 
         if(feed.getFeedCategory() == 1){//视频
             goToVideo(view,feed);
-
         }else if(feed.getFeedCategory() == 2){//动图
 
 
@@ -73,6 +68,8 @@ public class ClickUtil {
         }else if(feed.getFeedCategory() == 9){//资讯
             goToWeb(view,feed);
 
+        }else if(feed.getFeedCategory() == 10){//抽奖大转盘
+            goToLuckpan(view,feed);
         }
 
 
@@ -125,6 +122,13 @@ public class ClickUtil {
                 Toast.makeText(App.getContext(), "服务器异常", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+
+    private static void goToLuckpan(View view, Feed feed){
+        Intent intent = new Intent(view.getContext(), LuckpanActivity.class);
+        intent.putExtra("Feed", feed);
+        view.getContext().startActivity(intent);
     }
 
     private static void goToVideo(View view, Feed feed){

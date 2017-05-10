@@ -20,7 +20,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
@@ -31,8 +30,6 @@ import com.whenhi.hi.activity.LoginActivity;
 import com.whenhi.hi.activity.ShareActivity;
 import com.whenhi.hi.platform.WechatHelper;
 import com.whenhi.hi.platform.login.wechat.WechatLoginHandler;
-import com.whenhi.hi.platform.model.Share;
-import com.whenhi.hi.platform.share.IShareListener;
 import com.whenhi.hi.platform.share.wechat.WechatShareHandler;
 
 

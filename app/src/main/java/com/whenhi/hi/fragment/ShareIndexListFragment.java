@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,8 +29,6 @@ import com.whenhi.hi.model.Feed;
 import com.whenhi.hi.model.FeedModel;
 import com.whenhi.hi.network.HttpAPI;
 import com.whenhi.hi.util.ClickUtil;
-import com.whenhi.hi.view.linearLayout.CustomLinearLayoutManager;
-import com.whenhi.hi.view.linearLayout.WHLinearLayoutManager;
 
 /**
  * A simple {@link Fragment} subclass.

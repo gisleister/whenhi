@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.whenhi.hi.R;
-import com.whenhi.hi.activity.CraftActivity;
 import com.whenhi.hi.activity.IncomeIndexActivity;
 import com.whenhi.hi.adapter.IncomeIndexAdapter;
 import com.whenhi.hi.listener.OnItemClickListener;

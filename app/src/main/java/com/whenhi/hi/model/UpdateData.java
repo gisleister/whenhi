@@ -1,7 +1,6 @@
 package com.whenhi.hi.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by 王雷 on 2017/1/18.

@@ -18,14 +18,11 @@ package com.whenhi.hi.platform.login.weibo;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 
-import com.sina.weibo.sdk.auth.AuthInfo;
-import com.sina.weibo.sdk.auth.WeiboAuthListener;
+import com.sina.weibo.sdk.auth.Oauth2AccessToken;
+import com.sina.weibo.sdk.auth.WbConnectErrorMessage;
 import com.sina.weibo.sdk.auth.sso.SsoHandler;
-import com.sina.weibo.sdk.exception.WeiboException;
 import com.whenhi.hi.network.HttpAPI;
-import com.whenhi.hi.platform.PlatformConfig;
 import com.whenhi.hi.platform.login.AuthResult;
 import com.whenhi.hi.platform.login.BaseLoginHandler;
 import com.whenhi.hi.platform.login.ILoginListener;
@@ -41,6 +38,9 @@ import com.whenhi.hi.platform.model.Login;
 public class WeiboLoginHandler extends BaseLoginHandler {
 
 
+    /** 封装了 "access_token"，"expires_in"，"refresh_token"，并提供了他们的管理功能  */
+    private Oauth2AccessToken mAccessToken;
+    /** 注意：SsoHandler 仅当 SDK 支持 SSO 时有效 */
     private SsoHandler mSsoHandler;
     private Login mLogin;
 
@@ -57,12 +57,55 @@ public class WeiboLoginHandler extends BaseLoginHandler {
      */
     public void login(Activity activity, ILoginListener listener) {
         setCallBack(listener);
-        PlatformConfig config = PlatformConfig.getInstance();
-        AuthInfo weiboAuth = new AuthInfo(activity, config.getWeiboKey(), config.getWeiboCallback(),
-                config.getWeiboScope());
 
-        mSsoHandler = new SsoHandler(activity, weiboAuth);
-        mSsoHandler.authorize(mAuthListener);
+
+        mSsoHandler = new SsoHandler(activity);
+        mSsoHandler.authorize(new SelfWbAuthListener());
+    }
+
+    private class SelfWbAuthListener implements com.sina.weibo.sdk.auth.WbAuthListener{
+
+        @Override
+        public void onSuccess(Oauth2AccessToken oauth2AccessToken) {
+            WeiboLoginResult result = new WeiboLoginResult();
+            result.access_token = oauth2AccessToken.getBundle().getString("access_token");
+            result.expires_in = oauth2AccessToken.getBundle().getString("expires_in");
+            result.remind_in = oauth2AccessToken.getBundle().getString("remind_in");
+            result.uid = oauth2AccessToken.getBundle().getString("uid");
+            result.userName = oauth2AccessToken.getBundle().getString("userName");
+            result.refresh_token = oauth2AccessToken.getBundle().getString("refresh_token");
+
+            // convert to common authorize result
+            AuthResult auth = new AuthResult();
+            auth.from = AuthResult.TYPE_WEIBO;
+            auth.id = result.uid;
+            auth.accessToken = result.access_token;
+            auth.refreshToken = result.refresh_token;
+            auth.expiresIn = System.currentTimeMillis() + Long.parseLong(result.expires_in) * 1000L;
+
+            log("Weibo authorize success!" +
+                    "\nUid: " + auth.id +
+                    "\nAccess token: " + auth.accessToken +
+                    "\nExpires in: " + formatDate(auth.expiresIn));
+
+            mLogin.setAuthResult(auth);
+            callBack(ILoginListener.CODE_AUTH_SUCCESS, mLogin);
+            if (mRequestInfoEnable) {
+                callBack(ILoginListener.CODE_LOGIN_ING, mLogin);
+                // request user info
+                requestUserInfo(result);
+            }
+        }
+
+        @Override
+        public void cancel() {
+            callBack(ILoginListener.CODE_CANCEL_AUTH, null);
+        }
+
+        @Override
+        public void onFailure(WbConnectErrorMessage wbConnectErrorMessage) {
+            callBack(ILoginListener.CODE_AUTH_EXCEPTION, mLogin);
+        }
     }
 
     /**
@@ -106,50 +149,4 @@ public class WeiboLoginHandler extends BaseLoginHandler {
 
     }
 
-    private WeiboAuthListener mAuthListener = new WeiboAuthListener() {
-
-        @Override
-        public void onComplete(Bundle values) {
-            // parse authorize result
-            WeiboLoginResult result = new WeiboLoginResult();
-            result.access_token = values.getString("access_token");
-            result.expires_in = values.getString("expires_in");
-            result.remind_in = values.getString("remind_in");
-            result.uid = values.getString("uid");
-            result.userName = values.getString("userName");
-            result.refresh_token = values.getString("refresh_token");
-
-            // convert to common authorize result
-            AuthResult auth = new AuthResult();
-            auth.from = AuthResult.TYPE_WEIBO;
-            auth.id = result.uid;
-            auth.accessToken = result.access_token;
-            auth.refreshToken = result.refresh_token;
-            auth.expiresIn = System.currentTimeMillis() + Long.parseLong(result.expires_in) * 1000L;
-
-            log("Weibo authorize success!" +
-                    "\nUid: " + auth.id +
-                    "\nAccess token: " + auth.accessToken +
-                    "\nExpires in: " + formatDate(auth.expiresIn));
-
-            mLogin.setAuthResult(auth);
-            callBack(ILoginListener.CODE_AUTH_SUCCESS, mLogin);
-            if (mRequestInfoEnable) {
-                callBack(ILoginListener.CODE_LOGIN_ING, mLogin);
-                // request user info
-                requestUserInfo(result);
-            }
-        }
-
-        @Override
-        public void onWeiboException(WeiboException e) {
-            mLogin.setErrorMessage(e.getMessage());
-            callBack(ILoginListener.CODE_AUTH_EXCEPTION, mLogin);
-        }
-
-        @Override
-        public void onCancel() {
-            callBack(ILoginListener.CODE_CANCEL_AUTH, null);
-        }
-    };
 }

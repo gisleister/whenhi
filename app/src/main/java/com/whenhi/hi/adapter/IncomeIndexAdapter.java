@@ -1,35 +1,22 @@
 package com.whenhi.hi.adapter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
-import com.whenhi.hi.activity.LoginActivity;
-import com.whenhi.hi.activity.PicActivity;
-import com.whenhi.hi.activity.ShareActivity;
-import com.whenhi.hi.activity.VideoActivity;
-import com.whenhi.hi.activity.WebViewActivity;
 import com.whenhi.hi.image.CircleTransform;
 import com.whenhi.hi.listener.GlideListener;
 import com.whenhi.hi.listener.OnItemClickListener;
 import com.whenhi.hi.listener.OnItemLongClickListener;
-import com.whenhi.hi.model.BaseModel;
-import com.whenhi.hi.model.Feed;
 import com.whenhi.hi.model.User;
-import com.whenhi.hi.network.HttpAPI;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 

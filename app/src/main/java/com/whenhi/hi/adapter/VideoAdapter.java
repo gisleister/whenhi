@@ -12,13 +12,10 @@ import com.whenhi.hi.activity.VideoFullActivity;
 import com.whenhi.hi.model.BaseModel;
 import com.whenhi.hi.model.Feed;
 import com.whenhi.hi.network.HttpAPI;
-import com.whenhi.hi.receiver.NoticeTransfer;
 
 import org.lynxz.zzplayerlibrary.controller.IPlayerImpl;
 import org.lynxz.zzplayerlibrary.util.OrientationUtil;
 import org.lynxz.zzplayerlibrary.widget.VideoPlayer;
-
-import java.util.ArrayList;
 
 /**
  * Created by 王雷 on 2017/2/21.

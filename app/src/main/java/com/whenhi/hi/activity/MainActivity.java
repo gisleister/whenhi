@@ -16,7 +16,6 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -28,17 +27,18 @@ import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.Holder;
 import com.orhanobut.dialogplus.OnClickListener;
 import com.orhanobut.dialogplus.ViewHolder;
+import com.sina.weibo.sdk.WbSdk;
+import com.sina.weibo.sdk.auth.AuthInfo;
 import com.whenhi.hi.App;
 import com.whenhi.hi.Constants;
 import com.whenhi.hi.R;
-import com.whenhi.hi.dialog.Dialog;
 import com.whenhi.hi.fragment.MainFragmentAdapter;
-import com.whenhi.hi.listener.NoticeListener;
 import com.whenhi.hi.model.BaseModel;
 import com.whenhi.hi.model.TicketModel;
 import com.whenhi.hi.model.UpdateData;
 import com.whenhi.hi.model.UpdateModel;
 import com.whenhi.hi.network.HttpAPI;
+import com.whenhi.hi.platform.PlatformConfig;
 import com.whenhi.hi.receiver.NoticeTransfer;
 import com.whenhi.hi.util.BindUtil;
 import com.whenhi.hi.util.DateUtil;
@@ -85,8 +85,16 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
         App.setStatusMainActivity(true);
 
+        initWeibo();
 
 
+
+    }
+    private void initWeibo(){
+        PlatformConfig config = PlatformConfig.getInstance();
+        AuthInfo weiboAuth = new AuthInfo(MainActivity.this, config.getWeiboKey(), config.getWeiboCallback(),
+                config.getWeiboScope());
+        WbSdk.install(MainActivity.this,weiboAuth);
     }
 
     private  void todayFirstDo(){

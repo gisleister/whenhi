@@ -16,9 +16,6 @@
 
 package com.whenhi.hi.platform.login.wechat;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 /**
  * The wechat authorize result entity.
  *

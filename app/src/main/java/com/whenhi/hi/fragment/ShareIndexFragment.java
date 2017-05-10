@@ -1,8 +1,5 @@
 package com.whenhi.hi.fragment;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.whenhi.hi.R;
-import com.whenhi.hi.activity.ShareActivity;
-import com.whenhi.hi.adapter.LoveIndexAdapter;
 import com.whenhi.hi.adapter.ShareIndexAdapter;
 import com.whenhi.hi.listener.OnItemClickListener;
 import com.whenhi.hi.listener.OnItemLongClickListener;

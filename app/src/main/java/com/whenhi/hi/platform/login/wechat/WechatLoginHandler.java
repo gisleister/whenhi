@@ -19,7 +19,6 @@ package com.whenhi.hi.platform.login.wechat;
 import android.content.Context;
 import android.text.TextUtils;
 
-
 import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.modelmsg.SendAuth;
 import com.whenhi.hi.network.HttpAPI;

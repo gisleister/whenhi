@@ -1,6 +1,5 @@
 package com.whenhi.hi.receiver;
 
-import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -11,19 +10,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.PowerManager;
 import android.support.v7.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.WindowManager;
 
 import com.google.gson.Gson;
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
 import com.whenhi.hi.activity.MainActivity;
 import com.whenhi.hi.activity.PushActivity;
-import com.whenhi.hi.activity.ShareActivity;
 import com.whenhi.hi.model.NotificationData;
 import com.whenhi.hi.model.NotificationModel;
 
@@ -33,9 +29,7 @@ import org.json.JSONObject;
 import java.util.Iterator;
 import java.util.List;
 
-import cn.jpush.android.api.CustomPushNotificationBuilder;
 import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.ui.PopWinActivity;
 
 /**
  * Created by 王雷 on 2017/1/13.

@@ -18,7 +18,6 @@ import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
 import com.whenhi.hi.adapter.IncomeIndexListAdapter;
-import com.whenhi.hi.decorator.UnderneathDivider;
 import com.whenhi.hi.model.UserScoreModel;
 import com.whenhi.hi.network.HttpAPI;
 

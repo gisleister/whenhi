@@ -12,9 +12,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
 import com.whenhi.hi.image.RoundTransform;
+import com.whenhi.hi.listener.GlideListener;
 import com.whenhi.hi.listener.OnItemClickListener;
 import com.whenhi.hi.listener.OnItemLongClickListener;
-import com.whenhi.hi.listener.GlideListener;
 import com.whenhi.hi.model.Image;
 
 import java.lang.ref.WeakReference;

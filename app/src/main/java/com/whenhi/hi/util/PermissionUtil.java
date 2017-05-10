@@ -4,11 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.Holder;
@@ -16,9 +13,6 @@ import com.orhanobut.dialogplus.OnClickListener;
 import com.orhanobut.dialogplus.OnDismissListener;
 import com.orhanobut.dialogplus.ViewHolder;
 import com.whenhi.hi.R;
-import com.whenhi.hi.activity.OtherActivity;
-import com.whenhi.hi.model.BaseModel;
-import com.whenhi.hi.network.HttpAPI;
 
 /**
  * Created by 王雷 on 2017/3/22.

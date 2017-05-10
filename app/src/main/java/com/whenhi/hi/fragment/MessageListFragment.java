@@ -17,7 +17,6 @@ import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
 import com.whenhi.hi.adapter.MessageAdapter;
-import com.whenhi.hi.decorator.InsetWhenhi;
 import com.whenhi.hi.listener.NoticeListener;
 import com.whenhi.hi.listener.OnItemClickListener;
 import com.whenhi.hi.listener.OnItemLongClickListener;
@@ -25,9 +24,6 @@ import com.whenhi.hi.model.Message;
 import com.whenhi.hi.model.MessageModel;
 import com.whenhi.hi.network.HttpAPI;
 import com.whenhi.hi.receiver.NoticeTransfer;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by 王雷 on 2016/12/25.

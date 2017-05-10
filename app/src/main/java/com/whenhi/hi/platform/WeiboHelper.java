@@ -18,20 +18,8 @@ package com.whenhi.hi.platform;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.text.TextUtils;
 
-import com.sina.weibo.sdk.api.ImageObject;
-import com.sina.weibo.sdk.api.TextObject;
-import com.sina.weibo.sdk.api.WebpageObject;
-import com.sina.weibo.sdk.api.WeiboMultiMessage;
-import com.sina.weibo.sdk.api.share.IWeiboHandler;
-import com.sina.weibo.sdk.api.share.IWeiboShareAPI;
-import com.sina.weibo.sdk.api.share.SendMultiMessageToWeiboRequest;
-import com.sina.weibo.sdk.api.share.WeiboShareSDK;
-import com.sina.weibo.sdk.utils.Utility;
-import com.whenhi.hi.util.ImageUtil;
+import com.sina.weibo.sdk.share.WbShareHandler;
 
 
 /**
@@ -43,13 +31,13 @@ import com.whenhi.hi.util.ImageUtil;
 public class WeiboHelper {
     private static WeiboHelper sInstance;
 
-    private final IWeiboShareAPI mWeiboShareAPI;
+    private final WbShareHandler mWbShareHandler;
 
     private WeiboHelper(Context context) {
+
         // 创建微博分享接口实例
-        mWeiboShareAPI = WeiboShareSDK.createWeiboAPI(context.getApplicationContext(),
-                PlatformConfig.getInstance().getWeiboKey());
-        mWeiboShareAPI.registerApp();
+        mWbShareHandler = new WbShareHandler((Activity)context);
+        mWbShareHandler.registerApp();
     }
 
     public synchronized static WeiboHelper getInstance(Context context) {
@@ -59,26 +47,11 @@ public class WeiboHelper {
         return sInstance;
     }
 
-    /**
-     * 是否安装微博APP
-     *
-     * @return is installed
-     */
-    public boolean isInstalled() {
-        return mWeiboShareAPI.isWeiboAppInstalled();
-    }
 
-    public IWeiboShareAPI getAPI(){return mWeiboShareAPI;}
 
-    /**
-     * 处理分享结果
-     *
-     * @param intent   {@link Intent}
-     * @param response IWeiboHandler.Response
-     */
-    public void handleResponse(Intent intent, IWeiboHandler.Response response) {
-        mWeiboShareAPI.handleWeiboResponse(intent, response);
-    }
+    public WbShareHandler getAPI(){return mWbShareHandler;}
+
+
 
 
 }

@@ -9,19 +9,13 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
-import com.whenhi.hi.dialog.Dialog;
 import com.whenhi.hi.model.BaseModel;
-import com.whenhi.hi.model.UpdateData;
-import com.whenhi.hi.model.UpdateModel;
 import com.whenhi.hi.network.HttpAPI;
-import com.whenhi.hi.receiver.NoticeTransfer;
-import com.whenhi.hi.util.CacheUtil;
 import com.whenhi.hi.util.ClickUtil;
 
 

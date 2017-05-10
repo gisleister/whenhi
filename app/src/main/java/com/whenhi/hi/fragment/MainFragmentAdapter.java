@@ -1,6 +1,5 @@
 package com.whenhi.hi.fragment;
 
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 

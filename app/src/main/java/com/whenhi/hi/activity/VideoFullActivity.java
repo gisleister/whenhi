@@ -1,18 +1,11 @@
 package com.whenhi.hi.activity;
 
-import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.graphics.PixelFormat;
 import android.os.Bundle;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.whenhi.hi.R;
-import com.whenhi.hi.model.Feed;
 
-import org.lynxz.zzplayerlibrary.constant.PlayState;
 import org.lynxz.zzplayerlibrary.controller.IPlayerImpl;
 import org.lynxz.zzplayerlibrary.util.OrientationUtil;
 import org.lynxz.zzplayerlibrary.widget.VideoPlayer;

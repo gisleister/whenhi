@@ -1,51 +1,31 @@
 package com.whenhi.hi.fragment;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aspsine.fragmentnavigator.FragmentNavigator;
-import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.whenhi.hi.App;
 import com.whenhi.hi.Constants;
 import com.whenhi.hi.R;
 import com.whenhi.hi.activity.CraftActivity;
 import com.whenhi.hi.activity.IncomeIndexActivity;
-import com.whenhi.hi.activity.LoveIndexActivity;
 import com.whenhi.hi.activity.MaleActivity;
-import com.whenhi.hi.activity.ShareIndexActivity;
-import com.whenhi.hi.adapter.IncomeIndexAdapter;
-import com.whenhi.hi.adapter.LoveIndexAdapter;
-import com.whenhi.hi.adapter.ShareIndexAdapter;
-import com.whenhi.hi.model.BaseModel;
 import com.whenhi.hi.model.DiscoveryModel;
-import com.whenhi.hi.model.Feed;
-import com.whenhi.hi.model.FeedModel;
 import com.whenhi.hi.network.HttpAPI;
 import com.whenhi.hi.util.ClickUtil;
-import com.whenhi.hi.view.horizontal.HorizontalListView;
-
-import java.util.List;
 
 /**
  * Created by 王雷 on 2016/12/26.

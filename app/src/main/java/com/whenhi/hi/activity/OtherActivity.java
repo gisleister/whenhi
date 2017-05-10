@@ -1,20 +1,14 @@
 package com.whenhi.hi.activity;
 
 import android.content.Intent;
-import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.Holder;
 import com.orhanobut.dialogplus.OnClickListener;
@@ -23,12 +17,9 @@ import com.orhanobut.dialogplus.ViewHolder;
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
 import com.whenhi.hi.model.BaseModel;
-import com.whenhi.hi.model.Feed;
 import com.whenhi.hi.network.HttpAPI;
 import com.whenhi.hi.receiver.NoticeTransfer;
 import com.whenhi.hi.util.ClickUtil;
-
-import java.lang.ref.WeakReference;
 
 /**
  * Created by 王雷 on 2017/1/5.

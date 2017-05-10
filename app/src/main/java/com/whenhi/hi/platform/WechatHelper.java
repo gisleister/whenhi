@@ -18,16 +18,10 @@ package com.whenhi.hi.platform;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 
-import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
-import com.tencent.mm.sdk.modelmsg.WXImageObject;
-import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
-import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
-import com.whenhi.hi.util.ImageUtil;
 
 
 /**

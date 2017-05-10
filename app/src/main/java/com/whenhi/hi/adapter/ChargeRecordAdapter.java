@@ -10,7 +10,6 @@ import com.whenhi.hi.R;
 import com.whenhi.hi.listener.OnItemClickListener;
 import com.whenhi.hi.listener.OnItemLongClickListener;
 import com.whenhi.hi.model.ChargeRecord;
-import com.whenhi.hi.model.UserIncomeRecord;
 
 import java.util.ArrayList;
 import java.util.List;

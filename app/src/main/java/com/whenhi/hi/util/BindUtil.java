@@ -1,7 +1,5 @@
 package com.whenhi.hi.util;
 
-import android.util.Log;
-
 import com.whenhi.hi.App;
 import com.whenhi.hi.model.BaseModel;
 import com.whenhi.hi.network.HttpAPI;

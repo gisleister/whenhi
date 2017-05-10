@@ -18,14 +18,11 @@ import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
 import com.whenhi.hi.adapter.ChargeRecordAdapter;
-import com.whenhi.hi.adapter.IncomeRecordAdapter;
 import com.whenhi.hi.listener.OnItemClickListener;
 import com.whenhi.hi.listener.OnItemLongClickListener;
 import com.whenhi.hi.model.ChargeRecord;
 import com.whenhi.hi.model.ChargeRecordModel;
 import com.whenhi.hi.model.Feed;
-import com.whenhi.hi.model.UserIncomeRecord;
-import com.whenhi.hi.model.UserIncomeRecordModel;
 import com.whenhi.hi.network.HttpAPI;
 import com.whenhi.hi.util.ClickUtil;
 

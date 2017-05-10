@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
@@ -15,13 +14,11 @@ import com.orhanobut.dialogplus.Holder;
 import com.orhanobut.dialogplus.OnClickListener;
 import com.orhanobut.dialogplus.OnDismissListener;
 import com.orhanobut.dialogplus.ViewHolder;
-import com.sina.weibo.sdk.api.share.BaseResponse;
-import com.sina.weibo.sdk.api.share.IWeiboHandler;
+import com.sina.weibo.sdk.share.WbShareCallback;
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
 import com.whenhi.hi.model.BaseModel;
 import com.whenhi.hi.model.Feed;
-import com.whenhi.hi.model.LoginModel;
 import com.whenhi.hi.network.HttpAPI;
 import com.whenhi.hi.platform.login.ILoginListener;
 import com.whenhi.hi.platform.model.Share;
@@ -38,7 +35,7 @@ import java.util.ArrayList;
  * Created by 王雷 on 2017/1/5.
  */
 
-public class ShareActivity extends BaseActivity implements IWeiboHandler.Response {
+public class ShareActivity extends BaseActivity implements WbShareCallback {
 
     public static final String TAG = "ShareActivity";
     private static WechatShareHandler mWechatHandler;
@@ -78,9 +75,7 @@ public class ShareActivity extends BaseActivity implements IWeiboHandler.Respons
         mWeiboShareHandler = new WeiboShareHandler(this);
         mQQShareHandler = new QQShareHandler(this);
 
-        if (savedInstanceState != null) {
-            mWeiboShareHandler.handleWeiboResponse(getIntent(), this);
-        }
+
 
         if(mFeed.getFeedCategory() == 4){
             ImageUtil.setShareBitmap(null);
@@ -217,17 +212,10 @@ public class ShareActivity extends BaseActivity implements IWeiboHandler.Respons
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        mWeiboShareHandler.handleWeiboResponse(intent,this);
+        mWeiboShareHandler.handleWeiboResponse(intent);
 
     }
 
-    @Override
-    public void onResponse(BaseResponse baseResp) {
-        if(baseResp!= null){
-            mWeiboShareHandler.handleResponse(baseResp);
-        }
-
-    }
 
     private void onShareFinish(int code, Object data) {
 
@@ -265,7 +253,20 @@ public class ShareActivity extends BaseActivity implements IWeiboHandler.Respons
         finish();
     }
 
+    @Override
+    public void onWbShareSuccess() {
 
+    }
+
+    @Override
+    public void onWbShareCancel() {
+
+    }
+
+    @Override
+    public void onWbShareFail() {
+
+    }
 
 
     private class ShareListener implements IShareListener {

@@ -18,9 +18,6 @@ package com.whenhi.hi.platform.share;
 
 import android.util.Log;
 
-import com.tencent.tauth.IUiListener;
-import com.whenhi.hi.platform.login.ILoginListener;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;

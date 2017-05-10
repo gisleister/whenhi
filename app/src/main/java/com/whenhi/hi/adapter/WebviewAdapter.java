@@ -1,11 +1,6 @@
 package com.whenhi.hi.adapter;
 
-import android.content.ComponentName;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.AsyncTask;
-import android.os.Build;
-import android.os.IBinder;
 import android.text.TextUtils;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
@@ -13,8 +8,6 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
-import com.whenhi.hi.R;
 
 /**
  * Created by 王雷 on 2017/2/21.

@@ -1,28 +1,18 @@
 package com.whenhi.hi.activity;
 
 import android.content.Intent;
-import android.graphics.PixelFormat;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.BaseAdapter;
 
 import com.orhanobut.dialogplus.DialogPlus;
-import com.orhanobut.dialogplus.GridHolder;
 import com.orhanobut.dialogplus.Holder;
 import com.orhanobut.dialogplus.OnClickListener;
 import com.orhanobut.dialogplus.OnDismissListener;
-import com.orhanobut.dialogplus.OnItemClickListener;
 import com.orhanobut.dialogplus.ViewHolder;
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
-import com.whenhi.hi.model.BaseModel;
 import com.whenhi.hi.model.LoginModel;
 import com.whenhi.hi.network.HttpAPI;
 import com.whenhi.hi.platform.login.AuthResult;
@@ -32,8 +22,6 @@ import com.whenhi.hi.platform.login.wechat.WechatLoginHandler;
 import com.whenhi.hi.platform.login.weibo.WeiboLoginHandler;
 import com.whenhi.hi.platform.model.Login;
 import com.whenhi.hi.receiver.NoticeTransfer;
-import com.whenhi.hi.util.BindUtil;
-import com.whenhi.hi.util.DateUtil;
 
 /**
  * Created by 王雷 on 2017/1/5.

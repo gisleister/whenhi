@@ -21,14 +21,11 @@ import com.orhanobut.dialogplus.OnClickListener;
 import com.orhanobut.dialogplus.ViewHolder;
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
-import com.whenhi.hi.dialog.Dialog;
 import com.whenhi.hi.model.UpdateData;
 import com.whenhi.hi.model.UpdateModel;
 import com.whenhi.hi.network.HttpAPI;
 import com.whenhi.hi.receiver.NoticeTransfer;
 import com.whenhi.hi.util.CacheUtil;
-
-import okhttp3.Cache;
 
 
 public class SettingActivity extends BaseActivity {

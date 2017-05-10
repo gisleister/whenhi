@@ -170,6 +170,9 @@
         <activity
             android:name=".activity.IncomeIndexActivity"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.LuckpanActivity"
+            android:screenOrientation="portrait"></activity>
 
 
 

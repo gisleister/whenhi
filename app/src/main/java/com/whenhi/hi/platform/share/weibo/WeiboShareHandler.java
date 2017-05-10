@@ -4,86 +4,56 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.text.TextUtils;
 
 import com.sina.weibo.sdk.api.ImageObject;
 import com.sina.weibo.sdk.api.TextObject;
-import com.sina.weibo.sdk.api.VideoObject;
 import com.sina.weibo.sdk.api.WebpageObject;
 import com.sina.weibo.sdk.api.WeiboMultiMessage;
-import com.sina.weibo.sdk.api.share.BaseResponse;
-import com.sina.weibo.sdk.api.share.IWeiboHandler;
-import com.sina.weibo.sdk.api.share.SendMultiMessageToWeiboRequest;
-import com.sina.weibo.sdk.constant.WBConstants;
+import com.sina.weibo.sdk.share.WbShareCallback;
 import com.sina.weibo.sdk.utils.Utility;
-import com.tencent.mm.sdk.modelbase.BaseResp;
-import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
-import com.tencent.mm.sdk.modelmsg.WXImageObject;
-import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
-import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
-import com.whenhi.hi.platform.WechatHelper;
 import com.whenhi.hi.platform.WeiboHelper;
 import com.whenhi.hi.platform.model.Share;
 import com.whenhi.hi.platform.share.BaseShareHandler;
 import com.whenhi.hi.platform.share.IShareListener;
-import com.whenhi.hi.util.ImageUtil;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
 /**
  * Created by 王雷 on 2017/1/6.
  */
 
-public class WeiboShareHandler extends BaseShareHandler {
+public class WeiboShareHandler extends BaseShareHandler implements WbShareCallback {
     public static final String TAG = WeiboShareHandler.class.getSimpleName();
 
 
     private WeiboHelper mManager;
     private Share mShare = new Share();
 
+
     public WeiboShareHandler(Context context) {
         mManager = WeiboHelper.getInstance(context);
 
         mShare.setType(5);
-    }
-
-    public void handleWeiboResponse(Intent intent,IWeiboHandler.Response response) {
-
-        // 从当前应用唤起微博并进行分享后，返回到当前应用时，需要在此处调用该函数
-        // 来接收微博客户端返回的数据；执行成功，返回 true，并调用
-        // {@link IWeiboHandler.Response#onResponse}；失败返回 false，不调用上述回调
-         mManager.getAPI().handleWeiboResponse(intent, response);
-
-
 
     }
 
-    public void handleResponse(BaseResponse baseResp) {
-
-        switch (baseResp.errCode) {
-            case BaseResp.ErrCode.ERR_OK:
-
-                callBack(IShareListener.CODE_SUCCESS, mShare);
-                break;
-
-            case BaseResp.ErrCode.ERR_USER_CANCEL:
-                callBack(IShareListener.CODE_CANCEL_SHARE, mShare);
-                break;
-
-            case BaseResp.ErrCode.ERR_SENT_FAILED:
-                callBack(IShareListener.CODE_FAILED, mShare);
-                break;
-            default:
-                callBack(IShareListener.CODE_CANCEL_SHARE, mShare);
-                break;
-        }
+    public void handleWeiboResponse(Intent intent) {
+        mManager.getAPI().doResultIntent(intent,this);
     }
 
 
+    @Override
+    public void onWbShareSuccess() {
+        callBack(IShareListener.CODE_SUCCESS, mShare);
+    }
 
+    @Override
+    public void onWbShareCancel() {
+        callBack(IShareListener.CODE_CANCEL_SHARE, mShare);
+    }
 
+    @Override
+    public void onWbShareFail() {
+        callBack(IShareListener.CODE_FAILED, mShare);
+    }
 
     /**
      * 第三方应用发送请求消息到微博，唤起微博分享界面。
@@ -113,19 +83,9 @@ public class WeiboShareHandler extends BaseShareHandler {
             weiboMessage.mediaObject = getWebPageObject(title,des,url,bitmap);
         }
 
-        if (hasVideo) {
-            weiboMessage.mediaObject = getVideoObject(title,des,url,bitmap);
-        }
 
 
-        // 2. 初始化从第三方到微博的消息请求
-        SendMultiMessageToWeiboRequest request = new SendMultiMessageToWeiboRequest();
-        // 用transaction唯一标识一个请求
-        request.transaction = String.valueOf(System.currentTimeMillis());
-        request.multiMessage = weiboMessage;
-
-        // 3. 发送请求消息到微博，唤起微博分享界面
-        mManager.getAPI().sendRequest(activity, request);
+        mManager.getAPI().shareMessage(weiboMessage, true);
         setCallBack(listener);
     }
 
@@ -177,43 +137,5 @@ public class WeiboShareHandler extends BaseShareHandler {
         return mediaObject;
     }
 
-    /**
-     * 创建多媒体（视频）消息对象。
-     *
-     * @return 多媒体（视频）消息对象。
-     */
-    private VideoObject getVideoObject(String title, String des, String url, Bitmap bitmap) {
-        // 创建媒体消息
-        VideoObject videoObject = new VideoObject();
-        videoObject.identify = Utility.generateGUID();
-        videoObject.title = title;
-        videoObject.description = des;
 
-
-
-        ByteArrayOutputStream os = null;
-        try {
-            os = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 85, os);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (os != null) {
-                    os.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-
-        videoObject.setThumbImage(bitmap);
-        videoObject.actionUrl = url;
-        videoObject.dataUrl = url;
-        videoObject.dataHdUrl = url;
-        videoObject.duration = 10;
-        videoObject.defaultText = title;
-        return videoObject;
-    }
 }

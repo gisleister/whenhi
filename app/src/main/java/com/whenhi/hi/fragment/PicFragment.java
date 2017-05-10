@@ -1,11 +1,9 @@
 package com.whenhi.hi.fragment;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,12 +16,8 @@ import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.whenhi.hi.R;
 import com.whenhi.hi.activity.PicActivity;
-import com.whenhi.hi.activity.VideoActivity;
 import com.whenhi.hi.adapter.PicCommentAdapter;
-import com.whenhi.hi.adapter.VideoCommentAdapter;
 import com.whenhi.hi.listener.OnChildItemClickListener;
-import com.whenhi.hi.listener.OnItemClickListener;
-import com.whenhi.hi.listener.OnItemLongClickListener;
 import com.whenhi.hi.model.Comment;
 import com.whenhi.hi.model.CommentModel;
 import com.whenhi.hi.model.Feed;

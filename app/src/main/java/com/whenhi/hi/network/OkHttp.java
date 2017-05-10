@@ -2,7 +2,6 @@ package com.whenhi.hi.network;
 
 import android.content.Context;
 
-
 import com.whenhi.hi.util.FileUtil;
 
 import okhttp3.Cache;

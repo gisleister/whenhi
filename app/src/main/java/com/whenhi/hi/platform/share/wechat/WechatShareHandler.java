@@ -1,37 +1,18 @@
 package com.whenhi.hi.platform.share.wechat;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 
-import com.tencent.connect.common.Constants;
-import com.tencent.connect.share.QQShare;
-import com.tencent.connect.share.QzoneShare;
 import com.tencent.mm.sdk.modelbase.BaseResp;
-import com.tencent.mm.sdk.modelmsg.SendAuth;
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.sdk.modelmsg.WXImageObject;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
-import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
-import com.tencent.open.utils.SystemUtils;
-import com.tencent.tauth.IUiListener;
-import com.tencent.tauth.Tencent;
-import com.tencent.tauth.UiError;
-import com.whenhi.hi.platform.QQHelper;
 import com.whenhi.hi.platform.WechatHelper;
-import com.whenhi.hi.platform.login.ILoginListener;
-import com.whenhi.hi.platform.model.Login;
 import com.whenhi.hi.platform.model.Share;
 import com.whenhi.hi.platform.share.BaseShareHandler;
 import com.whenhi.hi.platform.share.IShareListener;
 import com.whenhi.hi.util.ImageUtil;
-
-import java.util.ArrayList;
 
 /**
  * Created by 王雷 on 2017/1/6.

@@ -10,14 +10,12 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,16 +24,14 @@ import com.bumptech.glide.Glide;
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
 import com.whenhi.hi.activity.AboutActivity;
+import com.whenhi.hi.activity.ChargeActivity;
 import com.whenhi.hi.activity.ChargeRecordActivity;
 import com.whenhi.hi.activity.FavActivity;
 import com.whenhi.hi.activity.IncomeRecordActivity;
-import com.whenhi.hi.activity.LoginActivity;
 import com.whenhi.hi.activity.OtherActivity;
-import com.whenhi.hi.activity.ChargeActivity;
 import com.whenhi.hi.activity.ProblemActivity;
 import com.whenhi.hi.activity.RewardActivity;
 import com.whenhi.hi.activity.SettingActivity;
-import com.whenhi.hi.activity.ShareActivity;
 import com.whenhi.hi.image.CircleTransform;
 import com.whenhi.hi.listener.LoginListener;
 import com.whenhi.hi.model.BaseModel;
@@ -45,9 +41,6 @@ import com.whenhi.hi.network.HttpAPI;
 import com.whenhi.hi.receiver.NoticeTransfer;
 import com.whenhi.hi.util.BindUtil;
 import com.whenhi.hi.util.ClickUtil;
-import com.whenhi.hi.util.DateUtil;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by 王雷 on 2016/12/26.
