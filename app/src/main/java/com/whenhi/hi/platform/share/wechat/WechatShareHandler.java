@@ -2,6 +2,7 @@ package com.whenhi.hi.platform.share.wechat;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.text.TextUtils;
 
 import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
@@ -75,6 +76,10 @@ public class WechatShareHandler extends BaseShareHandler {
         setCallBack(listener);
         WXWebpageObject page = new WXWebpageObject();
         page.webpageUrl = url;
+
+        if(TextUtils.isEmpty(des)){
+            des = "全球最大的娱乐内容汇集地...";
+        }
 
         WXMediaMessage msg = new WXMediaMessage(page);
         msg.title = title;
@@ -181,6 +186,10 @@ public class WechatShareHandler extends BaseShareHandler {
         setCallBack(listener);
         WXWebpageObject page = new WXWebpageObject();
         page.webpageUrl = url;
+
+        if(!TextUtils.isEmpty(des)){
+            title = des;
+        }
 
         WXMediaMessage msg = new WXMediaMessage(page);
         msg.title = title;

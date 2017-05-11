@@ -57,10 +57,6 @@ public class ShareActivity extends BaseActivity implements WbShareCallback {
         Intent intent = getIntent();
         mFeed = (Feed) intent.getSerializableExtra("Feed");
 
-        String content = mFeed.getContent();
-        if(TextUtils.isEmpty(content)){
-            mFeed.setContent("全球最大的娱乐内容汇集地...");
-        }
 
         String title = mFeed.getTitle();
 

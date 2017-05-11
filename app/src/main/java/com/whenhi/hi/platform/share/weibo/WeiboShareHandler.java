@@ -127,7 +127,7 @@ public class WeiboShareHandler extends BaseShareHandler implements WbShareCallba
     private WebpageObject getWebPageObject(String title, String des, String url, Bitmap bitmap) {
         WebpageObject mediaObject = new WebpageObject();
         mediaObject.identify = Utility.generateGUID();
-        mediaObject.title = title;
+        mediaObject.title = "#" + title + "#" + " @很嗨爆笑君 ";
         mediaObject.description = des;
 
         // 设置 Bitmap 类型的图片到视频对象里         设置缩略图。 注意：最终压缩过的缩略图大小不得超过 32kb。

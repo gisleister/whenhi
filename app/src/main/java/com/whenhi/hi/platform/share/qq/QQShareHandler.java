@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.tencent.connect.common.Constants;
@@ -80,6 +81,10 @@ public class QQShareHandler extends BaseShareHandler {
      */
     public void shareToQQWithNetworkImage(Activity activity, String title, String summary,
                                           String targetUrl, String imageUrl, IShareListener listener) {
+
+        if(TextUtils.isEmpty(summary)){
+            summary = "全球最大的娱乐内容汇集地...";
+        }
         final Bundle params = new Bundle();
         params.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_DEFAULT);
         params.putString(QQShare.SHARE_TO_QQ_TITLE, title);
@@ -155,6 +160,9 @@ public class QQShareHandler extends BaseShareHandler {
      */
     public void shareToQzoneWithNetWorkImages(Activity activity, String title, String summary,
                                               String targetUrl, ArrayList<String> imageUrls, IShareListener listener) {
+        if(TextUtils.isEmpty(summary)){
+            summary = "全球最大的娱乐内容汇集地...";
+        }
         shareToQzoneWithNetWorkImages(activity, QzoneShare.SHARE_TO_QZONE_TYPE_IMAGE_TEXT, title,
                 summary, targetUrl, imageUrls,listener);
     }
