@@ -46,7 +46,7 @@ public class RotatePan extends View {
 
     private int[] images = new int[]{R.mipmap.huawei,R.mipmap.image_one,R.mipmap.iphone,R.mipmap.macbook,R.mipmap.meizu,R.mipmap.xiaomi};
     //private int[] images = new int[]{R.mipmap.logo,R.mipmap.image_one,R.mipmap.logo,R.mipmap.logo,R.mipmap.logo,R.mipmap.logo};
-    private String[] strs = {"华为手机","谢谢惠顾","iPhone 6s","mac book","魅族手机","小米手机"};
+    private String[] prizes = {};
     private List<Bitmap> bitmaps = new ArrayList<>();
     private GestureDetectorCompat mDetector;
     private ScrollerCompat scroller;
@@ -72,10 +72,10 @@ public class RotatePan extends View {
         textPaint.setTextSize(Util.dip2px(context,16));
         setClickable(true);
 
-        /**/for(int i=0;i<6;i++){
+        /*for(int i=0;i<6;i++){
             Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), images[i]);
             bitmaps.add(bitmap);
-        }
+        }*/
     }
 
     @Override
@@ -120,7 +120,7 @@ public class RotatePan extends View {
 
         int angle = InitAngle - 30;
 
-        for(int i= 0;i<6;i++){
+        for(int i= 0;i<prizes.length;i++){
             if(i%2 == 0){
                 canvas.drawArc(rectF,angle,60,true,dPaint);
             }else
@@ -135,8 +135,8 @@ public class RotatePan extends View {
             InitAngle += 60;
         }*/
 
-        for(int i=0;i<6;i++){
-            drawText(InitAngle+30,strs[i], 2*radius, textPaint, canvas,rectF);
+        for(int i=0;i<prizes.length;i++){
+            drawText(InitAngle+30,prizes[i], 2*radius, textPaint, canvas,rectF);
             InitAngle += 60;
         }
     }
@@ -177,8 +177,8 @@ public class RotatePan extends View {
         this.invalidate();
     }
 
-    public void setStr(String... strs){
-        this.strs = strs;
+    public void setPrizes(String... prizes){
+        this.prizes = prizes;
         this.invalidate();
     }
 
@@ -288,7 +288,7 @@ public class RotatePan extends View {
 
     // TODO ==================================== 手势处理 ===============================================================
 
-    @Override
+   /* @Override
     public boolean onTouchEvent(MotionEvent event) {
 
         boolean consume = mDetector.onTouchEvent(event);
@@ -299,7 +299,7 @@ public class RotatePan extends View {
         }
 
         return super.onTouchEvent(event);
-    }
+    }*/
 
 
     public void setRotate(int rotation){

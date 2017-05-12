@@ -116,7 +116,7 @@ public class MoreNavFragment extends BaseFragment {
                     if(App.isLogin()){
                         checkin();
                     }else{
-                        ClickUtil.goToLogin(mView);
+                        ClickUtil.goToLogin(mView.getContext());
                     }
                 }else{
                     Toast.makeText(mView.getContext(), "您已经签到过了哦", Toast.LENGTH_SHORT).show();
@@ -134,7 +134,7 @@ public class MoreNavFragment extends BaseFragment {
             public void onClick(View v) {
 
                 if(!isLogin){
-                    ClickUtil.goToLogin(view);
+                    ClickUtil.goToLogin(view.getContext());
                 }
 
             }
@@ -149,7 +149,7 @@ public class MoreNavFragment extends BaseFragment {
                     Intent intent = new Intent(view.getContext(), IncomeRecordActivity.class);
                     view.getContext().startActivity(intent);
                 }else{
-                    ClickUtil.goToLogin(view);
+                    ClickUtil.goToLogin(view.getContext());
                 }
 
             }
@@ -165,7 +165,7 @@ public class MoreNavFragment extends BaseFragment {
                     Intent intent = new Intent(view.getContext(), FavActivity.class);
                     view.getContext().startActivity(intent);
                 }else{
-                    ClickUtil.goToLogin(view);
+                    ClickUtil.goToLogin(view.getContext());
                 }
 
 
@@ -185,7 +185,7 @@ public class MoreNavFragment extends BaseFragment {
                     }
 
                 }else{
-                    ClickUtil.goToLogin(view);
+                    ClickUtil.goToLogin(view.getContext());
                 }
 
 
@@ -206,7 +206,7 @@ public class MoreNavFragment extends BaseFragment {
                     }
 
                 }else {
-                    ClickUtil.goToLogin(view);
+                    ClickUtil.goToLogin(view.getContext());
                 }
             }
         });
@@ -250,7 +250,7 @@ public class MoreNavFragment extends BaseFragment {
                 if(isLogin){
                     goToShare(view);
                 }else{
-                    ClickUtil.goToLogin(view);
+                    ClickUtil.goToLogin(view.getContext());
                 }
 
             }
@@ -277,7 +277,7 @@ public class MoreNavFragment extends BaseFragment {
 
                     view.getContext().startActivity(intent);
                 }else{
-                    ClickUtil.goToLogin(view);
+                    ClickUtil.goToLogin(view.getContext());
                 }
 
             }
@@ -316,7 +316,7 @@ public class MoreNavFragment extends BaseFragment {
 
         feed.setShareUrl(invitePageUrl);
         feed.setImageUrl(userLogo);
-        ClickUtil.goToShare(view, feed);
+        ClickUtil.goToShare(view.getContext(), feed);
     }
 
 

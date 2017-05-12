@@ -87,7 +87,7 @@ public class ChargeActivity extends BaseActivity{
 
                                 feed.setShareUrl(invitePageUrl);
                                 feed.setImageUrl(userLogo);
-                                ClickUtil.goToShare(view, feed);
+                                ClickUtil.goToShare(view.getContext(), feed);
 
                             }else{
                                 Toast.makeText(ChargeActivity.this, baseModel.getMsgText(), Toast.LENGTH_SHORT).show();

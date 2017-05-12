@@ -200,7 +200,7 @@ public class ChargeRecordListFragment extends BaseFragment implements OnRefreshL
 
         feed.setShareUrl(invitePageUrl);
         feed.setImageUrl(userLogo);
-        ClickUtil.goToShare(view, feed);
+        ClickUtil.goToShare(view.getContext(), feed);
     }
 
     @Override

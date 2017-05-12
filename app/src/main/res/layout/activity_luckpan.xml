@@ -56,7 +56,7 @@
                 android:src="@mipmap/shan"
                 android:scaleType="fitXY"
                 android:layout_alignParentBottom="true"
-                />
+                android:visibility="gone"/>
 
             <ImageView
                 android:id="@+id/yun"
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:src="@mipmap/yun"
                 android:scaleType="fitXY"
-                />
+                android:visibility="gone"/>
 
             <com.whenhi.hi.view.luckpan.LuckPanLayout
                 android:id="@+id/luckpan_layout"
@@ -108,15 +108,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp"
-                >
+                android:layout_marginTop="20dp">
 
                 <TextView
                     android:id="@+id/hit_user_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/text_background"
-                    android:text="2016-08-18 14:30:30 马蓉 iPhone6s puls  2016-08-14 15:41:28 王宝强 macbook 2016-08-18 16:22:45 宋吉吉 魅族手机"
+                    android:text="截止到目前已经有:1899人中奖"
                     android:padding="10dp"
                     android:layout_centerVertical="true"
                     android:gravity="center"
@@ -134,7 +133,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="中奖名单"
+                    android:text="中奖人数"
                     android:textColor="#ffffff"
                     android:background="@drawable/hit_backgroud"
                     android:padding="3dp"
@@ -169,7 +168,7 @@
                         android:layout_below="@+id/huodong_rule"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="1.点击页面抢购按钮，进入抽奖流程，按提示操作即可(参与本活动无需支付任何费用)。\n2.本次活动萝莉“范儿”\御姐“范儿”\宅男“奢侈”各产生一名中奖者(每个0元抢购产品没人只可参与一次)。\n3.活动期间，每个手机号，获得的“劵号”后7位数字作为本次活动的“抽奖号”。"
+                        android:text="1.点击抽奖按钮。\n2.抽奖不限次数。\n3.活动期间。"
                         android:padding="10dp"
                         />
 

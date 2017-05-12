@@ -119,7 +119,7 @@ public class ExploreNavFragment extends BaseFragment {
                         view.getContext().startActivity(intent);
                     }
                 }else{
-                    ClickUtil.goToLogin(view);
+                    ClickUtil.goToLogin(view.getContext());
                 }
 
 

@@ -15,6 +15,8 @@ import android.support.v7.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.FutureTarget;
 import com.google.gson.Gson;
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
@@ -26,8 +28,10 @@ import com.whenhi.hi.model.NotificationModel;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -228,21 +232,21 @@ public class WhenhiReceiver extends BroadcastReceiver {
     }
 
 
-    private void notificationBar(NotificationModel notificationModel,Context context){
-        NotificationManager manager = (NotificationManager) context
+    private void notificationBar(NotificationModel notificationModel, final Context context){
+        final NotificationManager manager = (NotificationManager) context
                 .getSystemService(Context.NOTIFICATION_SERVICE);
 
         // 使用广播或者通知进行内容的显示
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(
+        final NotificationCompat.Builder builder = new NotificationCompat.Builder(
                 context);
 
-        Bitmap icon = BitmapFactory.decodeResource(context.getResources(),R.mipmap.logo);
+        final Bitmap icon = BitmapFactory.decodeResource(context.getResources(),R.mipmap.logo);
 
 
         List<NotificationData> notificationDatas = notificationModel.getData();
         for (int i = 0; i < notificationDatas.size(); i++) {
             NotificationData notificationData = notificationDatas.get(i);
-            com.whenhi.hi.model.Notification notification = notificationData.getData();
+            final com.whenhi.hi.model.Notification notification = notificationData.getData();
 
             String type = notificationData.getType();
             if (type.equals("show")){
@@ -258,6 +262,8 @@ public class WhenhiReceiver extends BroadcastReceiver {
 
                     Intent intent1 = new Intent(context,MainActivity.class);
                     PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent1, 0);
+                    //builder.setFullScreenIntent(pendingIntent,true);
+                    //builder.setAutoCancel(true);
                     builder.setContentIntent(pendingIntent);
                     manager.notify(notificationId,builder.build());
                     notificationId++;
@@ -284,6 +290,8 @@ public class WhenhiReceiver extends BroadcastReceiver {
 
 
                     PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+                    //builder.setFullScreenIntent(pendingIntent,true);
+                    //builder.setAutoCancel(true);
                     builder.setContentIntent(pendingIntent);
 
                     manager.notify(notificationId,builder.build());
@@ -299,10 +307,58 @@ public class WhenhiReceiver extends BroadcastReceiver {
 
                     Intent intent = new Intent(context, MainActivity.class);
                     PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+                    //builder.setFullScreenIntent(pendingIntent,true);
+                    //builder.setAutoCancel(true);
                     builder.setContentIntent(pendingIntent);
 
                     manager.notify(notificationId,builder.build());
                     notificationId++;
+                }else if(subtype.equals("feed")) {
+
+                    if(TextUtils.isEmpty(notification.getPicUrl()))
+                        return;
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            FutureTarget<File> future =  Glide.with(App.getContext())
+                                    .load(notification.getPicUrl()).downloadOnly(120,80);
+                            try {
+                                File cacheFile = future.get();
+                                String path = cacheFile.getAbsolutePath();
+                                Bitmap largeIcon=BitmapFactory.decodeFile(path);
+
+                                builder.setSmallIcon(R.mipmap.logo)
+                                        .setLargeIcon(largeIcon)
+                                        .setDefaults(Notification.DEFAULT_SOUND)
+                                        .setPriority(Notification.PRIORITY_HIGH)
+                                        .setTicker(notification.getTitle())
+                                        .setContentTitle(notification.getTitle())
+                                        .setContentText(notification.getDescription());
+
+                                android.support.v4.app.NotificationCompat.BigPictureStyle style = new android.support.v4.app.NotificationCompat.BigPictureStyle();
+                                style.setBigContentTitle(notification.getTitle());
+                                style.setSummaryText(notification.getDescription());
+                                style.bigPicture(largeIcon);
+                                builder.setStyle(style);
+                                builder.setAutoCancel(true);
+
+
+                                Intent intent = new Intent(context, MainActivity.class);
+                                PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+                                //builder.setFullScreenIntent(pendingIntent,true);
+                                //builder.setAutoCancel(true);
+                                builder.setContentIntent(pendingIntent);
+
+                                manager.notify(notificationId,builder.build());
+                                notificationId++;
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }).start();
+
                 }
             }else if(type.equals("cmd")){
                 String subtype = notificationData.getSubtype();

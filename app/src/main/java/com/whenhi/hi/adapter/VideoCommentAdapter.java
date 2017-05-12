@@ -187,6 +187,8 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private void onBindHeaderHolder(HeaderHolder holder) {
 
+        if(mFeed == null)
+            return;
         holder.detailText.setText(mFeed.getContent());
 
         if(TextUtils.isEmpty(mFeed.getContent())){
@@ -211,7 +213,8 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private void onBindDetailHolder(final DetailHolder holder) {
 
-
+        if(mFeed == null)
+            return;
         final WeakReference<ImageView> imageViewWeakReference = new WeakReference<>(holder.imageContent);
         ImageView target = imageViewWeakReference.get();
         Context context = App.getContext();

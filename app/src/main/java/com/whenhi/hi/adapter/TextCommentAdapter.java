@@ -169,6 +169,8 @@ public class TextCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     private void onBindHeaderHolder(HeaderHolder holder) {
+        if(mFeed == null)
+            return;
         holder.detailText.setText(mFeed.getContent());
         holder.userNickName.setText(mFeed.getUserName());
         final WeakReference<ImageView> imageViewWeakReference = new WeakReference<>(holder.userAvatar);
@@ -196,6 +198,8 @@ public class TextCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private void onBindGroupHolder(final GroupHolder holder) {
         holder.headerText.setText("热门评论");
+        if(mFeed == null)
+            return;
         final Context context = holder.itemView.getContext();
 
         showToolbarContent(holder,mFeed,context);

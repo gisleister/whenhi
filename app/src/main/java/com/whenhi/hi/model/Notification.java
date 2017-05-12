@@ -11,6 +11,34 @@ public class Notification implements Serializable {
     private String description;
     private int count;
     private String link;
+    private int feedCategory;
+    private int feedId;
+    private String picUrl;
+
+
+    public int getFeedCategory() {
+        return feedCategory;
+    }
+
+    public void setFeedCategory(int feedCategory) {
+        this.feedCategory = feedCategory;
+    }
+
+    public int getFeedId() {
+        return feedId;
+    }
+
+    public void setFeedId(int feedId) {
+        this.feedId = feedId;
+    }
+
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
+    }
 
     public String getLink() {
         return link;

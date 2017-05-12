@@ -171,7 +171,8 @@ public class WebViewCommentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     private void onBindHeaderHolder(HeaderHolder holder) {
-
+        if(mFeed == null)
+            return;
         holder.detailText.setText(mFeed.getTitle());
 
         if(TextUtils.isEmpty(mFeed.getTitle())){
@@ -194,7 +195,8 @@ public class WebViewCommentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     private void onBindDetailHolder(DetailHolder holder) {
-
+        if(mFeed == null)
+            return;
         mAdapter = new WebviewAdapter(holder.webView);
         mAdapter.setUrl(mFeed.getLinkUrl());
         //mAdapter.setUrl("http://www.sina.com");

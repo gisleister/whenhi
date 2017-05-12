@@ -25,7 +25,7 @@ public class LuckpanActivity extends BaseActivity implements RotatePan.Animation
     private ImageView goBtn;
     private ImageView yunIv;
 
-    private String[] strs = {"华为手机","谢谢惠顾","iPhone 6s","mac book","魅族手机","小米手机"};
+    private String[] prizes = {"一 等 奖","二 等 奖","三 等 奖","四 等 奖","五 等 奖","谢 谢 参 与"};;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class LuckpanActivity extends BaseActivity implements RotatePan.Animation
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar).findViewById(R.id.toolbar);
         TextView textView = (TextView) findViewById(R.id.toolbar).findViewById(R.id.toolbar_title);
-        textView.setText("关于我们");
+        textView.setText("幸运大抽奖");
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.mipmap.fanhui);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
@@ -47,6 +47,7 @@ public class LuckpanActivity extends BaseActivity implements RotatePan.Animation
         luckPanLayout = (LuckPanLayout) findViewById(R.id.luckpan_layout);
         luckPanLayout.startLuckLight();
         rotatePan = (RotatePan) findViewById(R.id.rotatePan);
+        rotatePan.setPrizes(prizes);
         rotatePan.setAnimationEndListener(this);
         goBtn = (ImageView)findViewById(R.id.go);
         yunIv = (ImageView)findViewById(R.id.yun);
@@ -83,6 +84,8 @@ public class LuckpanActivity extends BaseActivity implements RotatePan.Animation
                 goBtn.setLayoutParams(lp);
 
                 getWindow().getDecorView().requestLayout();
+
+
             }
         });
     }
@@ -97,7 +100,7 @@ public class LuckpanActivity extends BaseActivity implements RotatePan.Animation
     public void endAnimation(int position) {
         goBtn.setEnabled(true);
         luckPanLayout.setDelayTime(500);
-        Toast.makeText(this,"Position = "+position+","+strs[position],Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"Position = "+position+","+prizes[position],Toast.LENGTH_SHORT).show();
     }
 
 

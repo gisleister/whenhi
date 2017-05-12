@@ -194,12 +194,12 @@ public class CartoonListFragment extends BaseFragment implements OnRefreshListen
 
     @Override
     public void onItemClick(int position, Feed feed, View view) {
-        ClickUtil.click(feed,view);
+        ClickUtil.click(feed,view.getContext());
     }
 
     @Override
     public boolean onClickItemLongClick(int groupPosition, Feed feed, View view) {
-        ClickUtil.goToShare(view,feed);
+        ClickUtil.goToShare(view.getContext(),feed);
         return true;
     }
 

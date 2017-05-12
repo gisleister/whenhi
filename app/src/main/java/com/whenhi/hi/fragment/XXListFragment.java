@@ -192,16 +192,16 @@ public class XXListFragment extends BaseFragment implements OnRefreshListener, O
 
         String gender = App.getGender();
         if(TextUtils.isEmpty(gender)){
-            ClickUtil.goToLogin(mView);
+            ClickUtil.goToLogin(view.getContext());
             return;
         }
 
-        ClickUtil.click(feed,view);
+        ClickUtil.click(feed,view.getContext());
     }
 
     @Override
     public boolean onClickItemLongClick(int groupPosition, Feed feed, View view) {
-        ClickUtil.goToShare(view,feed);
+        ClickUtil.goToShare(view.getContext(),feed);
 
         return true;
     }
@@ -211,7 +211,7 @@ public class XXListFragment extends BaseFragment implements OnRefreshListener, O
     public void onvisible() {
         String gender = App.getGender();
         if(TextUtils.isEmpty(gender)){
-            ClickUtil.goToLogin(mView);
+            ClickUtil.goToLogin(mView.getContext());
         }
     }
 

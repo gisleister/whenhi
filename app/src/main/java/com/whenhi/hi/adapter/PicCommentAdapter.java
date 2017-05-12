@@ -185,6 +185,8 @@ public class PicCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void onBindHeaderHolder(HeaderHolder holder) {
+        if(mFeed == null)
+            return;
         holder.detailText.setText(mFeed.getContent());
 
         if(TextUtils.isEmpty(mFeed.getContent())){
@@ -218,6 +220,8 @@ public class PicCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private void onBindGroupHolder(final GroupHolder holder) {
         holder.headerText.setText("热门评论");
+        if(mFeed == null)
+            return;
         final Context context = holder.itemView.getContext();
         showToolbarContent(holder,mFeed,context);
     }

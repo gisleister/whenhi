@@ -56,7 +56,7 @@ public class ProblemActivity extends BaseActivity {
                     }
                 }else{
                     Toast.makeText(ProblemActivity.this, "您还没有登录哦，抓紧一键登录吧", Toast.LENGTH_SHORT).show();
-                    ClickUtil.goToLogin(v);
+                    ClickUtil.goToLogin(v.getContext());
                 }
 
 

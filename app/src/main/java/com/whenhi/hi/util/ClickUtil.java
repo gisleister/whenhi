@@ -33,43 +33,46 @@ import com.whenhi.hi.receiver.NoticeTransfer;
 
 public class ClickUtil {
 
-    public static void  click(Feed feed, View view){
+    public static void  click(Feed feed, Context context){
         if(feed == null)
             return;
-        boolean isLogin = App.isLogin();
+        /*boolean isLogin = App.isLogin();
         if(isLogin){
             reportClickInfo(feed);
 
-        }
+        }*/
+
+        reportClickInfo(feed);
 
         if(feed.getFeedCategory() == 1){//视频
-            goToVideo(view,feed);
+            //goToVideo(view,feed);
+            goToLuckpan(context,feed);
         }else if(feed.getFeedCategory() == 2){//动图
 
 
         }else if(feed.getFeedCategory() == 3){//漫画
-            goToPic(view,feed);
+            goToPic(context,feed);
 
         }else if(feed.getFeedCategory() == 4){//段子
-            goToText(view,feed);
+            goToText(context,feed);
 
         }else if(feed.getFeedCategory() == 5){//图片
-            goToPic(view,feed);
+            goToPic(context,feed);
 
         }else if(feed.getFeedCategory() == 6){//广告
-            goToWeb(view,feed);
+            goToWeb(context,feed);
 
         }else if(feed.getFeedCategory() == 7){//分割线
 
 
         }else if(feed.getFeedCategory() == 8){//彩蛋
 
-            goToOther(view,feed);
+            goToOther(context,feed);
         }else if(feed.getFeedCategory() == 9){//资讯
-            goToWeb(view,feed);
+            goToWeb(context,feed);
 
         }else if(feed.getFeedCategory() == 10){//抽奖大转盘
-            goToLuckpan(view,feed);
+            goToLuckpan(context,feed);
         }
 
 
@@ -80,8 +83,8 @@ public class ClickUtil {
 
     }
 
-    public static void goToOther(View view, Feed feed){
-        Intent intent = new Intent(view.getContext(), OtherActivity.class);
+    public static void goToOther(Context context, Feed feed){
+        Intent intent = new Intent(context, OtherActivity.class);
 
         Bundle bundle=new Bundle();
         //传递name参数为tinyphp
@@ -89,8 +92,7 @@ public class ClickUtil {
         bundle.putString("score", ""+feed.getScore());
         bundle.putInt("type",3);
         intent.putExtras(bundle);
-        view.getContext().startActivity(intent);
-        Context context = view.getContext();
+        context.startActivity(intent);
         if (context instanceof Activity){
             Activity activity = (Activity)context;
             activity.overridePendingTransition(R.anim.activity_open,0);
@@ -125,52 +127,50 @@ public class ClickUtil {
     }
 
 
-    private static void goToLuckpan(View view, Feed feed){
-        Intent intent = new Intent(view.getContext(), LuckpanActivity.class);
+    private static void goToLuckpan(Context context, Feed feed){
+        Intent intent = new Intent(context, LuckpanActivity.class);
         intent.putExtra("Feed", feed);
-        view.getContext().startActivity(intent);
+        context.startActivity(intent);
     }
 
-    private static void goToVideo(View view, Feed feed){
-        Intent intent = new Intent(view.getContext(), VideoActivity.class);
+    private static void goToVideo(Context context, Feed feed){
+        Intent intent = new Intent(context, VideoActivity.class);
         intent.putExtra("Feed", feed);
-        view.getContext().startActivity(intent);
+        context.startActivity(intent);
     }
 
-    private static void goToPic(View view, Feed feed){
-        Intent intent = new Intent(view.getContext(), PicActivity.class);
+    private static void goToPic(Context context, Feed feed){
+        Intent intent = new Intent(context, PicActivity.class);
         intent.putExtra("Feed", feed);
-        view.getContext().startActivity(intent);
+        context.startActivity(intent);
     }
 
-    private static void goToWeb(View view, Feed feed){
-        Intent intent = new Intent(view.getContext(), WebViewActivity.class);
+    private static void goToWeb(Context context, Feed feed){
+        Intent intent = new Intent(context, WebViewActivity.class);
         intent.putExtra("Feed", feed);
-        view.getContext().startActivity(intent);
+        context.startActivity(intent);
     }
-    public static void goToLogin(View view){
-        Intent intent = new Intent(view.getContext(), LoginActivity.class);
-        view.getContext().startActivity(intent);
+    public static void goToLogin(Context context){
+        Intent intent = new Intent(context, LoginActivity.class);
+        context.startActivity(intent);
 
-        Context context = view.getContext();
         if (context instanceof Activity){
             Activity activity = (Activity)context;
             activity.overridePendingTransition(R.anim.activity_open,0);
         }
     }
 
-    private static void goToText(View view, Feed feed){
-        Intent intent = new Intent(view.getContext(), TextActivity.class);
+    private static void goToText(Context context, Feed feed){
+        Intent intent = new Intent(context, TextActivity.class);
         intent.putExtra("Feed", feed);
-        view.getContext().startActivity(intent);
+        context.startActivity(intent);
     }
 
-    public static void goToShare(View view, Feed feed){
-        Intent intent = new Intent(view.getContext(), ShareActivity.class);
+    public static void goToShare(Context context, Feed feed){
+        Intent intent = new Intent(context, ShareActivity.class);
         intent.putExtra("Feed", feed);
-        view.getContext().startActivity(intent);
+        context.startActivity(intent);
 
-        Context context = view.getContext();
         if (context instanceof Activity){
             Activity activity = (Activity)context;
             activity.overridePendingTransition(R.anim.activity_open,0);
@@ -246,7 +246,7 @@ public class ClickUtil {
 
 
                 }else{
-                    goToLogin(view);
+                    goToLogin(view.getContext());
                 }
 
             }
@@ -255,7 +255,7 @@ public class ClickUtil {
 
         shareBtn.setOnClickListener(new Button.OnClickListener(){//创建监听
             public void onClick(View v) {
-                goToShare(view,feed);
+                goToShare(view.getContext(),feed);
             }
 
         });
@@ -317,7 +317,7 @@ public class ClickUtil {
                     }
 
                 }else{
-                    goToLogin(view);
+                    goToLogin(view.getContext());
                 }
 
             }
@@ -326,7 +326,7 @@ public class ClickUtil {
 
         commentBtn.setOnClickListener(new Button.OnClickListener(){//创建监听
             public void onClick(View v) {
-                click(feed,view);
+                click(feed,view.getContext());
             }
 
         });
@@ -388,7 +388,7 @@ public class ClickUtil {
 
 
                 }else{
-                    goToLogin(view);
+                    goToLogin(view.getContext());
                 }
 
             }
@@ -397,7 +397,7 @@ public class ClickUtil {
 
         shareImage.setOnClickListener(new Button.OnClickListener(){//创建监听
             public void onClick(View v) {
-                goToShare(view,feed);
+                goToShare(view.getContext(),feed);
             }
 
         });
@@ -449,7 +449,7 @@ public class ClickUtil {
                     }
 
                 }else{
-                    goToLogin(view);
+                    goToLogin(view.getContext());
                 }
 
             }

@@ -111,7 +111,7 @@ public class OtherActivity extends BaseActivity {
 
                             case R.id.caidan_close:
                                 if(!App.isLogin()){
-                                    ClickUtil.goToLogin(view);
+                                    ClickUtil.goToLogin(view.getContext());
                                 }else{
 
                                 }
