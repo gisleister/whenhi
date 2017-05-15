@@ -57,6 +57,9 @@ public class Constants {
  public static final String API_USER_PROBLEM = host+"api/app/feedback";
  public static final String API_USER_CHARGES_LIST = host+"api/user/charge/list";
  public static final String API_FEED_NO_OK = host+"api/feed/notOK";
+ public static final String API_FEED_DETAIL_URL = host+"api/feed/detail";
+ public static final String API_LOTTERY_DETAIL_URL = host+"api/lottery/detail";
+ public static final String API_LOTTERY_GO_URL = host+"api/lottery/go";
 
 
  /***以下是导航页面跳转常量**/

@@ -212,7 +212,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     private void other(FeedHolder holder, int type){
-        if( type == 8){
+        if( type == 8 || type == 10){//彩蛋和抽奖 没有头像
             holder.userLayout.setVisibility(View.GONE);
             holder.toolbarLayout.setVisibility(View.GONE);
 
@@ -384,6 +384,25 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             feed.setContent(feed.getSummary());
 
+        }else if(feed.getFeedCategory() == 10){//抽奖
+            //holder.textContent.setText(feed.getMaskContent());
+            holder.imagePlay.setVisibility(View.GONE);
+            holder.imageContent.setVisibility(View.VISIBLE);
+            //holder.userbar.setVisibility(View.GONE);
+            holder.textContent.setVisibility(View.GONE);
+            if (target != null) {
+                Glide.with(context)
+                        .load(feed.getPicUrl()+para)
+                        .placeholder(R.mipmap.bg_image)
+                        .centerCrop()
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        .listener(mGlideListener.getListener())
+                        .transform(new RoundTransform(context,10))
+                        .error(R.mipmap.bg_image)
+                        //.override(width, height)
+                        .into(target);
+            }
         }
 
 

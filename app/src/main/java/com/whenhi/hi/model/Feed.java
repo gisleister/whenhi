@@ -41,6 +41,34 @@ public class Feed implements Serializable {
     private int type;//1代表邀请好友，2代表彩蛋 3代表充值成功
     private int score;//彩蛋专用 标识获得的嗨币
 
+    private List<Rule> rules;
+    private int dailyLimit;
+    private String picUrl;
+
+
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
+    }
+
+    public List<Rule> getRules() {
+        return rules;
+    }
+
+    public void setRules(List<Rule> rules) {
+        this.rules = rules;
+    }
+
+    public int getDailyLimit() {
+        return dailyLimit;
+    }
+
+    public void setDailyLimit(int dailyLimit) {
+        this.dailyLimit = dailyLimit;
+    }
 
     public int getScore() {
         return score;

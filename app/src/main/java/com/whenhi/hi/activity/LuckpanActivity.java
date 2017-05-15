@@ -1,5 +1,6 @@
 package com.whenhi.hi.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -10,11 +11,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.whenhi.hi.App;
 import com.whenhi.hi.R;
+import com.whenhi.hi.model.Feed;
+import com.whenhi.hi.model.BaseFeedModel;
+import com.whenhi.hi.model.LuckModel;
+import com.whenhi.hi.model.Rule;
+import com.whenhi.hi.network.HttpAPI;
 import com.whenhi.hi.util.Util;
 import com.whenhi.hi.view.luckpan.EnvironmentLayout;
 import com.whenhi.hi.view.luckpan.LuckPanLayout;
 import com.whenhi.hi.view.luckpan.RotatePan;
+
+import java.util.List;
 
 
 public class LuckpanActivity extends BaseActivity implements RotatePan.AnimationEndListener{
@@ -24,6 +33,10 @@ public class LuckpanActivity extends BaseActivity implements RotatePan.Animation
     private LuckPanLayout luckPanLayout;
     private ImageView goBtn;
     private ImageView yunIv;
+    private TextView hitUser;
+    private TextView gameRule;
+
+    private Feed mFeed;
 
     private String[] prizes = {"一 等 奖","二 等 奖","三 等 奖","四 等 奖","五 等 奖","谢 谢 参 与"};;
 
@@ -31,6 +44,9 @@ public class LuckpanActivity extends BaseActivity implements RotatePan.Animation
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_luckpan);
+
+        Intent intent = getIntent();
+        mFeed = (Feed)intent.getSerializableExtra("Feed");
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar).findViewById(R.id.toolbar);
@@ -43,6 +59,47 @@ public class LuckpanActivity extends BaseActivity implements RotatePan.Animation
             actionBar.setDisplayHomeAsUpEnabled(false);
             actionBar.setDisplayShowTitleEnabled(false);
         }
+        initData();
+
+    }
+
+
+    private void initData(){
+        HttpAPI.lotteryDetail(mFeed.getId(),mFeed.getFeedCategory(), new HttpAPI.Callback<BaseFeedModel>() {
+            @Override
+            public void onSuccess(BaseFeedModel baseFeedModel) {
+
+
+                if(baseFeedModel.getState() == 0){
+                    List<Rule> rules = baseFeedModel.getData().getRules();
+                    initView(rules,baseFeedModel.getData());
+                }else{
+                    Toast.makeText(App.getContext(), baseFeedModel.getMsgText(), Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+
+            }
+        });
+
+    }
+
+    private void initView(List<Rule> rules, Feed feed){
+
+        for(int i = 0; i < rules.size(); i++){
+            Rule rule = rules.get(i);
+            prizes[i] = rule.getName();
+        }
+
+        hitUser = (TextView) findViewById(R.id.hit_user_text);
+        gameRule = (TextView) findViewById(R.id.game_rule_text);
+
+        hitUser.setText(feed.getTitle());
+        gameRule.setText(feed.getContent());
 
         luckPanLayout = (LuckPanLayout) findViewById(R.id.luckpan_layout);
         luckPanLayout.startLuckLight();
@@ -90,17 +147,45 @@ public class LuckpanActivity extends BaseActivity implements RotatePan.Animation
         });
     }
 
+
+
+
     public void rotation(View view){
-        rotatePan.startRotate(-1);
-        luckPanLayout.setDelayTime(100);
-        goBtn.setEnabled(false);
+        initGo();
+
+    }
+
+    private void initGo(){
+        HttpAPI.lotteryGo(mFeed.getId(),new HttpAPI.Callback<LuckModel>() {
+            @Override
+            public void onSuccess(LuckModel luckModel) {
+
+
+
+
+                if(luckModel.getState() == 0){
+                    rotatePan.startRotate(luckModel.getData().getResultId());
+                    luckPanLayout.setDelayTime(100);
+                    goBtn.setEnabled(false);
+                }else{
+                    Toast.makeText(App.getContext(), luckModel.getMsgText(), Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+
+            }
+        });
     }
 
     @Override
     public void endAnimation(int position) {
         goBtn.setEnabled(true);
         luckPanLayout.setDelayTime(500);
-        Toast.makeText(this,"Position = "+position+","+prizes[position],Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"Position = "+position+","+prizes[position],Toast.LENGTH_SHORT).show();
     }
 
 

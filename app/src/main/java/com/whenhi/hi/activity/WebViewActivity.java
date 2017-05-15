@@ -31,6 +31,7 @@ import com.whenhi.hi.fragment.DetailFragmentAdapter;
 import com.whenhi.hi.model.BaseModel;
 import com.whenhi.hi.model.Comment;
 import com.whenhi.hi.model.Feed;
+import com.whenhi.hi.model.BaseFeedModel;
 import com.whenhi.hi.network.HttpAPI;
 import com.whenhi.hi.receiver.NoticeTransfer;
 import com.whenhi.hi.util.ClickUtil;
@@ -57,13 +58,24 @@ public class WebViewActivity extends BaseActivity {
     private ActionBar mActionBar;
     private DetailFragmentAdapter mDetailFragmentAdapter;
 
+    private boolean isPush = false;
+    private int feedId = 0;
+    private int feedCategory = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview);
         Intent intent = getIntent();
         mFeed = (Feed) intent.getSerializableExtra("Feed");
-        initView(savedInstanceState);
+        isPush = intent.getBooleanExtra("isPush",false);
+        feedId = intent.getIntExtra("feedId",0);
+        feedCategory = intent.getIntExtra("feedCategory",0);
+        if(isPush){
+            initData(savedInstanceState);
+        }else{
+            initView(savedInstanceState);
+        }
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar).findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -88,10 +100,31 @@ public class WebViewActivity extends BaseActivity {
             }
         });
 
-        ImageView zan = (ImageView)findViewById(R.id.toolbar_love_image);
-        ImageView fav = (ImageView)findViewById(R.id.toolbar_fav_image);
-        ImageView share = (ImageView)findViewById(R.id.toolbar_share_image);
-        showToolbarContent(zan,fav,share);
+
+
+    }
+
+    private void initData(final Bundle savedInstanceState){
+        HttpAPI.requestDetail(feedId,feedCategory, new HttpAPI.Callback<BaseFeedModel>() {
+            @Override
+            public void onSuccess(BaseFeedModel baseFeedModel) {
+
+                if(baseFeedModel.getState() == 0){
+
+                    mFeed = baseFeedModel.getData();
+                    initView(savedInstanceState);
+                }else{
+                    Toast.makeText(App.getContext(), baseFeedModel.getMsgText(), Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+
+            }
+        });
 
     }
 
@@ -123,6 +156,10 @@ public class WebViewActivity extends BaseActivity {
         mFragmentNavigator.onCreate(savedInstanceState);
         setDefaultFrag();
 
+        ImageView zan = (ImageView)findViewById(R.id.toolbar_love_image);
+        ImageView fav = (ImageView)findViewById(R.id.toolbar_fav_image);
+        ImageView share = (ImageView)findViewById(R.id.toolbar_share_image);
+        showToolbarContent(zan,fav,share);
     }
 
 

@@ -111,7 +111,7 @@
                 android:layout_marginTop="20dp">
 
                 <TextView
-                    android:id="@+id/hit_user_tv"
+                    android:id="@+id/hit_user_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/text_background"
@@ -137,7 +137,7 @@
                     android:textColor="#ffffff"
                     android:background="@drawable/hit_backgroud"
                     android:padding="3dp"
-                    android:layout_alignTop="@+id/hit_user_tv"
+                    android:layout_alignTop="@+id/hit_user_text"
                     android:layout_centerVertical="true"
                     />
             </RelativeLayout>
@@ -165,6 +165,7 @@
                         android:layout_height="30dp"/>
 
                     <TextView
+                        android:id="@+id/game_rule_text"
                         android:layout_below="@+id/huodong_rule"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

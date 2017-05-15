@@ -336,7 +336,7 @@ public class MoreNavFragment extends BaseFragment {
                     mobile = userModel.getData().getMobile();
                     isLogin = App.isLogin();
                     App.userInit(userModel.getData());
-                    NoticeTransfer.refreshMeesage();
+                    //NoticeTransfer.refreshMeesage();
                     if(checkinState == 1){
                         checkIn.setText("已签到");
                         checkIn.setBackgroundResource(R.drawable.shape_button_no);
@@ -491,6 +491,17 @@ public class MoreNavFragment extends BaseFragment {
             mobile = m;
         }
     };
+
+
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            NoticeTransfer.refresh();
+        }
+
+    }
 
 
 

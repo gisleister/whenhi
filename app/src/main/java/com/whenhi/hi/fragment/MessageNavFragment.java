@@ -16,6 +16,7 @@ import com.aspsine.fragmentnavigator.FragmentNavigator;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.whenhi.hi.Constants;
 import com.whenhi.hi.R;
+import com.whenhi.hi.receiver.NoticeTransfer;
 
 /**
  * Created by 王雷 on 2016/12/26.
@@ -93,6 +94,15 @@ public class MessageNavFragment extends BaseFragment {
     @Override
     public void onPause() {
         super.onPause();
+
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            NoticeTransfer.refreshMeesage();
+        }
 
     }
 

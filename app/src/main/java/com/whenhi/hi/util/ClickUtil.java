@@ -45,8 +45,7 @@ public class ClickUtil {
         reportClickInfo(feed);
 
         if(feed.getFeedCategory() == 1){//视频
-            //goToVideo(view,feed);
-            goToLuckpan(context,feed);
+            goToVideo(context,feed);
         }else if(feed.getFeedCategory() == 2){//动图
 
 
