@@ -136,20 +136,21 @@ public class RotatePan extends View {
         }*/
 
         for(int i=0;i<prizes.length;i++){
-            drawText(InitAngle+30,prizes[i], 2*radius, textPaint, canvas,rectF);
+            drawText(InitAngle+270,prizes[i], 2*radius, textPaint, canvas,rectF);
             InitAngle += 60;
         }
     }
 
     private void drawText(float startAngle, String string,int mRadius,Paint mTextPaint,Canvas mCanvas,RectF mRange)
     {
+        String text = string.replaceAll("([^，。])", "$1 ");
         Path path = new Path();
         path.addArc(mRange, startAngle, 60);
-        float textWidth = mTextPaint.measureText(string);
+        float textWidth = mTextPaint.measureText(text);
 
         float hOffset = (float) (mRadius * Math.PI / 6 / 2 - textWidth / 2);
         float vOffset = mRadius / 2 / 4;
-        mCanvas.drawTextOnPath(string, path, hOffset, vOffset, mTextPaint);
+        mCanvas.drawTextOnPath(text, path, hOffset, vOffset, mTextPaint);
     }
 
     private void drawIcon(int xx,int yy,int mRadius,float startAngle, int i,Canvas mCanvas)
@@ -253,7 +254,7 @@ public class RotatePan extends View {
 
 
     private int queryPosition(){
-        InitAngle = (InitAngle % 360 + 360) % 360;
+        InitAngle = (InitAngle % 360 + 120) % 360;
         int pos = InitAngle / 60;
         return calcumAngle(pos);
     }

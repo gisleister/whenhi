@@ -1,5 +1,7 @@
 package com.whenhi.hi.activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -37,6 +39,8 @@ public class LuckpanActivity extends BaseActivity implements RotatePan.Animation
     private TextView gameRule;
 
     private Feed mFeed;
+
+    private String tips;
 
     private String[] prizes = {"一 等 奖","二 等 奖","三 等 奖","四 等 奖","五 等 奖","谢 谢 参 与"};;
 
@@ -164,9 +168,21 @@ public class LuckpanActivity extends BaseActivity implements RotatePan.Animation
 
 
                 if(luckModel.getState() == 0){
-                    rotatePan.startRotate(luckModel.getData().getResultId());
-                    luckPanLayout.setDelayTime(100);
-                    goBtn.setEnabled(false);
+
+                    //Toast.makeText(App.getContext(), ""+luckModel.getData().getResultId(), Toast.LENGTH_SHORT).show();
+                    int luckId = luckModel.getData().getResultId();
+                    if(luckId == -1){
+                        showTips(LuckpanActivity.this,luckModel.getData().getTips(),"休息下吧");
+                    }else{
+                        if(luckId > 0){
+                            tips = luckModel.getData().getTips();
+                            rotatePan.startRotate(luckId - 1);
+                            luckPanLayout.setDelayTime(100);
+                            goBtn.setEnabled(false);
+                        }
+
+                    }
+
                 }else{
                     Toast.makeText(App.getContext(), luckModel.getMsgText(), Toast.LENGTH_SHORT).show();
                 }
@@ -181,11 +197,28 @@ public class LuckpanActivity extends BaseActivity implements RotatePan.Animation
         });
     }
 
+
+    public static void showTips(Context context, String tips, String title){
+        Intent intent = new Intent(context, OtherActivity.class);
+
+        Bundle bundle=new Bundle();
+        //传递name参数为tinyphp
+        bundle.putString("tips", tips);
+        bundle.putString("title", title);
+        bundle.putInt("type",4);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+        if (context instanceof Activity){
+            Activity activity = (Activity)context;
+            activity.overridePendingTransition(R.anim.activity_open,0);
+        }
+    }
+
     @Override
     public void endAnimation(int position) {
         goBtn.setEnabled(true);
         luckPanLayout.setDelayTime(500);
-        //Toast.makeText(this,"Position = "+position+","+prizes[position],Toast.LENGTH_SHORT).show();
+        showTips(LuckpanActivity.this,tips,"恭喜您了");
     }
 
 

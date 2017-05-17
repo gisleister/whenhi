@@ -28,6 +28,7 @@ import com.whenhi.hi.activity.ChargeActivity;
 import com.whenhi.hi.activity.ChargeRecordActivity;
 import com.whenhi.hi.activity.FavActivity;
 import com.whenhi.hi.activity.IncomeRecordActivity;
+import com.whenhi.hi.activity.MoneyActivity;
 import com.whenhi.hi.activity.OtherActivity;
 import com.whenhi.hi.activity.ProblemActivity;
 import com.whenhi.hi.activity.RewardActivity;
@@ -194,6 +195,27 @@ public class MoreNavFragment extends BaseFragment {
         });
 
 
+        RelativeLayout money = (RelativeLayout)view.findViewById(R.id.user_money_layout);
+        money.setOnClickListener(new RelativeLayout.OnClickListener(){//创建监听
+            public void onClick(View v) {
+
+                if(isLogin){
+                    if(TextUtils.isEmpty(mobile)){//当用户已经登录但是没有绑定手机号时执行
+                        smsCode(view,1);
+                    }else{
+                        goToMoney(view);
+                    }
+
+                }else{
+                    ClickUtil.goToLogin(view.getContext());
+                }
+
+
+            }
+
+        });
+
+
         RelativeLayout userCode = (RelativeLayout)view.findViewById(R.id.user_code_layout);
         userCode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -309,8 +331,8 @@ public class MoreNavFragment extends BaseFragment {
     private void goToShare(View view){//我的里面邀请好友 type=1
         Feed feed = new Feed();
         feed.setType(1);
-        feed.setTitle("很嗨-每月领取150元话费");
-        feed.setContent("全球最大的娱乐内容汇集地...");
+        feed.setTitle("很嗨-没事偷着乐");
+        feed.setContent("每天给自己一个开心的理由");
         String invitePageUrl = App.getInvitePageUrl();
         String userLogo = App.getUserLogo();
 
@@ -447,6 +469,15 @@ public class MoreNavFragment extends BaseFragment {
     }
 
 
+    private void goToMoney(View view){
+
+        Intent intent = new Intent(view.getContext(), MoneyActivity.class);
+
+        view.getContext().startActivity(intent);
+
+    }
+
+
 
     private LoginListener mLoginListener = new LoginListener() {
         @Override
@@ -466,7 +497,7 @@ public class MoreNavFragment extends BaseFragment {
 
 
 
-            userNickname.setText("点击登录兑换话费");
+            userNickname.setText("点击登录");
             checkinState = 0;
             mobile = null;
             checkIn.setBackgroundResource(R.drawable.shape_button);

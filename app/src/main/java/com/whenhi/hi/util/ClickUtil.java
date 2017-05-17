@@ -36,8 +36,8 @@ public class ClickUtil {
     public static void  click(Feed feed, Context context){
         if(feed == null)
             return;
-        /*boolean isLogin = App.isLogin();
-        if(isLogin){
+        boolean isLogin = App.isLogin();
+        /*if(isLogin){
             reportClickInfo(feed);
 
         }*/
@@ -71,7 +71,12 @@ public class ClickUtil {
             goToWeb(context,feed);
 
         }else if(feed.getFeedCategory() == 10){//抽奖大转盘
-            goToLuckpan(context,feed);
+            if(isLogin){
+                goToLuckpan(context,feed);
+            }else{
+                goToLogin(context);
+            }
+
         }
 
 
@@ -113,7 +118,7 @@ public class ClickUtil {
                     }
 
                 }else{
-                    Toast.makeText(App.getContext(), "请求失败", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(App.getContext(), "请求失败", Toast.LENGTH_SHORT).show();
                 }
 
             }

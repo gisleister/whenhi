@@ -170,6 +170,9 @@
         <activity
             android:name=".activity.LuckpanActivity"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.MoneyActivity"
+            android:screenOrientation="portrait"></activity>
 
 
 
@@ -199,11 +202,6 @@
             android:launchMode="singleTop" />
 
         <!-- 必须注册在微博授权，分享微博时候用到 -->
-        <activity android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
-            android:configChanges="keyboardHidden|orientation"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="false" >
-        </activity>
 
         <meta-data android:name="WEIBO_APPKEY" android:value="369866112" />
 

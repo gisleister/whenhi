@@ -7,6 +7,7 @@
 
 
     <TextView
+        android:id="@+id/share_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
@@ -15,9 +16,10 @@
         android:paddingBottom="12dp"
         android:ellipsize="end"
         android:gravity="center_horizontal"
-        android:text="一键分享"/>
+        android:text="好东西不能独享，一定要分享给朋友"/>
 
     <TextView
+        android:id="@+id/share_des"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="14sp"
@@ -26,7 +28,8 @@
         android:paddingBottom="12dp"
         android:ellipsize="end"
         android:gravity="center_horizontal"
-        android:text="分享给好友共同领取手机话费，赶紧分享试一下吧！"/>
+        android:text="好东西不能独享，一定要分享给朋友"
+        android:visibility="gone"/>
 
 
     <LinearLayout

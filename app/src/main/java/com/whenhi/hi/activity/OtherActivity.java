@@ -34,6 +34,8 @@ public class OtherActivity extends BaseActivity {
     private String score;
     private int smsType;
     private String titleText;
+    private String tips;
+    private String title;
 
 
 
@@ -48,6 +50,8 @@ public class OtherActivity extends BaseActivity {
         mobile = bundle.getString("mobile");
         score = bundle.getString("score");
         titleText = bundle.getString("titleText");
+        tips = bundle.getString("tips");
+        title = bundle.getString("title");
 
 
 
@@ -81,7 +85,52 @@ public class OtherActivity extends BaseActivity {
             userCode();
         }else if(type == 3){
             caidan();
+        }else if(type == 4){
+            luckPan();
         }
+
+    }
+
+
+    private void luckPan(){
+        Holder holder = new ViewHolder(R.layout.layout_dialog_caidan);
+
+        DialogPlus dialog = DialogPlus.newDialog(this)
+                .setContentHolder(holder)
+                .setCancelable(true)
+                .setGravity(Gravity.CENTER)
+                .setOnDismissListener(new OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogPlus dialog) {
+                        finish();
+                    }
+                })
+                .setExpanded(false)//设置扩展模式可控制dialog的高度
+                .setMargin(80, 0, 80, 0)
+                .setPadding(0, 0, 0, 0)
+                .setContentBackgroundResource(R.drawable.shape_caidan)
+
+                .setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(final DialogPlus dialog, View view) {
+                        switch (view.getId()) {
+
+                            case R.id.caidan_close:
+
+                                dialog.dismiss();
+
+                                break;
+                        }
+
+                    }
+                })
+                .create();
+        dialog.show();
+        TextView textCaidan = (TextView)holder.getInflatedView().findViewById(R.id.caidan_text);
+        textCaidan.setText(tips);
+
+        TextView textTitle = (TextView)holder.getInflatedView().findViewById(R.id.caidan_title);
+        textTitle.setText(title);
 
     }
 

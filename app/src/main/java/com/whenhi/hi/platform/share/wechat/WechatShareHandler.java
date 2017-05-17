@@ -186,11 +186,6 @@ public class WechatShareHandler extends BaseShareHandler {
         setCallBack(listener);
         WXWebpageObject page = new WXWebpageObject();
         page.webpageUrl = url;
-
-        if(!TextUtils.isEmpty(des)){
-            title = des;
-        }
-
         WXMediaMessage msg = new WXMediaMessage(page);
         msg.title = title;
         msg.description = des;

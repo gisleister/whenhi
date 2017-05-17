@@ -52,7 +52,7 @@
                     android:gravity="center"
                     android:textColor="#333333"
                     android:textSize="16sp"
-                    android:text="点击登录兑换话费"/>
+                    android:text="点击登录"/>
 
 
 
@@ -179,7 +179,8 @@
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:background="@drawable/shape_selector"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/user_recharge_image"
@@ -208,6 +209,48 @@
                     android:src="@mipmap/gengduo" />
 
             </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/user_money_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:background="@drawable/shape_selector"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/user_money_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/chongzhi" />
+
+                <TextView
+                    android:id="@+id/user_money_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="38dp"
+                    android:textColor="#333333"
+                    android:textSize="14sp"
+                    android:text="嗨币提现"
+                    android:layout_centerVertical="true"/>
+
+
+
+                <ImageView
+                    android:id="@+id/user_money_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/gengduo" />
+
+            </RelativeLayout>
+
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -238,7 +281,7 @@
                     android:layout_marginLeft="38dp"
                     android:textColor="#333333"
                     android:textSize="14sp"
-                    android:text="兑换记录"
+                    android:text="提现记录"
                     android:layout_centerVertical="true"/>
 
 
@@ -305,7 +348,8 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:background="@drawable/bg_space"/>
+                android:background="@drawable/bg_space"
+                android:visibility="gone"/>
 
             <RelativeLayout
                 android:id="@+id/user_code_layout"
@@ -316,7 +360,8 @@
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:background="@drawable/shape_selector"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/user_code_image"

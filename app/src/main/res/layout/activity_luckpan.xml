@@ -93,7 +93,7 @@
                 android:id="@+id/go"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/node"
+                android:src="@mipmap/kaishi"
                 android:clickable="true"
                 android:onClick="rotation"
                 android:layout_marginTop="50dp"

@@ -315,71 +315,39 @@ public class WhenhiReceiver extends BroadcastReceiver {
                 }else if(subtype.equals("feed")) {
 
 
-
-                    final RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
-                            R.layout.layout_notifycation);
-
-                    remoteViews.setImageViewResource(R.id.item_notice_image,R.mipmap.logo);
-                    builder.setSmallIcon(R.mipmap.logo);
-                    builder.setTicker(notification.getTitle());
-                    builder.setDefaults(Notification.DEFAULT_SOUND);
-                    builder.setPriority(Notification.PRIORITY_HIGH);
+                    builder.setSmallIcon(R.mipmap.logo)
+                            .setLargeIcon(icon)
+                            .setDefaults(Notification.DEFAULT_SOUND)
+                            .setPriority(Notification.PRIORITY_HIGH)
+                            .setTicker(notification.getTitle())
+                            .setContentTitle(notification.getTitle())
+                            .setContentText(notification.getDescription());
 
 
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            URL picUrl = null;
-                            try {
-                                picUrl = new URL(notification.getPicUrl());
-                            } catch (MalformedURLException e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                Bitmap pngBM = BitmapFactory.decodeStream(picUrl.openStream());
-                                remoteViews.setImageViewBitmap(R.id.item_notice_image,pngBM);
-                                remoteViews.setTextViewText(R.id.item_notice_title, notification.getTitle());
-                                remoteViews.setTextViewText(R.id.item_notice_des,notification.getDescription());
+                    Intent intent = new Intent(context,MainActivity.class);
 
+                    if(notification.getFeedCategory() == 1){//视频
+                        intent = new Intent(context, VideoActivity.class);
 
-                                builder.setContent(remoteViews);
+                    }else if(notification.getFeedCategory() == 4){//段子
+                        intent = new Intent(context, TextActivity.class);
+                    }else if(notification.getFeedCategory() == 5){//图片
+                        intent = new Intent(context, PicActivity.class);
+                    }else if(notification.getFeedCategory() == 6){//广告
+                        intent = new Intent(context, WebViewActivity.class);
+                    }else if(notification.getFeedCategory() == 9){//资讯
+                        intent = new Intent(context, WebViewActivity.class);
+                    }
 
+                    intent.putExtra("isPush", true);
+                    intent.putExtra("feedId",notification.getFeedId());
+                    intent.putExtra("feedCategory",notification.getFeedCategory());
 
+                    PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
-                                Intent intent = new Intent(context,MainActivity.class);
-
-                                if(notification.getFeedCategory() == 1){//视频
-                                    intent = new Intent(context, VideoActivity.class);
-
-                                }else if(notification.getFeedCategory() == 4){//段子
-                                    intent = new Intent(context, TextActivity.class);
-                                }else if(notification.getFeedCategory() == 5){//图片
-                                    intent = new Intent(context, PicActivity.class);
-                                }else if(notification.getFeedCategory() == 6){//广告
-                                    intent = new Intent(context, WebViewActivity.class);
-                                }else if(notification.getFeedCategory() == 9){//资讯
-                                    intent = new Intent(context, WebViewActivity.class);
-                                }
-
-                                intent.putExtra("isPush", true);
-                                intent.putExtra("feedId",notification.getFeedId());
-                                intent.putExtra("feedCategory",notification.getFeedCategory());
-
-                                PendingIntent pIntent = PendingIntent.getActivity(context,1,intent,0);
-                                //设置点击大图后跳转
-                                builder.setContentIntent(pIntent);
-                                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
-                                    builder.setCustomBigContentView(remoteViews);
-                                }
-
-                                manager.notify(notificationId,builder.build());
-                                notificationId++;
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-                    }).start();
+                    builder.setContentIntent(pendingIntent);
+                    manager.notify(notificationId,builder.build());
+                    notificationId++;
 
 
 

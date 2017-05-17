@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.orhanobut.dialogplus.DialogPlus;
@@ -59,9 +60,13 @@ public class ShareActivity extends BaseActivity implements WbShareCallback {
 
 
         String title = mFeed.getTitle();
+        String content = mFeed.getContent();
 
         if(TextUtils.isEmpty(title)){
-            mFeed.setTitle("很嗨-精彩内容不断");
+            mFeed.setTitle("很嗨-没事偷着乐");
+        }
+        if(TextUtils.isEmpty(content)){
+            mFeed.setContent("每天给自己一个开心的理由");
         }
 
 
@@ -78,7 +83,7 @@ public class ShareActivity extends BaseActivity implements WbShareCallback {
         }
         ImageUtil.getBitmap(ShareActivity.this,ImageUtil.getShareImageUrl(mFeed));
 
-        share();
+        share(mFeed.getType());
 
     }
 
@@ -122,9 +127,6 @@ public class ShareActivity extends BaseActivity implements WbShareCallback {
         String shareUrl = mFeed.getShareUrl();
         String shareImageUrl = ImageUtil.getShareImageUrl(mFeed);
         String title = mFeed.getTitle();
-        if (TextUtils.isEmpty(title)){
-            title = mFeed.getContent();
-        }
         mQQShareHandler.shareToQQWithNetworkImage(this, title,mFeed.getContent(), shareUrl,shareImageUrl,new ShareListener());
     }
 
@@ -142,9 +144,6 @@ public class ShareActivity extends BaseActivity implements WbShareCallback {
         ArrayList<String>  images = ImageUtil.getShareImageUrls(mFeed);
 
         String title = mFeed.getTitle();
-        if (TextUtils.isEmpty(title)){
-            title = mFeed.getContent();
-        }
         mQQShareHandler.shareToQzoneWithNetWorkImages(this, title,mFeed.getContent(), shareUrl,images,new ShareListener());
     }
 
@@ -159,9 +158,6 @@ public class ShareActivity extends BaseActivity implements WbShareCallback {
             bp = BitmapFactory.decodeResource(getResources(),R.mipmap.logo);
         }
         String title = mFeed.getTitle();
-        if (TextUtils.isEmpty(title)){
-            title = mFeed.getContent();
-        }
         mWechatHandler.sendFriend(title,mFeed.getContent(),shareUrl,bp,new ShareListener(),1);
     }
     private void shareWechatTimeline() {
@@ -173,9 +169,6 @@ public class ShareActivity extends BaseActivity implements WbShareCallback {
         }
 
         String title = mFeed.getTitle();
-        if (TextUtils.isEmpty(title)){
-            title = mFeed.getContent();
-        }
         mWechatHandler.sendTimeLine(title,mFeed.getContent(),shareUrl,bp,new ShareListener(),2);
     }
 
@@ -193,9 +186,6 @@ public class ShareActivity extends BaseActivity implements WbShareCallback {
 
 
         String title = mFeed.getTitle();
-        if (TextUtils.isEmpty(title)){
-            title = mFeed.getContent();
-        }
 
         mWeiboShareHandler.sendMultiMessage(true,true,true,false,ShareActivity.this,title,mFeed.getContent(),shareUrl,bp,full,new ShareListener());
 
@@ -283,7 +273,7 @@ public class ShareActivity extends BaseActivity implements WbShareCallback {
     }
 
 
-    private void share(){
+    private void share(int type){
         Holder holder = new ViewHolder(R.layout.layout_dialog_share);
         DialogPlus dialog = DialogPlus.newDialog(this)
                 .setContentHolder(holder)
@@ -322,6 +312,11 @@ public class ShareActivity extends BaseActivity implements WbShareCallback {
                 })
                 .create();
         dialog.show();
+
+        if(type == 1){
+            TextView title = (TextView)holder.getInflatedView().findViewById(R.id.share_title);
+            title.setText("邀请好友一起领红包");
+        }
     }
 }
 
