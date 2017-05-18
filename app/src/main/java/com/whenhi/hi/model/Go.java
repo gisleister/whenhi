@@ -7,7 +7,25 @@ package com.whenhi.hi.model;
 public class Go {
     private int resultId;
     private String tips;
+    private int lotteryCount;
+    private String lotteryCountDesc;
 
+
+    public String getLotteryCountDesc() {
+        return lotteryCountDesc;
+    }
+
+    public void setLotteryCountDesc(String lotteryCountDesc) {
+        this.lotteryCountDesc = lotteryCountDesc;
+    }
+
+    public int getLotteryCount() {
+        return lotteryCount;
+    }
+
+    public void setLotteryCount(int lotteryCount) {
+        this.lotteryCount = lotteryCount;
+    }
 
     public int getResultId() {
         return resultId;

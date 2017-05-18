@@ -103,14 +103,14 @@ public class ChargeRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         holder.chargeRecordTime.setText(chargeRecord.getCreateTimeNice());
 
         if(chargeRecord.getStatus() == 1){
-            holder.chargeRecordStatus.setText("充值成功");
+            holder.chargeRecordStatus.setText("提现成功");
         }else if(chargeRecord.getStatus() == 2){
             holder.chargeRecordStatus.setText("正在处理");
         }else if(chargeRecord.getStatus() == 3){
-            holder.chargeRecordStatus.setText("充值失败");
+            holder.chargeRecordStatus.setText("提现失败");
         }
 
-        holder.chargeRecordMoney.setText("充值 " + chargeRecord.getCardValue() + " 元");
+        holder.chargeRecordMoney.setText("提现 " + chargeRecord.getCardValue() + " 元");
 
 
 

@@ -102,7 +102,7 @@ public class LuckpanActivity extends BaseActivity implements RotatePan.Animation
         hitUser = (TextView) findViewById(R.id.hit_user_text);
         gameRule = (TextView) findViewById(R.id.game_rule_text);
 
-        hitUser.setText(feed.getTitle());
+        hitUser.setText(feed.getLotteryCountDesc());
         gameRule.setText(feed.getContent());
 
         luckPanLayout = (LuckPanLayout) findViewById(R.id.luckpan_layout);
@@ -174,6 +174,7 @@ public class LuckpanActivity extends BaseActivity implements RotatePan.Animation
                     if(luckId == -1){
                         showTips(LuckpanActivity.this,luckModel.getData().getTips(),"休息下吧");
                     }else{
+                        hitUser.setText(luckModel.getData().getLotteryCountDesc());
                         if(luckId > 0){
                             tips = luckModel.getData().getTips();
                             rotatePan.startRotate(luckId - 1);

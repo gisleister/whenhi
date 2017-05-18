@@ -44,7 +44,25 @@ public class Feed implements Serializable {
     private List<Rule> rules;
     private int dailyLimit;
     private String picUrl;
+    private int lotteryCount;
+    private String lotteryCountDesc;
 
+
+    public String getLotteryCountDesc() {
+        return lotteryCountDesc;
+    }
+
+    public void setLotteryCountDesc(String lotteryCountDesc) {
+        this.lotteryCountDesc = lotteryCountDesc;
+    }
+
+    public int getLotteryCount() {
+        return lotteryCount;
+    }
+
+    public void setLotteryCount(int lotteryCount) {
+        this.lotteryCount = lotteryCount;
+    }
 
     public String getPicUrl() {
         return picUrl;

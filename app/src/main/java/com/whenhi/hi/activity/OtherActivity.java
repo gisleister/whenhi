@@ -257,7 +257,7 @@ public class OtherActivity extends BaseActivity {
                                             if(baseModel.getState() == 0){
                                                 NoticeTransfer.mobile(mobile);
                                                 if(smsType == 1){
-                                                    goToPhone(view,mobile);
+                                                    goToMoney(view);
                                                 }else if(smsType == 2){
                                                     smsType = 1;
                                                     userCode();
@@ -301,14 +301,10 @@ public class OtherActivity extends BaseActivity {
 
     }
 
-    private void goToPhone(View view, String mobile){
+    private void goToMoney(View view){
 
-        Intent intent = new Intent(this, ChargeActivity.class);
+        Intent intent = new Intent(view.getContext(), MoneyActivity.class);
 
-        Bundle bundle=new Bundle();
-        //传递name参数为tinyphp
-        bundle.putString("mobile", mobile);
-        intent.putExtras(bundle);
         view.getContext().startActivity(intent);
 
     }
