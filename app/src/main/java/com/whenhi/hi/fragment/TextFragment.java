@@ -87,7 +87,7 @@ public class TextFragment extends BaseFragment implements OnRefreshListener, OnL
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
-        mRecyclerView.getRecycledViewPool().setMaxRecycledViews(mAdapter.getItemViewType(1),3);
+        //mRecyclerView.getRecycledViewPool().setMaxRecycledViews(mAdapter.getItemViewType(1),3);
 
         setViewCreate(true);
 

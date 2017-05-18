@@ -17,11 +17,12 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.whenhi.hi.R;
+import com.whenhi.hi.view.web.ProgressWebView;
 
 
 public class RewardActivity extends BaseActivity {
 
-    private WebView mWebView;
+    private ProgressWebView mWebView;
     private String mUrl;
 
     @Override
@@ -51,7 +52,7 @@ public class RewardActivity extends BaseActivity {
     }
 
     public void initWebView() {
-        mWebView = (WebView) findViewById(R.id.reward_webview);
+        mWebView = (ProgressWebView) findViewById(R.id.reward_webview);
         if (!TextUtils.isEmpty(mUrl)) {
             WebSettings webSettings = mWebView.getSettings();
             //设置WebView属性，能够执行Javascript脚本
@@ -64,14 +65,14 @@ public class RewardActivity extends BaseActivity {
             webSettings.setUseWideViewPort(true); //打开页面时， 自适应屏幕
             webSettings.setLoadWithOverviewMode(true);//打开页面时， 自适应屏幕
             mWebView.getSettings().setDomStorageEnabled(true);
-
+            mWebView.loadUrl(mUrl);
 
 
 
             //设置Web视图
-            mWebView.setWebViewClient(new MyWebViewClient());
-            mWebView.setWebChromeClient(new MyWebChromeClient());
-            new MyAsnycTask().execute();
+            //mWebView.setWebViewClient(new MyWebViewClient());
+            //mWebView.setWebChromeClient(new MyWebChromeClient());
+            //new MyAsnycTask().execute();
         }
     }
 

@@ -99,7 +99,7 @@ public class VideoFullActivity extends BaseActivity {
 
     private VideoPlayer.IOrientationImpl iOrientationImpl = new VideoPlayer.IOrientationImpl() {
         @Override
-        public void onOrientationChange(boolean isPortrait) {
+        public void onOrientationChange() {
             finish();
             // OrientationUtil.changeOrientation(VideoFullActivity.this);
             /*int orientation = OrientationUtil.getOrientation(VideoFullActivity.this);

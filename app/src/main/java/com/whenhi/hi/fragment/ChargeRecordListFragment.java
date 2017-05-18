@@ -87,7 +87,7 @@ public class ChargeRecordListFragment extends BaseFragment implements OnRefreshL
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
-        mRecyclerView.getRecycledViewPool().setMaxRecycledViews(mAdapter.getItemViewType(0),3);
+        //mRecyclerView.getRecycledViewPool().setMaxRecycledViews(mAdapter.getItemViewType(0),3);
 
         setViewCreate(true);
 

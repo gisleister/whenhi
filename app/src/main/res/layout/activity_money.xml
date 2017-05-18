@@ -11,7 +11,7 @@
         layout="@layout/layout_toolbar" />
 
     <com.whenhi.hi.view.web.ProgressWebView
-        android:id="@+id/about_webview"
+        android:id="@+id/money_webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

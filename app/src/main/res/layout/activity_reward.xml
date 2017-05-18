@@ -10,12 +10,11 @@
         android:id="@+id/toolbar"
         layout="@layout/layout_toolbar" />
 
-
-    <WebView
+    <com.whenhi.hi.view.web.ProgressWebView
         android:id="@+id/reward_webview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="40dp"/>
+        android:layout_height="match_parent"/>
+
 
 
 

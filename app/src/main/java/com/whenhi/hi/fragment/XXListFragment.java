@@ -79,7 +79,7 @@ public class XXListFragment extends BaseFragment implements OnRefreshListener, O
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
-        mRecyclerView.getRecycledViewPool().setMaxRecycledViews(mAdapter.getItemViewType(0),3);
+        //mRecyclerView.getRecycledViewPool().setMaxRecycledViews(mAdapter.getItemViewType(0),3);
 
 
         mSwipeToLoadLayout.setOnRefreshListener(this);

@@ -68,8 +68,6 @@ public class VideoPlayer extends RelativeLayout implements View.OnTouchListener 
     private Animation mExitFromTop;
     private Animation mExitFromBottom;
 
-    private boolean isPortrait = false;
-
     private int mDuration = 0;//视频长度
     private long mCurrentDownTime = 0;//当前action_down时的时间值
     private long mLastDownTime = 0;//上次action_down的时间值，防止快速触摸多次触发
@@ -255,7 +253,7 @@ public class VideoPlayer extends RelativeLayout implements View.OnTouchListener 
         public void onOrientationChange() {
             //OrientationUtil.changeOrientation(mHostActivity.get());
 
-            mIOrientationImpl.onOrientationChange(isPortrait);
+            mIOrientationImpl.onOrientationChange();
         }
     };
 
@@ -576,16 +574,7 @@ public class VideoPlayer extends RelativeLayout implements View.OnTouchListener 
 
         initNetworkMonitor();
         registerNetworkReceiver();
-        MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-        if (Build.VERSION.SDK_INT >= 14)
-            mmr.setDataSource(path, new HashMap<String, String>());
-        else
-            mmr.setDataSource(path);
-        int width = Integer.parseInt(mmr.extractMetadata(android.media.MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH));
-        int height = Integer.parseInt(mmr.extractMetadata(android.media.MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT));
-        if(height > width){
-            isPortrait = true;
-        }
+
 
     }
 
@@ -1109,7 +1098,7 @@ public class VideoPlayer extends RelativeLayout implements View.OnTouchListener 
         /**
          * 触发全屏/退出全屏功能
          */
-        void onOrientationChange(boolean isPortrait);
+        void onOrientationChange();
     }
 
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -234,15 +235,21 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         holder.imageContent.setOnClickListener(new Button.OnClickListener(){//创建监听
             public void onClick(View v) {
 
+                Log.d("video click start url:",mFeed.getPlayUrl());
+
                 String videoUrl = mFeed.getPlayUrl();
 
                 String vUrl = videoUrl.replaceFirst("https","http");
+
+                Log.d("video click doing url:",vUrl);
+
                 mFeed.setPlayUrl(vUrl);
 
                 mVideoAdapter = new VideoAdapter(mActivity,mFeed,holder.videoPlayer);
                 holder.videoPlayer.setVisibility(View.VISIBLE);
                 holder.imageContent.setVisibility(View.GONE);
                 holder.imagePlay.setVisibility(View.GONE);
+                Log.d("video click end ","ok");
             }
         });
 

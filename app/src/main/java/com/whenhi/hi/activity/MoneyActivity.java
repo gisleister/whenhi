@@ -16,17 +16,18 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.whenhi.hi.R;
+import com.whenhi.hi.view.web.ProgressWebView;
 
 
 public class MoneyActivity extends BaseActivity {
 
-    private WebView mWebView;
+    private ProgressWebView mWebView;
     private String mUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
+        setContentView(R.layout.activity_money);
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar).findViewById(R.id.toolbar);
@@ -50,7 +51,7 @@ public class MoneyActivity extends BaseActivity {
     }
 
     public void initWebView() {
-        mWebView = (WebView) findViewById(R.id.about_webview);
+        mWebView = (ProgressWebView) findViewById(R.id.money_webview);
         if (!TextUtils.isEmpty(mUrl)) {
             WebSettings webSettings = mWebView.getSettings();
             //设置WebView属性，能够执行Javascript脚本
@@ -63,12 +64,12 @@ public class MoneyActivity extends BaseActivity {
             webSettings.setUseWideViewPort(true); //打开页面时， 自适应屏幕
             webSettings.setLoadWithOverviewMode(true);//打开页面时， 自适应屏幕
             mWebView.getSettings().setDomStorageEnabled(true);
-
+            mWebView.loadUrl(mUrl);
 
             //设置Web视图
-            mWebView.setWebViewClient(new MyWebViewClient());
-            mWebView.setWebChromeClient(new MyWebChromeClient());
-            new MyAsnycTask().execute();
+            //mWebView.setWebViewClient(new MyWebViewClient());
+            //mWebView.setWebChromeClient(new MyWebChromeClient());
+            //new MyAsnycTask().execute();
         }
     }
 

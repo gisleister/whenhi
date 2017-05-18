@@ -90,7 +90,7 @@ public class VideoFragment extends BaseFragment implements OnRefreshListener, On
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
-        mRecyclerView.getRecycledViewPool().setMaxRecycledViews(mAdapter.getItemViewType(1),3);
+        //mRecyclerView.getRecycledViewPool().setMaxRecycledViews(mAdapter.getItemViewType(1),3);
 
         setViewCreate(true);
 

@@ -13,14 +13,17 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.whenhi.hi.R;
+import com.whenhi.hi.view.web.ProgressWebView;
 
 
 public class AboutActivity extends BaseActivity {
 
-    private WebView mWebView;
+    private ProgressWebView mWebView;
+    private ProgressBar mProgressbar;
     private String mUrl;
 
     @Override
@@ -50,7 +53,7 @@ public class AboutActivity extends BaseActivity {
     }
 
     public void initWebView() {
-        mWebView = (WebView) findViewById(R.id.about_webview);
+        mWebView = (ProgressWebView) findViewById(R.id.about_webview);
         if (!TextUtils.isEmpty(mUrl)) {
             WebSettings webSettings = mWebView.getSettings();
             //设置WebView属性，能够执行Javascript脚本
@@ -64,11 +67,13 @@ public class AboutActivity extends BaseActivity {
             webSettings.setLoadWithOverviewMode(true);//打开页面时， 自适应屏幕
             mWebView.getSettings().setDomStorageEnabled(true);
 
+            mWebView.loadUrl(mUrl);
+
 
             //设置Web视图
-            mWebView.setWebViewClient(new MyWebViewClient());
-            mWebView.setWebChromeClient(new MyWebChromeClient());
-            new MyAsnycTask().execute();
+            //mWebView.setWebViewClient(new MyWebViewClient());
+            //mWebView.setWebChromeClient(new MyWebChromeClient());
+            //new MyAsnycTask().execute();
         }
     }
 

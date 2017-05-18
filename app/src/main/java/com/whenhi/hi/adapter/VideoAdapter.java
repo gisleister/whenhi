@@ -2,6 +2,8 @@ package com.whenhi.hi.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaMetadataRetriever;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
@@ -16,6 +18,8 @@ import com.whenhi.hi.network.HttpAPI;
 import org.lynxz.zzplayerlibrary.controller.IPlayerImpl;
 import org.lynxz.zzplayerlibrary.util.OrientationUtil;
 import org.lynxz.zzplayerlibrary.widget.VideoPlayer;
+
+import java.util.HashMap;
 
 /**
  * Created by 王雷 on 2017/2/21.
@@ -93,7 +97,19 @@ public class VideoAdapter{
 
     private VideoPlayer.IOrientationImpl iOrientationImpl = new VideoPlayer.IOrientationImpl() {
         @Override
-        public void onOrientationChange(boolean isPortrait) {
+        public void onOrientationChange() {
+            boolean isPortrait = false;
+
+            MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+            if (Build.VERSION.SDK_INT >= 14)
+                mmr.setDataSource(mVideoUrl, new HashMap<String, String>());
+            else
+                mmr.setDataSource(mVideoUrl);
+            int width = Integer.parseInt(mmr.extractMetadata(android.media.MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH));
+            int height = Integer.parseInt(mmr.extractMetadata(android.media.MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT));
+            if(height > width){
+                isPortrait = true;
+            }
 
             mVideoPlayer.pausePlay();
             Intent intent = new Intent(mActivity, VideoFullActivity.class);
