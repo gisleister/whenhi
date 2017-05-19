@@ -9,16 +9,18 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.whenhi.hi.view.web.ProgressWebView;
+
 /**
  * Created by 王雷 on 2017/2/21.
  */
 
 public class WebviewAdapter {
 
-    private WebView mWebView;
+    private ProgressWebView mWebView;
     private String mUrl;
 
-    public WebviewAdapter(WebView webView) {
+    public WebviewAdapter(ProgressWebView webView) {
         mWebView = webView;
     }
 
@@ -41,14 +43,14 @@ public class WebviewAdapter {
             webSettings.setUseWideViewPort(true); //打开页面时， 自适应屏幕
             webSettings.setLoadWithOverviewMode(true);//打开页面时， 自适应屏幕
             mWebView.getSettings().setDomStorageEnabled(true);
-
+            mWebView.loadUrl(mUrl);
 
 
             //设置Web视图
-            mWebView.setWebViewClient(new MyWebViewClient());
-            mWebView.setWebChromeClient(new MyWebChromeClient());
+            //mWebView.setWebViewClient(new MyWebViewClient());
+            //mWebView.setWebChromeClient(new MyWebChromeClient());
 
-            new MyAsnycTask().execute();
+            //new MyAsnycTask().execute();
         }
     }
 

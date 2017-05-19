@@ -24,6 +24,7 @@ import com.whenhi.hi.model.Comment;
 import com.whenhi.hi.model.Feed;
 import com.whenhi.hi.receiver.NoticeTransfer;
 import com.whenhi.hi.util.ClickUtil;
+import com.whenhi.hi.view.web.ProgressWebView;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -270,12 +271,12 @@ public class WebViewCommentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     static class DetailHolder extends RecyclerView.ViewHolder {
-        WebView webView;
+        ProgressWebView webView;
 
         public DetailHolder(View itemView) {
             super(itemView);
 
-            webView = (WebView) itemView.findViewById(R.id.detail_webview);
+            webView = (ProgressWebView) itemView.findViewById(R.id.detail_webview);
         }
     }
 
