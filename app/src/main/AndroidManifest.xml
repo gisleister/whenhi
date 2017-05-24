@@ -93,10 +93,10 @@
             android:name=".activity.SettingActivity"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".activity.IncomeRecordActivity"
+            android:name=".activity.MyHaibiRecordActivity"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".activity.ChargeRecordActivity"
+            android:name=".activity.MoneyRecordActivity"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.OtherActivity"
@@ -165,7 +165,7 @@
             android:name=".activity.ShareIndexActivity"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".activity.IncomeIndexActivity"
+            android:name=".activity.HaibiIndexActivity"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.LuckpanActivity"

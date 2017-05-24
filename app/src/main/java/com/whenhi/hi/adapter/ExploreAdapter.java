@@ -19,23 +19,20 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
-import com.whenhi.hi.activity.IncomeIndexActivity;
+import com.whenhi.hi.activity.HaibiIndexActivity;
 import com.whenhi.hi.activity.MaleActivity;
 import com.whenhi.hi.image.CircleTransform;
 import com.whenhi.hi.image.RoundTransform;
-import com.whenhi.hi.listener.CommentListener;
 import com.whenhi.hi.listener.GlideListener;
 import com.whenhi.hi.listener.OnChildItemClickListener;
 import com.whenhi.hi.listener.OnChildItemLongClickListener;
 import com.whenhi.hi.listener.OnGroupItemClickListener;
 import com.whenhi.hi.listener.OnGroupItemLongClickListener;
-import com.whenhi.hi.model.Comment;
 import com.whenhi.hi.model.DiscoveryModel;
 import com.whenhi.hi.model.Feed;
 import com.whenhi.hi.model.Image;
 import com.whenhi.hi.model.User;
 import com.whenhi.hi.network.HttpAPI;
-import com.whenhi.hi.receiver.NoticeTransfer;
 import com.whenhi.hi.util.ClickUtil;
 
 import java.lang.ref.WeakReference;
@@ -201,7 +198,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         holder.haibiIndex.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), IncomeIndexActivity.class);
+                Intent intent = new Intent(v.getContext(), HaibiIndexActivity.class);
                 v.getContext().startActivity(intent);
 
             }
@@ -210,7 +207,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private void onBindHabiIndexHolder(HaibiIndexHolder holder) {
 
-        final IncomeIndexAdapter adapter = new IncomeIndexAdapter();
+        final HaibiIndexAdapter adapter = new HaibiIndexAdapter();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(holder.recyclerView.getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);

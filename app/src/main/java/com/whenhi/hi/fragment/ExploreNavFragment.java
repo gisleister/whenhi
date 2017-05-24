@@ -2,30 +2,18 @@ package com.whenhi.hi.fragment;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.aspsine.fragmentnavigator.FragmentNavigator;
-import com.whenhi.hi.App;
 import com.whenhi.hi.Constants;
 import com.whenhi.hi.R;
-import com.whenhi.hi.activity.CraftActivity;
-import com.whenhi.hi.activity.IncomeIndexActivity;
-import com.whenhi.hi.activity.MaleActivity;
-import com.whenhi.hi.model.DiscoveryModel;
-import com.whenhi.hi.network.HttpAPI;
-import com.whenhi.hi.util.ClickUtil;
 
 /**
  * Created by 王雷 on 2016/12/26.

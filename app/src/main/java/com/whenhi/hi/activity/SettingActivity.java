@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,7 +62,7 @@ public class SettingActivity extends BaseActivity {
 
 
 
-        RelativeLayout cache = (RelativeLayout) findViewById(R.id.setting_cache_layout);
+        LinearLayout cache = (LinearLayout) findViewById(R.id.setting_cache_layout);
         cache.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +73,7 @@ public class SettingActivity extends BaseActivity {
             }
         });
 
-        RelativeLayout version = (RelativeLayout) findViewById(R.id.setting_version_layout);
+        LinearLayout version = (LinearLayout) findViewById(R.id.setting_version_layout);
         version.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +83,18 @@ public class SettingActivity extends BaseActivity {
         TextView versionText = (TextView)findViewById(R.id.setting_version_text);
         versionText.setText(App.getAppVersionName());
 
-        RelativeLayout logout = (RelativeLayout) findViewById(R.id.setting_logout_layout);
+
+        LinearLayout about = (LinearLayout) findViewById(R.id.setting_about_layout);
+        about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(App.getContext(), AboutActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        TextView logout = (TextView) findViewById(R.id.setting_logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

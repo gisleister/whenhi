@@ -1,7 +1,6 @@
 package com.whenhi.hi.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,14 +20,14 @@ import java.util.List;
 /**
  *
  */
-public class IncomeIndexListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private static final String TAG =IncomeIndexListAdapter.class.getSimpleName();
+public class HaibiIndexListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private static final String TAG =HaibiIndexListAdapter.class.getSimpleName();
 
     private final List<UserScore> mDataList;
 
 
 
-    public IncomeIndexListAdapter() {
+    public HaibiIndexListAdapter() {
         mDataList = new ArrayList<>();
     }
 
@@ -79,12 +78,28 @@ public class IncomeIndexListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         int index = position+1;
         holder.userScoreIndex.setText(""+index);
         holder.userNickName.setText(user.getUserName());
-        holder.userScore.setText(""+user.getScore() + "嗨币");
+        holder.userScore.setText(""+user.getScore() + "");
 
         Context context = App.getContext();
         ImageUtil.avatarImage(context,user.getUserLogo(),holder.userAvatar);
-        if(index < 4){
-            holder.userScoreIndex.setTextColor(Color.rgb(255,96,0));
+        //if(index < 4){
+         //   holder.userScoreIndex.setTextColor(Color.rgb(255,96,0));
+        //}
+        if(index == 1){
+            holder.userScoreIndexImage.setVisibility(View.VISIBLE);
+            holder.userScoreIndex.setVisibility(View.GONE);
+            holder.userScoreIndexImage.setImageResource(R.mipmap.paihang_icon1);
+        }else if(index == 2){
+            holder.userScoreIndexImage.setVisibility(View.VISIBLE);
+            holder.userScoreIndex.setVisibility(View.GONE);
+            holder.userScoreIndexImage.setImageResource(R.mipmap.paihang_icon2);
+        }else if(index == 3){
+            holder.userScoreIndexImage.setVisibility(View.VISIBLE);
+            holder.userScoreIndex.setVisibility(View.GONE);
+            holder.userScoreIndexImage.setImageResource(R.mipmap.paihang_icon3);
+        }else{
+            holder.userScoreIndexImage.setVisibility(View.GONE);
+            holder.userScoreIndex.setVisibility(View.VISIBLE);
         }
 
     }
@@ -102,6 +117,7 @@ public class IncomeIndexListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         TextView userNickName;
         TextView userScore;
         TextView userScoreIndex;
+        ImageView userScoreIndexImage;
 
 
         public UserScoreHolder(View itemView) {
@@ -110,6 +126,7 @@ public class IncomeIndexListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             userNickName = (TextView) itemView.findViewById(R.id.item_user_score_nickname);
             userScore = (TextView) itemView.findViewById(R.id.item_user_score_text);
             userScoreIndex = (TextView) itemView.findViewById(R.id.item_user_score_index);
+            userScoreIndexImage = (ImageView) itemView.findViewById(R.id.item_user_score_index_image);
 
         }
     }

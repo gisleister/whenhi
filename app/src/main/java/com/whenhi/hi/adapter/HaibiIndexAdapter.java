@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
-import com.whenhi.hi.activity.IncomeIndexActivity;
+import com.whenhi.hi.activity.HaibiIndexActivity;
 import com.whenhi.hi.image.CircleTransform;
 import com.whenhi.hi.listener.GlideListener;
 import com.whenhi.hi.listener.OnItemClickListener;
@@ -27,8 +27,8 @@ import java.util.List;
 /**
  *
  */
-public class IncomeIndexAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private static final String TAG =IncomeIndexAdapter.class.getSimpleName();
+public class HaibiIndexAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private static final String TAG =HaibiIndexAdapter.class.getSimpleName();
 
     private final List<User> mDataList;
     private GlideListener mGlideListener;
@@ -46,7 +46,7 @@ public class IncomeIndexAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
 
-    public IncomeIndexAdapter() {
+    public HaibiIndexAdapter() {
         mDataList = new ArrayList<>();
         mGlideListener = new GlideListener();
     }
@@ -75,7 +75,7 @@ public class IncomeIndexAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), IncomeIndexActivity.class);
+                Intent intent = new Intent(view.getContext(), HaibiIndexActivity.class);
                 view.getContext().startActivity(intent);
             }
         });

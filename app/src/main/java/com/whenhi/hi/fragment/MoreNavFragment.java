@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,16 +21,13 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
-import com.whenhi.hi.activity.AboutActivity;
-import com.whenhi.hi.activity.ChargeActivity;
-import com.whenhi.hi.activity.ChargeRecordActivity;
+import com.whenhi.hi.activity.MoneyRecordActivity;
 import com.whenhi.hi.activity.FavActivity;
-import com.whenhi.hi.activity.IncomeRecordActivity;
+import com.whenhi.hi.activity.MyHaibiRecordActivity;
 import com.whenhi.hi.activity.LookActivity;
 import com.whenhi.hi.activity.MoneyActivity;
 import com.whenhi.hi.activity.OtherActivity;
 import com.whenhi.hi.activity.ProblemActivity;
-import com.whenhi.hi.activity.RewardActivity;
 import com.whenhi.hi.activity.SettingActivity;
 import com.whenhi.hi.image.CircleTransform;
 import com.whenhi.hi.listener.LoginListener;
@@ -41,7 +36,6 @@ import com.whenhi.hi.model.Feed;
 import com.whenhi.hi.model.UserModel;
 import com.whenhi.hi.network.HttpAPI;
 import com.whenhi.hi.receiver.NoticeTransfer;
-import com.whenhi.hi.util.BindUtil;
 import com.whenhi.hi.util.ClickUtil;
 
 /**
@@ -57,7 +51,7 @@ public class MoreNavFragment extends BaseFragment {
     private Button checkIn;
     private ImageView userAvatar;
     private TextView userNickname;
-    private TextView incomeCount;
+    private TextView haibiCount;
     private TextView favCount;
 
 
@@ -109,7 +103,7 @@ public class MoreNavFragment extends BaseFragment {
             public void onClick(View v) {
 
                 if(App.isLogin()){
-                    Intent intent = new Intent(view.getContext(), IncomeRecordActivity.class);
+                    Intent intent = new Intent(view.getContext(), MyHaibiRecordActivity.class);
                     view.getContext().startActivity(intent);
                 }else{
                     ClickUtil.goToLogin(view.getContext());
@@ -161,7 +155,7 @@ public class MoreNavFragment extends BaseFragment {
             public void onClick(View v) {
 
                 if(App.isLogin()){
-                    Intent intent = new Intent(view.getContext(), ChargeRecordActivity.class);
+                    Intent intent = new Intent(view.getContext(), MoneyRecordActivity.class);
 
                     view.getContext().startActivity(intent);
                 }else{
@@ -253,7 +247,7 @@ public class MoreNavFragment extends BaseFragment {
         checkIn = (Button)view.findViewById(R.id.user_checkin);
         userAvatar= (ImageView) view.findViewById(R.id.user_avater);
         userNickname= (TextView) view.findViewById(R.id.user_nickname);
-        incomeCount = (TextView)view.findViewById(R.id.user_haibi_count);
+        haibiCount = (TextView)view.findViewById(R.id.user_haibi_count);
         favCount = (TextView)view.findViewById(R.id.user_fav_count);
 
         if(App.isLogin()){
@@ -296,10 +290,10 @@ public class MoreNavFragment extends BaseFragment {
             public void onSuccess(UserModel userModel) {
                 if(userModel.getState() == 0){
 
-                    incomeCount.setText(""+userModel.getData().getScore());
+                    haibiCount.setText(""+userModel.getData().getScore());
                     favCount.setText(""+userModel.getData().getFavoriteCount());
 
-
+                    App.setHaibiNum(userModel.getData().getScore());
 
                     userNickname.setText(userModel.getData().getName());
                     checkinState = userModel.getData().getCheckinState();
@@ -383,7 +377,7 @@ public class MoreNavFragment extends BaseFragment {
         @Override
         public void logout(boolean is) {
 
-            incomeCount.setText("0");
+            haibiCount.setText("0");
             favCount.setText("0");
 
 

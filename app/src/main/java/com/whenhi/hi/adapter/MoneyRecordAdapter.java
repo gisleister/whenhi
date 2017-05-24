@@ -18,8 +18,8 @@ import java.util.List;
 /**
  *
  */
-public class ChargeRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private static final String TAG =ChargeRecordAdapter.class.getSimpleName();
+public class MoneyRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private static final String TAG =MoneyRecordAdapter.class.getSimpleName();
 
     private final List<ChargeRecord> mDataList;
 
@@ -37,7 +37,7 @@ public class ChargeRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
 
-    public ChargeRecordAdapter() {
+    public MoneyRecordAdapter() {
         mDataList = new ArrayList<>();
     }
 

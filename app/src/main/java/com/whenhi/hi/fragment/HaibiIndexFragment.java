@@ -11,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.whenhi.hi.R;
-import com.whenhi.hi.activity.IncomeIndexActivity;
-import com.whenhi.hi.adapter.IncomeIndexAdapter;
+import com.whenhi.hi.activity.HaibiIndexActivity;
+import com.whenhi.hi.adapter.HaibiIndexAdapter;
 import com.whenhi.hi.listener.OnItemClickListener;
 import com.whenhi.hi.listener.OnItemLongClickListener;
 import com.whenhi.hi.model.User;
@@ -23,13 +23,13 @@ import java.util.List;
  * Created by 王雷 on 2017/2/28.
  */
 
-public class IncomeIndexFragment extends BaseFragment implements OnItemClickListener<User>, OnItemLongClickListener<User> {
-    private static final String TAG = IncomeIndexFragment.class.getSimpleName();
+public class HaibiIndexFragment extends BaseFragment implements OnItemClickListener<User>, OnItemLongClickListener<User> {
+    private static final String TAG = HaibiIndexFragment.class.getSimpleName();
 
 
     private RecyclerView mRecyclerView;
 
-    private IncomeIndexAdapter mAdapter;
+    private HaibiIndexAdapter mAdapter;
     private static List<User> mUsers;
 
     private int mPageNo = 1;
@@ -37,18 +37,18 @@ public class IncomeIndexFragment extends BaseFragment implements OnItemClickList
 
     public static Fragment newInstance(List<User> users) {
         mUsers = users;
-        IncomeIndexFragment fragment = new IncomeIndexFragment();
+        HaibiIndexFragment fragment = new HaibiIndexFragment();
         return fragment;
     }
 
-    public IncomeIndexFragment() {
+    public HaibiIndexFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new IncomeIndexAdapter();
+        mAdapter = new HaibiIndexAdapter();
     }
 
     @Override
@@ -99,7 +99,7 @@ public class IncomeIndexFragment extends BaseFragment implements OnItemClickList
 
     @Override
     public void onItemClick(int position, User user, View view) {
-        Intent intent = new Intent(view.getContext(), IncomeIndexActivity.class);
+        Intent intent = new Intent(view.getContext(), HaibiIndexActivity.class);
         view.getContext().startActivity(intent);
     }
 

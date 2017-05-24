@@ -17,7 +17,7 @@ import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
-import com.whenhi.hi.adapter.ChargeRecordAdapter;
+import com.whenhi.hi.adapter.MoneyRecordAdapter;
 import com.whenhi.hi.listener.OnItemClickListener;
 import com.whenhi.hi.listener.OnItemLongClickListener;
 import com.whenhi.hi.model.ChargeRecord;
@@ -29,17 +29,17 @@ import com.whenhi.hi.util.ClickUtil;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ChargeRecordListFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener,
+public class MoneyRecordListFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener,
         OnItemClickListener<ChargeRecord>,
         OnItemLongClickListener<ChargeRecord> {
-    private static final String TAG = ChargeRecordListFragment.class.getSimpleName();
+    private static final String TAG = MoneyRecordListFragment.class.getSimpleName();
 
 
     private SwipeToLoadLayout mSwipeToLoadLayout;
 
     private RecyclerView mRecyclerView;
 
-    private ChargeRecordAdapter mAdapter;
+    private MoneyRecordAdapter mAdapter;
 
     private int mPageNo = 1;
     private String mExtras = "";
@@ -54,19 +54,19 @@ public class ChargeRecordListFragment extends BaseFragment implements OnRefreshL
         this.viewCreate = viewCreate;
     }
 
-    public static ChargeRecordListFragment newInstance() {
-        ChargeRecordListFragment fragment = new ChargeRecordListFragment();
+    public static MoneyRecordListFragment newInstance() {
+        MoneyRecordListFragment fragment = new MoneyRecordListFragment();
         return fragment;
     }
 
-    public ChargeRecordListFragment() {
+    public MoneyRecordListFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new ChargeRecordAdapter();
+        mAdapter = new MoneyRecordAdapter();
     }
 
     @Override

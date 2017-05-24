@@ -1,6 +1,5 @@
 package com.whenhi.hi.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -13,9 +12,9 @@ import com.whenhi.hi.Constants;
 import com.whenhi.hi.R;
 import com.whenhi.hi.fragment.OtherFragmentAdapter;
 
-public class IncomeRecordActivity extends BaseActivity{
+public class MoneyRecordActivity extends BaseActivity{
 
-    private static final String TAG =IncomeRecordActivity.class.getSimpleName();
+    private static final String TAG =MoneyRecordActivity.class.getSimpleName();
 
     private FragmentNavigator mFragmentNavigator;
     private  Toolbar mToolbar;
@@ -27,13 +26,12 @@ public class IncomeRecordActivity extends BaseActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_income_record);
-        Intent intent = getIntent();
+        setContentView(R.layout.activity_money_record);
         initView(savedInstanceState);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar).findViewById(R.id.toolbar);
         mTextView = (TextView) findViewById(R.id.toolbar).findViewById(R.id.toolbar_title);
-        mTextView.setText("我的财富");
+        mTextView.setText("提现记录");
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationIcon(R.mipmap.fanhui);
         mActionBar = getSupportActionBar();
@@ -44,9 +42,20 @@ public class IncomeRecordActivity extends BaseActivity{
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void initView(Bundle savedInstanceState){
         mOtherFragmentAdapter = new OtherFragmentAdapter();
-        mFragmentNavigator = new FragmentNavigator(getSupportFragmentManager(), mOtherFragmentAdapter, R.id.fragment_other_income_record_container);
+        mFragmentNavigator = new FragmentNavigator(getSupportFragmentManager(), mOtherFragmentAdapter, R.id.fragment_other_charge_record_container);
         mFragmentNavigator.onCreate(savedInstanceState);
         setDefaultFrag();
     }
@@ -54,7 +63,7 @@ public class IncomeRecordActivity extends BaseActivity{
 
     /*设置默认Fragment*/
     private void setDefaultFrag() {
-        mFragmentNavigator.showFragment(Constants.OTHER_INCOME_RECORD);
+        mFragmentNavigator.showFragment(Constants.OTHER_CHARGE_RECORD);
 
     }
 
@@ -78,16 +87,7 @@ public class IncomeRecordActivity extends BaseActivity{
 
         return super.onKeyDown(keyCode, event);
     }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+
 
 }
 

@@ -13,9 +13,9 @@ import com.whenhi.hi.Constants;
 import com.whenhi.hi.R;
 import com.whenhi.hi.fragment.OtherFragmentAdapter;
 
-public class IncomeIndexActivity extends BaseActivity{
+public class MyHaibiRecordActivity extends BaseActivity{
 
-    private static final String TAG =IncomeIndexActivity.class.getSimpleName();
+    private static final String TAG =MyHaibiRecordActivity.class.getSimpleName();
 
     private FragmentNavigator mFragmentNavigator;
     private  Toolbar mToolbar;
@@ -27,13 +27,13 @@ public class IncomeIndexActivity extends BaseActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_income_index);
+        setContentView(R.layout.activity_my_haibi_record);
         Intent intent = getIntent();
         initView(savedInstanceState);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar).findViewById(R.id.toolbar);
         mTextView = (TextView) findViewById(R.id.toolbar).findViewById(R.id.toolbar_title);
-        mTextView.setText("收入排行榜");
+        mTextView.setText("我的嗨币");
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationIcon(R.mipmap.fanhui);
         mActionBar = getSupportActionBar();
@@ -46,7 +46,7 @@ public class IncomeIndexActivity extends BaseActivity{
 
     private void initView(Bundle savedInstanceState){
         mOtherFragmentAdapter = new OtherFragmentAdapter();
-        mFragmentNavigator = new FragmentNavigator(getSupportFragmentManager(), mOtherFragmentAdapter, R.id.fragment_other_income_index_container);
+        mFragmentNavigator = new FragmentNavigator(getSupportFragmentManager(), mOtherFragmentAdapter, R.id.fragment_other_income_record_container);
         mFragmentNavigator.onCreate(savedInstanceState);
         setDefaultFrag();
     }
@@ -54,7 +54,7 @@ public class IncomeIndexActivity extends BaseActivity{
 
     /*设置默认Fragment*/
     private void setDefaultFrag() {
-        mFragmentNavigator.showFragment(Constants.OTHER_INCOME_INDEX);
+        mFragmentNavigator.showFragment(Constants.OTHER_INCOME_RECORD);
 
     }
 
@@ -78,7 +78,6 @@ public class IncomeIndexActivity extends BaseActivity{
 
         return super.onKeyDown(keyCode, event);
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -89,7 +88,6 @@ public class IncomeIndexActivity extends BaseActivity{
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 }
 

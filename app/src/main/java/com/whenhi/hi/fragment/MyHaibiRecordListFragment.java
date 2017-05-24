@@ -17,39 +17,49 @@ import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
-import com.whenhi.hi.adapter.IncomeIndexListAdapter;
-import com.whenhi.hi.model.UserScoreModel;
+import com.whenhi.hi.adapter.MyHaibiRecordAdapter;
+import com.whenhi.hi.model.UserIncomeRecordModel;
 import com.whenhi.hi.network.HttpAPI;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class IncomeIndexListFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
-    private static final String TAG = IncomeIndexListFragment.class.getSimpleName();
+public class MyHaibiRecordListFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener{
+    private static final String TAG = MyHaibiRecordListFragment.class.getSimpleName();
 
 
     private SwipeToLoadLayout mSwipeToLoadLayout;
 
     private RecyclerView mRecyclerView;
 
-    private IncomeIndexListAdapter mAdapter;
+    private MyHaibiRecordAdapter mAdapter;
 
     private int mPageNo = 1;
     private String mExtras = "";
 
-    public static IncomeIndexListFragment newInstance() {
-        IncomeIndexListFragment fragment = new IncomeIndexListFragment();
+    private boolean viewCreate;
+
+    public boolean getViewCreate() {
+        return viewCreate;
+    }
+
+    public void setViewCreate(boolean viewCreate) {
+        this.viewCreate = viewCreate;
+    }
+
+    public static MyHaibiRecordListFragment newInstance() {
+        MyHaibiRecordListFragment fragment = new MyHaibiRecordListFragment();
         return fragment;
     }
 
-    public IncomeIndexListFragment() {
+    public MyHaibiRecordListFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new IncomeIndexListAdapter();
+        mAdapter = new MyHaibiRecordAdapter();
     }
 
     @Override
@@ -64,18 +74,15 @@ public class IncomeIndexListFragment extends BaseFragment implements OnRefreshLi
         super.onViewCreated(view, savedInstanceState);
         mSwipeToLoadLayout = (SwipeToLoadLayout) view.findViewById(R.id.swipeToLoadLayout);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.swipe_target);
-
-        final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        RecyclerView.LayoutManager layoutManager = null;
+        layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setAutoMeasureEnabled(true);
-
-
-        mRecyclerView.setNestedScrollingEnabled(false);
-
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
         //mRecyclerView.getRecycledViewPool().setMaxRecycledViews(mAdapter.getItemViewType(0),3);
 
+        setViewCreate(true);
 
         mSwipeToLoadLayout.setOnRefreshListener(this);
         mSwipeToLoadLayout.setOnLoadMoreListener(this);
@@ -122,40 +129,47 @@ public class IncomeIndexListFragment extends BaseFragment implements OnRefreshLi
 
     @Override
     public void onLoadMore() {
-        mSwipeToLoadLayout.setLoadingMore(false);
-        /* mPageNo++;
-        HttpAPI.userIndexList(mPageNo,mExtras,new HttpAPI.Callback<UserScoreModel>() {
+        mPageNo++;
+        HttpAPI.getUserScoreRecord(mPageNo,mExtras,new HttpAPI.Callback<UserIncomeRecordModel>() {
             @Override
-            public void onSuccess(UserScoreModel userScoreModel) {
-                if(userScoreModel.getState() == 0){
-                    mExtras = userScoreModel.getData().getExtras();
-                    mAdapter.append(userScoreModel.getData().getList());
-                    mSwipeToLoadLayout.setLoadingMore(false);
+            public void onSuccess(UserIncomeRecordModel userIncomeRecordModel) {
+                mSwipeToLoadLayout.setLoadingMore(false);
+                if(userIncomeRecordModel.getState() == 0){
+                    mExtras = userIncomeRecordModel.getData().getExtras();
+                    if(userIncomeRecordModel.getData().getList().size() > 0){
+                        mAdapter.append(userIncomeRecordModel.getData().getList());
+                    }
+
+
                 }else{
-                    //// TODO: 2017/1/10 提示用户服务器何种问题
+                    Toast.makeText(App.getContext(), userIncomeRecordModel.getMsgText(), Toast.LENGTH_SHORT).show();
                 }
 
             }
 
             @Override
             public void onFailure(Exception e) {
+                Toast.makeText(App.getContext(), "服务器异常", Toast.LENGTH_SHORT).show();
                 mSwipeToLoadLayout.setLoadingMore(false);
             }
-        });*/
+        });
     }
     @Override
     public void onRefresh() {
         mPageNo = 1;
-        HttpAPI.userIndexList(mPageNo,mExtras,new HttpAPI.Callback<UserScoreModel>() {
+        HttpAPI.getUserScoreRecord(mPageNo,mExtras,new HttpAPI.Callback<UserIncomeRecordModel>() {
             @Override
-            public void onSuccess(UserScoreModel userScoreModel) {
+            public void onSuccess(UserIncomeRecordModel userIncomeRecordModel) {
                 mSwipeToLoadLayout.setRefreshing(false);
-                if(userScoreModel.getState() == 0){
-                    mExtras = userScoreModel.getData().getExtras();
-                    mAdapter.setList(userScoreModel.getData().getList());
+                if(userIncomeRecordModel.getState() == 0){
+                    mExtras = userIncomeRecordModel.getData().getExtras();
+                    if(userIncomeRecordModel.getData().getList().size() > 0){
+                        mAdapter.setList(userIncomeRecordModel.getData().getList());
+                    }
+
 
                 }else{
-                    Toast.makeText(App.getContext(), userScoreModel.getMsgText(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(App.getContext(), userIncomeRecordModel.getMsgText(), Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -170,22 +184,22 @@ public class IncomeIndexListFragment extends BaseFragment implements OnRefreshLi
 
     }
 
+
     @Override
     public void destroy() {
-       /* if(viewCreate){
+        if(viewCreate){
             mRecyclerView.removeAllViews();
             mRecyclerView.setAdapter(null);
             mRecyclerView.setAdapter(mAdapter);
-           // mAdapter.notifyDataSetChanged();
-        }*/
+            //mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
     public void onvisible() {
-        /*if(viewCreate) {
+        if(viewCreate) {
             mSwipeToLoadLayout.setRefreshing(true);
         }
-        onRefresh();*/
+        onRefresh();
     }
-
 }

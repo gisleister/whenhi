@@ -289,6 +289,15 @@ public class App extends Application {
         return nickName;
     }
 
+    public static void setHaibiNum(int num){
+        spUtil.putInt("haibiNum", num);
+    }
+
+    public static int getHaibiNum(){
+        int haibi = spUtil.getInt("haibiNum",0);
+        return haibi;
+    }
+
 
 
 

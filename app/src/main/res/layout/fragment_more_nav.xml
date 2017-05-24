@@ -338,7 +338,7 @@
                     android:paddingLeft="6dp"
                     android:textColor="#333333"
                     android:textSize="14sp"
-                    android:text="我的提现"/>
+                    android:text="提现记录"/>
 
 
             </LinearLayout>
