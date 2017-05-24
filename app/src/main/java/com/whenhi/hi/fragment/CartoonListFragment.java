@@ -63,7 +63,7 @@ public class CartoonListFragment extends BaseFragment implements OnRefreshListen
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new FeedListAdapter((BaseFragment) CartoonListFragment.newInstance());
+        mAdapter = new FeedListAdapter();
     }
 
     @Override

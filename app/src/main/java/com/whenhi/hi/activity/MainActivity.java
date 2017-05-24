@@ -314,11 +314,11 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
         mBadgeItem = new BadgeItem().setBackgroundColorResource(R.color.msg_badge).setText("" + mMessageCount).setHideOnSelect(true).hide();//角标
 
-        mRcdItem = new BottomNavigationItem(R.mipmap.home_click, "首页").setInactiveIcon(ContextCompat.getDrawable(this,R.mipmap.home));//非选中的图片;
-        mEpeItem = new BottomNavigationItem(R.mipmap.tansuo_click, "探索").setInactiveIcon(ContextCompat.getDrawable(this,R.mipmap.tansuo));
-        mMseItem = new BottomNavigationItem(R.mipmap.xiaoxi_click, "消息").setInactiveIcon(ContextCompat.getDrawable(this,R.mipmap.xiaoxi));
+        mRcdItem = new BottomNavigationItem(R.mipmap.tabbar_icon_shouye_click, "首页").setInactiveIcon(ContextCompat.getDrawable(this,R.mipmap.tabbar_icon_shouye));//非选中的图片;
+        mEpeItem = new BottomNavigationItem(R.mipmap.tabbar_icon_tansuo_click, "探索").setInactiveIcon(ContextCompat.getDrawable(this,R.mipmap.tabbar_icon_tansuo));
+        mMseItem = new BottomNavigationItem(R.mipmap.tabbar_icon_xiaoxi_click, "消息").setInactiveIcon(ContextCompat.getDrawable(this,R.mipmap.tabbar_icon_xiaoxi));
         mMseItem.setBadgeItem(mBadgeItem);
-        mMreItem = new BottomNavigationItem(R.mipmap.wode_click, "我的").setInactiveIcon(ContextCompat.getDrawable(this,R.mipmap.wode));
+        mMreItem = new BottomNavigationItem(R.mipmap.tabbar_icon_wode_click, "我的").setInactiveIcon(ContextCompat.getDrawable(this,R.mipmap.tabbar_icon_wode));
 
 
         mBottomNavigationBar.addItem(mRcdItem).addItem(mEpeItem).addItem(mMseItem).addItem(mMreItem);

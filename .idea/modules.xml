@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/Whenhi.iml" filepath="$PROJECT_DIR$/Whenhi.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/loadlibrary/loadlibrary.iml" filepath="$PROJECT_DIR$/loadlibrary/loadlibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/photolibrary/photolibrary.iml" filepath="$PROJECT_DIR$/photolibrary/photolibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/playerlibrary/playerlibrary.iml" filepath="$PROJECT_DIR$/playerlibrary/playerlibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/xtablayoutlibrary/xtablayoutlibrary.iml" filepath="$PROJECT_DIR$/xtablayoutlibrary/xtablayoutlibrary.iml" />
     </modules>

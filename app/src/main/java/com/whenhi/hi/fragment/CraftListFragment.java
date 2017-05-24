@@ -65,7 +65,7 @@ public class CraftListFragment extends BaseFragment implements OnRefreshListener
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new FeedListAdapter((BaseFragment) CraftListFragment.newInstance());
+        mAdapter = new FeedListAdapter();
     }
 
     @Override

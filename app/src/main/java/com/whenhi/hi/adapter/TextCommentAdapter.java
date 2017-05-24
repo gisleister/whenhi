@@ -341,7 +341,7 @@ public class TextCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }else{
             holder.favImage.setImageResource(R.mipmap.shoucang);
         }
-        ClickUtil.toolbarClick(holder.loveImage, holder.favImage,holder.loveText,holder.favText,holder.favBtn,holder.loveBtn,holder.shareBtn,holder.commentBtn,holder.itemView,feed);
+        //ClickUtil.toolbarClick(holder.loveImage, holder.favImage,holder.loveText,holder.favText,holder.favBtn,holder.loveBtn,holder.shareBtn,holder.commentBtn,holder.itemView,feed);
 
     }
 

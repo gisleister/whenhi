@@ -41,7 +41,7 @@ public class HomeNavFragment extends BaseNavPagerFragment {
 
     @Override
     protected String[] getTitles() {
-        return new String[]{"嗨区","X区"};
+        return new String[]{"视频","图文","X区"};
     }
 
     @Override
@@ -49,11 +49,13 @@ public class HomeNavFragment extends BaseNavPagerFragment {
         String title = getTitles()[position];
         Fragment fragment = null;
 
-        if (title.equals("嗨区")) {
-            fragment = FunnyListFragment.newInstance();
+        if (title.equals("视频")) {
+            fragment = VideoListFragment.newInstance();
+        } else if (title.equals("图文")) {
+            fragment = PicTextListFragment.newInstance();
         } else if (title.equals("X区")) {
             fragment = XXListFragment.newInstance();
-        }  else if (title.equals("漫画")) {
+        } else if (title.equals("漫画")) {
             fragment = CartoonListFragment.newInstance();
         } else if (title.equals("图片")) {
             fragment = PicListFragment.newInstance();

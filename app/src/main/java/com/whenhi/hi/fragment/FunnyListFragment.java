@@ -55,7 +55,7 @@ public class FunnyListFragment extends BaseFragment implements OnRefreshListener
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new FeedListAdapter((BaseFragment) FunnyListFragment.newInstance());
+        mAdapter = new FeedListAdapter();
     }
 
     @Override

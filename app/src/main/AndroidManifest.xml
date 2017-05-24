@@ -173,6 +173,12 @@
         <activity
             android:name=".activity.MoneyActivity"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.LookActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.PicPreviewActivity"
+            android:screenOrientation="portrait"></activity>
 
 
 

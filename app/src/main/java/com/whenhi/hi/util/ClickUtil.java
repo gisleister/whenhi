@@ -18,6 +18,7 @@ import com.whenhi.hi.activity.LoginActivity;
 import com.whenhi.hi.activity.LuckpanActivity;
 import com.whenhi.hi.activity.OtherActivity;
 import com.whenhi.hi.activity.PicActivity;
+import com.whenhi.hi.activity.PicPreviewActivity;
 import com.whenhi.hi.activity.ShareActivity;
 import com.whenhi.hi.activity.TextActivity;
 import com.whenhi.hi.activity.VideoActivity;
@@ -56,7 +57,8 @@ public class ClickUtil {
             goToText(context,feed);
 
         }else if(feed.getFeedCategory() == 5){//图片
-            goToPic(context,feed);
+            //goToPic(context,feed);
+            goToPicPreview(context,feed);
 
         }else if(feed.getFeedCategory() == 6){//广告
             goToWeb(context,feed);
@@ -130,6 +132,12 @@ public class ClickUtil {
         });
     }
 
+    private static void goToPicPreview(Context context, Feed feed){
+        Intent intent = new Intent(context, PicPreviewActivity.class);
+        intent.putExtra("Feed", feed);
+        context.startActivity(intent);
+    }
+
 
     private static void goToLuckpan(Context context, Feed feed){
         Intent intent = new Intent(context, LuckpanActivity.class);
@@ -184,11 +192,11 @@ public class ClickUtil {
 
 
 
-    public static void toolbarClick(final ImageView loveImage, final ImageView favImage,final TextView loveText, final TextView favText,final LinearLayout favBtn, final LinearLayout loveBtn, final LinearLayout shareBtn, final LinearLayout commentBtn, final View view, final Feed feed){
+    public static void toolbarClick(final ImageView loveImage, final ImageView favImage,final TextView loveText, final TextView favText,final ImageView favBtn, final ImageView loveBtn, final ImageView shareBtn, final ImageView commentBtn, final View view, final Feed feed){
 
         if(feed == null)
             return;
-        loveBtn.setOnClickListener(new Button.OnClickListener(){//创建监听
+        loveBtn.setOnClickListener(new View.OnClickListener(){//创建监听
             public void onClick(View v) {
 
                 if(App.isLogin()){
@@ -197,15 +205,15 @@ public class ClickUtil {
                             @Override
                             public void onSuccess(BaseModel baseModel) {
                                 if(baseModel.getState() == 0){
-                                    loveImage.setImageResource(R.mipmap.zan);
+                                    loveImage.setImageResource(R.mipmap.shouye_icon_zan);
 
                                     feed.setLikeCount(feed.getLikeCount()-1);
                                     feed.setLikeState(0);
 
                                     if(feed.getLikeCount() == 0){
-                                        loveText.setText("赞");
+                                        loveText.setText("");
                                     }else{
-                                        loveText.setText(""+feed.getLikeCount() + "赞");
+                                        loveText.setText(""+feed.getLikeCount() + "");
                                     }
 
 
@@ -226,13 +234,13 @@ public class ClickUtil {
                             @Override
                             public void onSuccess(BaseModel baseModel) {
                                 if(baseModel.getState() == 0){
-                                    loveImage.setImageResource(R.mipmap.zan_click);
+                                    loveImage.setImageResource(R.mipmap.shouye_icon_zan_click);
                                     feed.setLikeCount(feed.getLikeCount()+1);
                                     feed.setLikeState(1);
                                     if(feed.getLikeCount() == 0){
-                                        loveText.setText("赞");
+                                        loveText.setText("");
                                     }else{
-                                        loveText.setText(""+feed.getLikeCount() + "赞");
+                                        loveText.setText(""+feed.getLikeCount() + "");
                                     }
                                 }else {
                                     Toast.makeText(view.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
@@ -257,14 +265,14 @@ public class ClickUtil {
 
         });
 
-        shareBtn.setOnClickListener(new Button.OnClickListener(){//创建监听
+        shareBtn.setOnClickListener(new View.OnClickListener(){//创建监听
             public void onClick(View v) {
                 goToShare(view.getContext(),feed);
             }
 
         });
 
-        favBtn.setOnClickListener(new Button.OnClickListener(){//创建监听
+        favBtn.setOnClickListener(new View.OnClickListener(){//创建监听
             public void onClick(View v) {
                 if(App.isLogin()){
                     if(feed.getFavoriteState() == 1){
@@ -273,13 +281,13 @@ public class ClickUtil {
                             public void onSuccess(BaseModel baseModel) {
 
                                 if(baseModel.getState() == 0){
-                                    favImage.setImageResource(R.mipmap.shoucang);
+                                    favImage.setImageResource(R.mipmap.shouye_icon_shoucang);
                                     feed.setFavoriteCount(feed.getFavoriteCount()-1);
                                     feed.setFavoriteState(0);
                                     if(feed.getFavoriteCount() == 0){
-                                        favText.setText(" · 收藏");
+                                        favText.setText("");
                                     }else{
-                                        favText.setText(" · "+feed.getFavoriteCount() + "收藏");
+                                        favText.setText(""+feed.getFavoriteCount() + "");
                                     }
                                     NoticeTransfer.refresh();
                                 }else {
@@ -298,13 +306,13 @@ public class ClickUtil {
                             @Override
                             public void onSuccess(BaseModel baseModel) {
                                 if(baseModel.getState() == 0){
-                                    favImage.setImageResource(R.mipmap.shoucang_click);
+                                    favImage.setImageResource(R.mipmap.shouye_icon_shoucang_click);
                                     feed.setFavoriteCount(feed.getFavoriteCount()+1);
                                     feed.setFavoriteState(1);
                                     if(feed.getFavoriteCount() == 0){
-                                        favText.setText(" · 收藏");
+                                        favText.setText("");
                                     }else{
-                                        favText.setText(" · "+feed.getFavoriteCount() + "收藏");
+                                        favText.setText(""+feed.getFavoriteCount());
                                     }
                                     NoticeTransfer.refresh();
                                 }else {
@@ -343,7 +351,7 @@ public class ClickUtil {
 
         if(feed == null)
             return;
-        loveImage.setOnClickListener(new Button.OnClickListener(){//创建监听
+        loveImage.setOnClickListener(new View.OnClickListener(){//创建监听
             public void onClick(View v) {
 
                 if(App.isLogin()){
@@ -399,14 +407,14 @@ public class ClickUtil {
 
         });
 
-        shareImage.setOnClickListener(new Button.OnClickListener(){//创建监听
+        shareImage.setOnClickListener(new View.OnClickListener(){//创建监听
             public void onClick(View v) {
                 goToShare(view.getContext(),feed);
             }
 
         });
 
-        favImage.setOnClickListener(new Button.OnClickListener(){//创建监听
+        favImage.setOnClickListener(new View.OnClickListener(){//创建监听
             public void onClick(View v) {
                 if(App.isLogin()){
                     if(feed.getFavoriteState() == 1){

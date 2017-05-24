@@ -28,6 +28,7 @@ import com.whenhi.hi.activity.ChargeActivity;
 import com.whenhi.hi.activity.ChargeRecordActivity;
 import com.whenhi.hi.activity.FavActivity;
 import com.whenhi.hi.activity.IncomeRecordActivity;
+import com.whenhi.hi.activity.LookActivity;
 import com.whenhi.hi.activity.MoneyActivity;
 import com.whenhi.hi.activity.OtherActivity;
 import com.whenhi.hi.activity.ProblemActivity;
@@ -49,15 +50,16 @@ import com.whenhi.hi.util.ClickUtil;
 
 public class MoreNavFragment extends BaseFragment {
     private static final String TAG = MoreNavFragment.class.getSimpleName();
-    private boolean isLogin = false;
+
+
     private int checkinState = 0;
     private String mobile = null;
     private Button checkIn;
-    private View mView;
     private ImageView userAvatar;
     private TextView userNickname;
     private TextView incomeCount;
     private TextView favCount;
+
 
     public static Fragment newInstance() {
         MoreNavFragment fragment = new MoreNavFragment();
@@ -65,8 +67,6 @@ public class MoreNavFragment extends BaseFragment {
     }
 
     public MoreNavFragment() {
-
-        isLogin = App.isLogin();
         NoticeTransfer  noticeTransfer = new NoticeTransfer();
         noticeTransfer.setLoginListener(mLoginListener);
     }
@@ -87,66 +87,28 @@ public class MoreNavFragment extends BaseFragment {
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mView = view;
-
-        Context context = view.getContext();
-        if (context instanceof AppCompatActivity){
-            final AppCompatActivity activity = (AppCompatActivity)context;
-            Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar).findViewById(R.id.toolbar);
-            activity.setSupportActionBar(toolbar);
-            android.support.v7.app.ActionBar actionBar = activity.getSupportActionBar();
-            if (actionBar != null){
-                actionBar.setDisplayHomeAsUpEnabled(false);
-                actionBar.setDisplayShowTitleEnabled(false);
-            }
-
-        }
-
-
-        checkIn = (Button)view.findViewById(R.id.user_checkin);
-        userAvatar= (ImageView) view.findViewById(R.id.user_avater);
-        userNickname= (TextView) view.findViewById(R.id.user_nickname);
-        incomeCount = (TextView)view.findViewById(R.id.user_income_count);
-        favCount = (TextView)view.findViewById(R.id.user_fav_count);
-
-
+        initView(view);
         checkIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(checkinState == 0){
                     if(App.isLogin()){
-                        checkin();
+                        checkin(v);
                     }else{
-                        ClickUtil.goToLogin(mView.getContext());
+                        ClickUtil.goToLogin(view.getContext());
                     }
                 }else{
-                    Toast.makeText(mView.getContext(), "您已经签到过了哦", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(view.getContext(), "您已经签到过了哦", Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
 
-        if(isLogin){
-            getUserInfo(view);
-        }
-
-        RelativeLayout userInfo = (RelativeLayout)view.findViewById(R.id.user_info_layout);
-        userInfo.setOnClickListener(new RelativeLayout.OnClickListener(){//创建监听
-            public void onClick(View v) {
-
-                if(!isLogin){
-                    ClickUtil.goToLogin(view.getContext());
-                }
-
-            }
-
-        });
-
-        LinearLayout income = (LinearLayout)view.findViewById(R.id.user_income_layout);
+        LinearLayout income = (LinearLayout)view.findViewById(R.id.user_haibi_layout);
         income.setOnClickListener(new RelativeLayout.OnClickListener(){//创建监听
             public void onClick(View v) {
 
-                if(isLogin){
+                if(App.isLogin()){
                     Intent intent = new Intent(view.getContext(), IncomeRecordActivity.class);
                     view.getContext().startActivity(intent);
                 }else{
@@ -157,12 +119,11 @@ public class MoreNavFragment extends BaseFragment {
 
         });
 
-
         LinearLayout fav = (LinearLayout)view.findViewById(R.id.user_fav_layout);
         fav.setOnClickListener(new RelativeLayout.OnClickListener(){//创建监听
             public void onClick(View v) {
 
-                if(isLogin){
+                if(App.isLogin()){
                     Intent intent = new Intent(view.getContext(), FavActivity.class);
                     view.getContext().startActivity(intent);
                 }else{
@@ -174,32 +135,11 @@ public class MoreNavFragment extends BaseFragment {
 
         });
 
-        RelativeLayout recharge = (RelativeLayout)view.findViewById(R.id.user_recharge_layout);
-        recharge.setOnClickListener(new RelativeLayout.OnClickListener(){//创建监听
-            public void onClick(View v) {
-
-                if(isLogin){
-                    if(TextUtils.isEmpty(mobile)){//当用户已经登录但是没有绑定手机号时执行
-                        smsCode(view,1);
-                    }else{
-                        goToPhone(view,mobile);
-                    }
-
-                }else{
-                    ClickUtil.goToLogin(view.getContext());
-                }
-
-
-            }
-
-        });
-
-
-        RelativeLayout money = (RelativeLayout)view.findViewById(R.id.user_money_layout);
+        LinearLayout money = (LinearLayout)view.findViewById(R.id.how_money);
         money.setOnClickListener(new RelativeLayout.OnClickListener(){//创建监听
             public void onClick(View v) {
 
-                if(isLogin){
+                if(App.isLogin()){
                     if(TextUtils.isEmpty(mobile)){//当用户已经登录但是没有绑定手机号时执行
                         smsCode(view,1);
                     }else{
@@ -215,62 +155,15 @@ public class MoreNavFragment extends BaseFragment {
 
         });
 
-
-        RelativeLayout userCode = (RelativeLayout)view.findViewById(R.id.user_code_layout);
-        userCode.setOnClickListener(new View.OnClickListener() {
+        LinearLayout chargeRecord = (LinearLayout)view.findViewById(R.id.user_money_layout);
+        chargeRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isLogin){
-                    if(TextUtils.isEmpty(mobile)){
-                        smsCode(view,2);//用户已经登录但是没有绑定手机号需要绑定手机号先
-                    }else{
-                        userCode(view);//用户已登录状态下邀请码验证
-                    }
 
-                }else {
-                    ClickUtil.goToLogin(view.getContext());
-                }
-            }
-        });
+                if(App.isLogin()){
+                    Intent intent = new Intent(view.getContext(), ChargeRecordActivity.class);
 
-
-        RelativeLayout about = (RelativeLayout)view.findViewById(R.id.user_about_layout);
-        about.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(view.getContext(), AboutActivity.class);
-
-                view.getContext().startActivity(intent);
-            }
-        });
-
-        RelativeLayout reward = (RelativeLayout)view.findViewById(R.id.user_reward_layout);
-        reward.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(view.getContext(), RewardActivity.class);
-
-                view.getContext().startActivity(intent);
-            }
-        });
-
-
-        RelativeLayout setting = (RelativeLayout)view.findViewById(R.id.user_setup_layout);
-        setting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(view.getContext(), SettingActivity.class);
-
-                view.getContext().startActivity(intent);
-            }
-        });
-
-        RelativeLayout invite = (RelativeLayout)view.findViewById(R.id.user_invite_layout);
-        invite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isLogin){
-                    goToShare(view);
+                    view.getContext().startActivity(intent);
                 }else{
                     ClickUtil.goToLogin(view.getContext());
                 }
@@ -278,7 +171,7 @@ public class MoreNavFragment extends BaseFragment {
             }
         });
 
-        RelativeLayout problem = (RelativeLayout)view.findViewById(R.id.user_problem_layout);
+        LinearLayout problem = (LinearLayout)view.findViewById(R.id.user_problem_layout);
         problem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -289,21 +182,39 @@ public class MoreNavFragment extends BaseFragment {
             }
         });
 
-        RelativeLayout chargeRecord = (RelativeLayout)view.findViewById(R.id.user_recharge_record_layout);
-        chargeRecord.setOnClickListener(new View.OnClickListener() {
+        LinearLayout friends = (LinearLayout)view.findViewById(R.id.user_friends_layout);
+        friends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if(isLogin){
-                    Intent intent = new Intent(view.getContext(), ChargeRecordActivity.class);
-
-                    view.getContext().startActivity(intent);
+                if(App.isLogin()){
+                    goToShare(view);
                 }else{
                     ClickUtil.goToLogin(view.getContext());
                 }
 
             }
         });
+
+        LinearLayout setting = (LinearLayout)view.findViewById(R.id.user_setting_layout);
+        setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(view.getContext(), SettingActivity.class);
+
+                view.getContext().startActivity(intent);
+            }
+        });
+
+        LinearLayout look = (LinearLayout)view.findViewById(R.id.user_history_layout);
+        look.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(view.getContext(), LookActivity.class);
+
+                view.getContext().startActivity(intent);
+            }
+        });
+
 
 
 
@@ -328,21 +239,58 @@ public class MoreNavFragment extends BaseFragment {
 
     }
 
-    private void goToShare(View view){//我的里面邀请好友 type=1
-        Feed feed = new Feed();
-        feed.setType(1);
-        feed.setTitle("很嗨-没事偷着乐");
-        feed.setContent("每天给自己一个开心的理由");
-        String invitePageUrl = App.getInvitePageUrl();
-        String userLogo = App.getUserLogo();
 
-        feed.setShareUrl(invitePageUrl);
-        feed.setImageUrl(userLogo);
-        ClickUtil.goToShare(view.getContext(), feed);
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            NoticeTransfer.refresh();
+        }
+
+    }
+
+    private void initView(View view){
+        checkIn = (Button)view.findViewById(R.id.user_checkin);
+        userAvatar= (ImageView) view.findViewById(R.id.user_avater);
+        userNickname= (TextView) view.findViewById(R.id.user_nickname);
+        incomeCount = (TextView)view.findViewById(R.id.user_haibi_count);
+        favCount = (TextView)view.findViewById(R.id.user_fav_count);
+
+        if(App.isLogin()){
+            getUserInfo();
+        }
+    }
+
+    public void checkin(final View view){
+        HttpAPI.userCheckini(new HttpAPI.Callback<BaseModel>() {
+            //            @Override
+            public void onSuccess(BaseModel baseModel) {
+                if(baseModel.getState() == 0){
+                    getUserInfo();
+                    checkinState = 1;
+                    checkIn.setBackgroundResource(R.drawable.shape_button_no);
+                    checkIn.setText("已签到");
+                    String data = baseModel.getData();
+                    if(!TextUtils.isEmpty(data)){
+                        getUserInfo();
+                        Toast.makeText(App.getContext(), data, Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                Toast.makeText(view.getContext(),"签到系统有点小问题", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
-    private void getUserInfo(final View view){
+
+    private void getUserInfo(){
         HttpAPI.getUserDetail(new HttpAPI.Callback<UserModel>() {
             @Override
             public void onSuccess(UserModel userModel) {
@@ -356,22 +304,17 @@ public class MoreNavFragment extends BaseFragment {
                     userNickname.setText(userModel.getData().getName());
                     checkinState = userModel.getData().getCheckinState();
                     mobile = userModel.getData().getMobile();
-                    isLogin = App.isLogin();
                     App.userInit(userModel.getData());
-                    //NoticeTransfer.refreshMeesage();
                     if(checkinState == 1){
                         checkIn.setText("已签到");
                         checkIn.setBackgroundResource(R.drawable.shape_button_no);
                     }
 
-
                     Glide.with(App.getContext())
                             .load(userModel.getData().getLogo())
-                            .transform(new CircleTransform(view.getContext()))
+                            .transform(new CircleTransform(App.getContext()))
                             .error(R.mipmap.user_default)
                             .into(userAvatar);
-
-                    BindUtil.bindJPush();//执行绑定操作为push做准备
                 }else{
 
                 }
@@ -380,31 +323,10 @@ public class MoreNavFragment extends BaseFragment {
 
             @Override
             public void onFailure(Exception e) {
-                Toast.makeText(mView.getContext(), "用户系统有点小问题", Toast.LENGTH_SHORT).show();
+                Toast.makeText(App.getContext(), "用户系统有点小问题", Toast.LENGTH_SHORT).show();
             }
         });
 
-    }
-
-    /**
-     * 邀请码验证
-     * @param view
-     */
-    private void userCode(View view){
-        Intent intent = new Intent(view.getContext(), OtherActivity.class);
-
-        Bundle bundle=new Bundle();
-        //传递name参数为tinyphp
-        bundle.putString("mobile", mobile);
-        bundle.putInt("type",2);
-        bundle.putInt("smsType",1);
-        intent.putExtras(bundle);
-        view.getContext().startActivity(intent);
-        Context context = view.getContext();
-        if (context instanceof Activity){
-            Activity activity = (Activity)context;
-            activity.overridePendingTransition(R.anim.activity_open,0);
-        }
     }
 
     /**
@@ -428,47 +350,6 @@ public class MoreNavFragment extends BaseFragment {
         }
     }
 
-
-    private void checkin(){
-        HttpAPI.userCheckini(new HttpAPI.Callback<BaseModel>() {
-            //            @Override
-            public void onSuccess(BaseModel baseModel) {
-                if(baseModel.getState() == 0){
-                    getUserInfo(mView);
-                    checkinState = 1;
-                    checkIn.setBackgroundResource(R.drawable.shape_button_no);
-                    checkIn.setText("已签到");
-                    String data = baseModel.getData();
-                    if(!TextUtils.isEmpty(data)){
-                        NoticeTransfer.refresh();
-                        Toast.makeText(App.getContext(), data, Toast.LENGTH_SHORT).show();
-                    }
-                }else{
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Exception e) {
-                Toast.makeText(mView.getContext(),"签到系统有点小问题", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void goToPhone(View view, String mobile){
-
-        Intent intent = new Intent(view.getContext(), ChargeActivity.class);
-
-        Bundle bundle=new Bundle();
-        //传递name参数为tinyphp
-        bundle.putString("mobile", mobile);
-        intent.putExtras(bundle);
-        view.getContext().startActivity(intent);
-
-    }
-
-
     private void goToMoney(View view){
 
         Intent intent = new Intent(view.getContext(), MoneyActivity.class);
@@ -477,20 +358,30 @@ public class MoreNavFragment extends BaseFragment {
 
     }
 
+    private void goToShare(View view){//我的里面邀请好友 type=1
+        Feed feed = new Feed();
+        feed.setType(1);
+        feed.setTitle("很嗨-没事偷着乐");
+        feed.setContent("每天给自己一个开心的理由");
+        String invitePageUrl = App.getInvitePageUrl();
+        String userLogo = App.getUserLogo();
+
+        feed.setShareUrl(invitePageUrl);
+        feed.setImageUrl(userLogo);
+        ClickUtil.goToShare(view.getContext(), feed);
+    }
 
 
     private LoginListener mLoginListener = new LoginListener() {
         @Override
         public void login(boolean is) {
             if(is){
-                getUserInfo(mView);
-                isLogin = App.isLogin();
+                getUserInfo();
             }
         }
 
         @Override
         public void logout(boolean is) {
-            isLogin = App.isLogin();
 
             incomeCount.setText("0");
             favCount.setText("0");
@@ -506,15 +397,14 @@ public class MoreNavFragment extends BaseFragment {
 
             Glide.with(App.getContext())
                     .load(R.mipmap.user_default)
-                    .transform(new CircleTransform(mView.getContext()))
+                    .transform(new CircleTransform(App.getContext()))
                     .error(R.mipmap.user_default)
                     .into(userAvatar);
         }
 
         @Override
         public void refresh() {
-            getUserInfo(mView);
-            isLogin = App.isLogin();
+            getUserInfo();
         }
 
         @Override
@@ -523,16 +413,6 @@ public class MoreNavFragment extends BaseFragment {
         }
     };
 
-
-
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if(!hidden){
-            NoticeTransfer.refresh();
-        }
-
-    }
 
 
 

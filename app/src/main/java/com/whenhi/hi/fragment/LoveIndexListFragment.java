@@ -60,7 +60,7 @@ public class LoveIndexListFragment extends BaseFragment implements OnRefreshList
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new FeedListAdapter((BaseFragment) LoveIndexListFragment.newInstance());
+        mAdapter = new FeedListAdapter();
     }
 
     @Override

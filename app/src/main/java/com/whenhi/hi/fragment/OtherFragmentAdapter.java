@@ -5,6 +5,9 @@ import android.support.v4.app.Fragment;
 import com.aspsine.fragmentnavigator.FragmentNavigatorAdapter;
 import com.whenhi.hi.Constants;
 import com.whenhi.hi.model.DiscoveryModel;
+import com.whenhi.hi.model.Image;
+
+import java.util.List;
 
 /**
  * Created by aspsine on 16/4/28.
@@ -12,6 +15,7 @@ import com.whenhi.hi.model.DiscoveryModel;
 public class OtherFragmentAdapter implements FragmentNavigatorAdapter {
 
     private DiscoveryModel mDiscoveryModel;
+    private List<Image> images;
 
     private FavListFragment mFavListFragment;
     private IncomeRecordListFragment mIncomeRecordListFragment;
@@ -24,9 +28,6 @@ public class OtherFragmentAdapter implements FragmentNavigatorAdapter {
 
     }
 
-    public void setDiscoveryModel(DiscoveryModel discoveryModel){
-        mDiscoveryModel = discoveryModel;
-    }
 
     @Override
     public Fragment onCreateFragment(int position) {
@@ -65,35 +66,21 @@ public class OtherFragmentAdapter implements FragmentNavigatorAdapter {
                 return IndexNavFragment.newInstance();
             case Constants.OTHER_MALE:
                 return MaleListFragment.newInstance();
+            case Constants.OTHER_EXPLORE:
+                return ExploreListFragment.newInstance();
+            case Constants.OTHER_LOOK:
+                return LookListFragment.newInstance();
         }
         return null;
     }
 
     public void destroy(){
 
-        if(mFavListFragment != null){
-            mFavListFragment.destroy();
-        }
 
-        if(mIncomeRecordListFragment != null){
-            mIncomeRecordListFragment.destroy();
-        }
+    }
 
-        if(mCraftListFragment != null){
-            mCraftListFragment.destroy();
-        }
-
-        if(mLoveIndexListFragment != null){
-            mLoveIndexListFragment.destroy();
-        }
-
-        if(mShareIndexListFragment != null){
-            mShareIndexListFragment.destroy();
-        }
-
-        if(mIncomeIndexListFragment != null){
-            mIncomeIndexListFragment.destroy();
-        }
+    public void setImages(List<Image> list){
+        images = list;
     }
 
     @Override
@@ -103,6 +90,6 @@ public class OtherFragmentAdapter implements FragmentNavigatorAdapter {
 
     @Override
     public int getCount() {
-        return 14;
+        return 16;
     }
 }

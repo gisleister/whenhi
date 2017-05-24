@@ -34,11 +34,6 @@ import com.whenhi.hi.util.ClickUtil;
 public class ExploreNavFragment extends BaseFragment {
     private static final String TAG = ExploreNavFragment.class.getSimpleName();
 
-    private FragmentNavigator incomeFragmentNavigator;
-    private FragmentNavigator loveFragmentNavigator;
-    private FragmentNavigator shareFragmentNavigator;
-
-    private FragmentNavigator indexFragmentNavigator;
 
 
 
@@ -82,86 +77,10 @@ public class ExploreNavFragment extends BaseFragment {
             }
 
         }
-
-        Button incomeMore = (Button)view.findViewById(R.id.user_income_more);
-        incomeMore.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(view.getContext(), IncomeIndexActivity.class);
-                view.getContext().startActivity(intent);
-            }
-        });
-
-        ImageView craft = (ImageView)view.findViewById(R.id.explore_craft);
-        craft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(view.getContext(), CraftActivity.class);
-                view.getContext().startActivity(intent);
-
-
-            }
-        });
-
-        ImageView male = (ImageView)view.findViewById(R.id.explore_male);
-        male.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String gender = App.getGender();
-                if(!TextUtils.isEmpty(gender)){
-
-                    if(gender.equals("F")){
-                        Toast.makeText(App.getContext(), "只有男性才能进入哦!", Toast.LENGTH_SHORT).show();
-                    }else{
-                        Intent intent = new Intent(view.getContext(), MaleActivity.class);
-                        view.getContext().startActivity(intent);
-                    }
-                }else{
-                    ClickUtil.goToLogin(view.getContext());
-                }
-
-
-            }
-        });
-
-
-        /*RelativeLayout loveIndex = (RelativeLayout)view.findViewById(R.id.explore_love_layout);
-        loveIndex.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(view.getContext(), LoveIndexActivity.class);
-                view.getContext().startActivity(intent);
-            }
-        });
-
-        RelativeLayout shareIndex = (RelativeLayout)view.findViewById(R.id.explore_share_layout);
-        shareIndex.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(view.getContext(), ShareIndexActivity.class);
-                view.getContext().startActivity(intent);
-            }
-        });
-
-        LinearLayout incomeIndex = (LinearLayout) view.findViewById(R.id.explore_income_layout);
-        incomeIndex.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(view.getContext(), IncomeIndexActivity.class);
-                view.getContext().startActivity(intent);
-            }
-        });*/
-
-
-
-
-
-
-
-
-
+        OtherFragmentAdapter otherFragmentAdapter = new OtherFragmentAdapter();
+        FragmentNavigator fragmentNavigator = new FragmentNavigator(getChildFragmentManager(), otherFragmentAdapter, R.id.fragment_explore_container);
+        fragmentNavigator.onCreate(savedInstanceState);
+        fragmentNavigator.showFragment(Constants.OTHER_EXPLORE);
     }
 
 
@@ -169,7 +88,6 @@ public class ExploreNavFragment extends BaseFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        initData(savedInstanceState);
 
 
     }
@@ -188,68 +106,9 @@ public class ExploreNavFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        incomeFragmentNavigator = null;
-        loveFragmentNavigator = null;
-        shareFragmentNavigator = null;
-        indexFragmentNavigator = null;
+
     }
 
-    private void initData(final Bundle savedInstanceState){
-        HttpAPI.discoveryHome( new HttpAPI.Callback<DiscoveryModel>() {
-            @Override
-            public void onSuccess(DiscoveryModel discoveryModel) {
-                if(discoveryModel.getState() == 0){
-
-                    //initLove(savedInstanceState,discoveryModel);
-                    initIncome(savedInstanceState,discoveryModel);
-                    initIndex(savedInstanceState);
-                    //initShare(savedInstanceState,discoveryModel);
-                }else{
-                    //// TODO: 2017/1/10 提示用户系统出问题
-                }
-
-
-            }
-
-            @Override
-            public void onFailure(Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-
-
-    /*private void initLove(Bundle savedInstanceState, DiscoveryModel discoveryModel){
-        OtherFragmentAdapter otherFragmentAdapter = new OtherFragmentAdapter();
-        otherFragmentAdapter.setDiscoveryModel(discoveryModel);
-        loveFragmentNavigator = new FragmentNavigator(getChildFragmentManager(), otherFragmentAdapter, R.id.fragment_other_love_sub_container);
-        loveFragmentNavigator.onCreate(savedInstanceState);
-        loveFragmentNavigator.showFragment(Constants.OTHER_LOVE_INDEX_SUB);
-    }*/
-
-    private void initIncome(Bundle savedInstanceState,DiscoveryModel discoveryModel){
-        OtherFragmentAdapter otherFragmentAdapter = new OtherFragmentAdapter();
-        otherFragmentAdapter.setDiscoveryModel(discoveryModel);
-        incomeFragmentNavigator = new FragmentNavigator(getChildFragmentManager(), otherFragmentAdapter, R.id.fragment_other_income_sub_container);
-        incomeFragmentNavigator.onCreate(savedInstanceState);
-        incomeFragmentNavigator.showFragment(Constants.OTHER_INCOME_INDEX_SUB);
-    }
-
-   /* private void initShare(Bundle savedInstanceState,DiscoveryModel discoveryModel){
-        OtherFragmentAdapter otherFragmentAdapter = new OtherFragmentAdapter();
-        otherFragmentAdapter.setDiscoveryModel(discoveryModel);
-        shareFragmentNavigator = new FragmentNavigator(getChildFragmentManager(), otherFragmentAdapter, R.id.fragment_other_share_sub_container);
-        shareFragmentNavigator.onCreate(savedInstanceState);
-        shareFragmentNavigator.showFragment(Constants.OTHER_SHARE_INDEX_SUB);
-    }*/
-
-    private void initIndex(Bundle savedInstanceState){
-        OtherFragmentAdapter otherFragmentAdapter = new OtherFragmentAdapter();
-        indexFragmentNavigator = new FragmentNavigator(getChildFragmentManager(), otherFragmentAdapter, R.id.fragment_other_index_container);
-        indexFragmentNavigator.onCreate(savedInstanceState);
-        indexFragmentNavigator.showFragment(Constants.OTHER_INDEX);
-    }
 
 
 

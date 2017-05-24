@@ -1,6 +1,5 @@
 package com.whenhi.hi.fragment;
 
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,55 +16,53 @@ import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
-import com.whenhi.hi.adapter.FeedListAdapter;
+import com.whenhi.hi.adapter.ExploreAdapter;
+import com.whenhi.hi.adapter.MessageAdapter;
+import com.whenhi.hi.listener.NoticeListener;
 import com.whenhi.hi.listener.OnItemClickListener;
 import com.whenhi.hi.listener.OnItemLongClickListener;
-import com.whenhi.hi.model.Feed;
 import com.whenhi.hi.model.FeedModel;
+import com.whenhi.hi.model.Message;
+import com.whenhi.hi.model.MessageModel;
 import com.whenhi.hi.network.HttpAPI;
-import com.whenhi.hi.util.ClickUtil;
+import com.whenhi.hi.receiver.NoticeTransfer;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Created by 王雷 on 2016/12/25.
  */
-public class MaleListFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener,
-        OnItemClickListener<Feed>,
-        OnItemLongClickListener<Feed> {
-    private static final String TAG = MaleListFragment.class.getSimpleName();
 
+public class ExploreListFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener,
+        OnItemClickListener<Message>,
+        OnItemLongClickListener<Message> {
+    private static final String TAG = ExploreListFragment.class.getSimpleName();
+
+    public static final int TYPE_LINEAR = 0;
 
     private SwipeToLoadLayout mSwipeToLoadLayout;
 
     private RecyclerView mRecyclerView;
 
-    private FeedListAdapter mAdapter;
+    private ExploreAdapter mAdapter;
 
     private int mPageNo = 1;
     private String mExtras = "";
+    String mUserId;
+    String mToken;
 
-    private boolean viewCreate;
-
-    public boolean getViewCreate() {
-        return viewCreate;
-    }
-
-    public void setViewCreate(boolean viewCreate) {
-        this.viewCreate = viewCreate;
-    }
-
-    public static MaleListFragment newInstance() {
-        MaleListFragment fragment = new MaleListFragment();
+    public static Fragment newInstance() {
+        ExploreListFragment fragment = new ExploreListFragment();
         return fragment;
     }
 
-    public MaleListFragment() {
-        // Required empty public constructor
+    public ExploreListFragment() {
+        NoticeTransfer noticeTransfer = new NoticeTransfer();
+        noticeTransfer.setNoticeListener(mNoticeListener);
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new FeedListAdapter();
+        mAdapter = new ExploreAdapter();
     }
 
     @Override
@@ -82,19 +79,11 @@ public class MaleListFragment extends BaseFragment implements OnRefreshListener,
         mRecyclerView = (RecyclerView) view.findViewById(R.id.swipe_target);
         RecyclerView.LayoutManager layoutManager = null;
         layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setAutoMeasureEnabled(true);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
-        //mRecyclerView.getRecycledViewPool().setMaxRecycledViews(mAdapter.getItemViewType(0),3);
-
-        setViewCreate(true);
-
         mSwipeToLoadLayout.setOnRefreshListener(this);
         mSwipeToLoadLayout.setOnLoadMoreListener(this);
-
-        mAdapter.setOnItemClickListener(this);
-        mAdapter.setOnItemLongClickListener(this);
 
         mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -136,40 +125,30 @@ public class MaleListFragment extends BaseFragment implements OnRefreshListener,
     }
 
     @Override
-    public void onLoadMore() {
-        mPageNo++;
+    public void onItemClick(int position, Message content, View view) {
 
-        HttpAPI.maleList(mExtras,mPageNo, new HttpAPI.Callback<FeedModel>() {
-            @Override
-            public void onSuccess(FeedModel feedModel) {
-                mSwipeToLoadLayout.setLoadingMore(false);
-                if(feedModel.getState() == 0){
-                    mExtras = feedModel.getData().getExtras();
-                    mAdapter.append(feedModel.getData().getList());
-
-                }else{
-                    Toast.makeText(App.getContext(), feedModel.getMsgText(), Toast.LENGTH_SHORT).show();
-                }
-
-            }
-
-            @Override
-            public void onFailure(Exception e) {
-                Toast.makeText(App.getContext(), "服务器异常", Toast.LENGTH_SHORT).show();
-                mSwipeToLoadLayout.setLoadingMore(false);
-            }
-        });
     }
+
+    @Override
+    public boolean onClickItemLongClick(int groupPosition, Message character, View view) {
+        return false;
+    }
+
+    @Override
+    public void onLoadMore() {
+
+    }
+
     @Override
     public void onRefresh() {
         mPageNo = 1;
 
-       /**/ HttpAPI.maleList(mExtras,mPageNo, new HttpAPI.Callback<FeedModel>() {
+       /**/ HttpAPI.loveList(App.getExtras("love"),mPageNo, new HttpAPI.Callback<FeedModel>() {
             @Override
             public void onSuccess(FeedModel feedModel) {
                 mSwipeToLoadLayout.setRefreshing(false);
                 if(feedModel.getState() == 0){
-                    mExtras = feedModel.getData().getExtras();
+                    App.setExtras("love",feedModel.getData().getExtras());
                     mAdapter.setList(feedModel.getData().getList());
 
                 }else{
@@ -187,36 +166,15 @@ public class MaleListFragment extends BaseFragment implements OnRefreshListener,
         });
 
 
+
     }
 
-
-    @Override
-    public void onItemClick(int position, Feed feed, View view) {
-        ClickUtil.click(feed,view.getContext());
-    }
-
-    @Override
-    public boolean onClickItemLongClick(int groupPosition, Feed feed, View view) {
-        ClickUtil.goToShare(view.getContext(),feed);
-
-        return true;
-    }
-
-    @Override
-    public void destroy() {
-        if(viewCreate){
-            mRecyclerView.removeAllViews();
-            mRecyclerView.setAdapter(null);
-            mRecyclerView.setAdapter(mAdapter);
-            //mAdapter.notifyDataSetChanged();
+    private NoticeListener mNoticeListener = new NoticeListener() {
+        @Override
+        public void refreshMeesage() {
+            onRefresh();
         }
-    }
+    };
 
-    @Override
-    public void onvisible() {
-        if(viewCreate) {
-            mSwipeToLoadLayout.setRefreshing(true);
-        }
-        onRefresh();
-    }
+
 }

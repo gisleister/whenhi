@@ -13,6 +13,7 @@ public class Image implements Serializable {
     private int resType;
     private String content;
 
+
     public int getId() {
         return id;
     }

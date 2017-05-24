@@ -19,8 +19,8 @@ public class Constants {
 
  //public static  final boolean DEBUG = true;//此处在发版本时候必须修改为false
 
- public static final String host = "http://api.whenhi.cn/";
- //public static final String host = "http://123.56.101.33/";
+ //public static final String host = "http://api.whenhi.cn/";
+ public static final String host = "http://123.56.101.33/";
 
 
  public static final String API_FEED_LIST_URL = host+"api/feed/list/";
@@ -60,6 +60,10 @@ public class Constants {
  public static final String API_FEED_DETAIL_URL = host+"api/feed/detail";
  public static final String API_LOTTERY_DETAIL_URL = host+"api/lottery/detail";
  public static final String API_LOTTERY_GO_URL = host+"api/lottery/go";
+ public static final String API_FEED_LOOK_LIST_URL = host+"api/feed/list/history";
+
+
+
 
 
  /***以下是导航页面跳转常量**/
@@ -89,6 +93,9 @@ public class Constants {
  public static final int OTHER_CHARGE_RECORD = 11;
  public static final int OTHER_INDEX = 12;
  public static final int OTHER_MALE = 13;
+ public static final int OTHER_EXPLORE = 14;
+ public static final int OTHER_LOOK = 15;
+
 
 
 

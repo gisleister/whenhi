@@ -11,7 +11,7 @@ public class Message {
     private int userId;
     private String userName;
     private String userLogo;
-    private String status;
+    private int status;
     private String content;
     private int msgCategory;
     private String msgExtra;
@@ -66,11 +66,11 @@ public class Message {
         this.userLogo = userLogo;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

@@ -1,105 +1,155 @@
 package com.whenhi.hi.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
-import com.whenhi.hi.fragment.BaseFragment;
+import com.whenhi.hi.activity.IncomeIndexActivity;
+import com.whenhi.hi.activity.MaleActivity;
 import com.whenhi.hi.image.CircleTransform;
 import com.whenhi.hi.image.RoundTransform;
+import com.whenhi.hi.listener.CommentListener;
 import com.whenhi.hi.listener.GlideListener;
-import com.whenhi.hi.listener.OnItemClickListener;
-import com.whenhi.hi.listener.OnItemLongClickListener;
+import com.whenhi.hi.listener.OnChildItemClickListener;
+import com.whenhi.hi.listener.OnChildItemLongClickListener;
+import com.whenhi.hi.listener.OnGroupItemClickListener;
+import com.whenhi.hi.listener.OnGroupItemLongClickListener;
+import com.whenhi.hi.model.Comment;
+import com.whenhi.hi.model.DiscoveryModel;
 import com.whenhi.hi.model.Feed;
 import com.whenhi.hi.model.Image;
+import com.whenhi.hi.model.User;
+import com.whenhi.hi.network.HttpAPI;
+import com.whenhi.hi.receiver.NoticeTransfer;
 import com.whenhi.hi.util.ClickUtil;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- *
+ * Created by 王雷 on 2017/2/21.
  */
-public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private static final String TAG =FeedListAdapter.class.getSimpleName();
 
-    private final List<Feed> mDataList;
+public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+
+
+    private static final int TYPE_MALE = 0;
+    private static final int TYPE_HAIBI_INDEX = 1;
+    private static final int TYPE_GROUP = 2;
+    private static final int TYPE_CHILD = 3;
+
+
+    private final List<Feed> mFeeds;
+    private final List<User> mUsers;
     private GlideListener mGlideListener;
 
-    protected OnItemClickListener mOnItemClickListener;
 
-    protected OnItemLongClickListener mOnItemLongClickListener;
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.mOnItemClickListener = onItemClickListener;
+    protected OnGroupItemClickListener mOnGroupItemClickListener;
+
+    protected OnGroupItemLongClickListener mOnGroupItemLongClickListener;
+
+    protected OnChildItemClickListener mOnChildItemClickListener;
+
+    protected OnChildItemLongClickListener mOnChildItemLongClickListener;
+
+    public void setOnChildItemClickListener(OnChildItemClickListener onChildItemClickListener) {
+        mOnChildItemClickListener = onChildItemClickListener;
     }
 
-    public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener) {
-        this.mOnItemLongClickListener = onItemLongClickListener;
+    public void setOnChildItemLongClickListener(OnChildItemLongClickListener onChildItemLongClickListener) {
+        mOnChildItemLongClickListener = onChildItemLongClickListener;
     }
 
 
-    public FeedListAdapter() {
-        mDataList = new ArrayList<>();
+    public ExploreAdapter() {
+        mFeeds = new ArrayList<>();
+        mUsers = new ArrayList<>();
         mGlideListener = new GlideListener();
+
+
     }
 
     public void setList(List<Feed> feeds) {
-        mDataList.clear();
+        mFeeds.clear();
+
         append(feeds);
     }
 
     public void append(List<Feed> feeds) {
-        if(feeds != null){
-            mDataList.addAll(feeds);
+        mFeeds.addAll(feeds);
+        if(feeds.size() > 0){
+            notifyDataSetChanged();
         }
-        notifyDataSetChanged();
+
+    }
+
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0) {
+            return TYPE_MALE;
+        } else if (position == 1) {
+            return TYPE_HAIBI_INDEX;
+        } else if (position == 2) {
+            return TYPE_GROUP;
+        } else {
+            return TYPE_CHILD;
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mDataList.size();
+        return mFeeds.size() + 3;//因为多了一个header,内容和详情 所以ITEM的 的游标 +1 +1 +1
     }
-
 
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View itemView = inflate(viewGroup, R.layout.item_feed_all);
-        final FeedHolder holder = new FeedHolder(itemView);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int position = holder.getAdapterPosition();
-                Feed feed = mDataList.get(position);
-                mOnItemClickListener.onItemClick(position, feed, view);
-            }
-        });
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                int position = holder.getAdapterPosition();
-                Feed feed = mDataList.get(position);
-                mOnItemLongClickListener.onClickItemLongClick(position, feed, view);
-                return true;
-            }
-        });
-        return holder;
+        int type = getItemViewType(i);
+        View itemView = null;
+        switch (type) {
+            case TYPE_MALE:
+                itemView = inflate(viewGroup, R.layout.item_explore_male);
+                return new MaleHolder(itemView);
+            case TYPE_HAIBI_INDEX:
+                itemView = inflate(viewGroup, R.layout.item_viewpager_recycler);
+                return new HaibiIndexHolder(itemView);
+            case TYPE_GROUP:
+                itemView = inflate(viewGroup, R.layout.item_explore_group);
+                return new GroupHolder(itemView);
+            case TYPE_CHILD:
+                itemView = inflate(viewGroup, R.layout.item_feed_all);
+                final ChildHolder holder = new ChildHolder(itemView);
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int position = holder.getAdapterPosition();
+                        int childPosition = getChildPosition(position);
+                        Feed feed = mFeeds.get(childPosition);
+                        mOnChildItemClickListener.onChildItemClick(childPosition, feed, view);
+                    }
+                });
+                return holder;
+        }
+        throw new IllegalArgumentException("Wrong type!");
     }
 
     private View inflate(ViewGroup parent, int layoutRes) {
@@ -108,12 +158,97 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
-        onBindFeedHolder((FeedHolder) viewHolder,i);
+        int type = getItemViewType(i);
+        switch (type) {
+            case TYPE_MALE:
+                onBindHeaderHolder((MaleHolder) viewHolder);
+                break;
+            case TYPE_HAIBI_INDEX:
+                onBindHabiIndexHolder((HaibiIndexHolder) viewHolder);
+                break;
+            case TYPE_GROUP:
+                onBindGroupHolder((GroupHolder) viewHolder);
+                break;
+            case TYPE_CHILD:
+                onBindChildHolder((ChildHolder) viewHolder, getChildPosition(i));
+                break;
+        }
     }
 
+    private void onBindHeaderHolder(MaleHolder holder) {
 
-    private void onBindFeedHolder(final FeedHolder holder, int position) {
-        Feed feed = mDataList.get(position);
+        holder.maleImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String gender = App.getGender();
+                if(!TextUtils.isEmpty(gender)){
+
+                    if(gender.equals("F")){
+                        Toast.makeText(App.getContext(), "只有男性才能进入哦!", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Intent intent = new Intent(v.getContext(), MaleActivity.class);
+                        v.getContext().startActivity(intent);
+                    }
+                }else{
+                    ClickUtil.goToLogin(v.getContext());
+                }
+
+
+            }
+        });
+
+        holder.haibiIndex.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), IncomeIndexActivity.class);
+                v.getContext().startActivity(intent);
+
+            }
+        });
+    }
+
+    private void onBindHabiIndexHolder(HaibiIndexHolder holder) {
+
+        final IncomeIndexAdapter adapter = new IncomeIndexAdapter();
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(holder.recyclerView.getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        holder.recyclerView.setLayoutManager(linearLayoutManager);
+        holder.recyclerView.setAdapter(adapter);
+        HttpAPI.discoveryHome(new HttpAPI.Callback<DiscoveryModel>() {
+            @Override
+            public void onSuccess(DiscoveryModel discoveryModel) {
+                if(discoveryModel.getState() == 0){;
+                    adapter.setList(discoveryModel.getData().getTopUsers());
+                }else{
+
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+
+
+
+    }
+
+    private void onBindGroupHolder(final GroupHolder holder) {
+        //holder.headerText.setText("热门评论");
+
+        final Context context = holder.itemView.getContext();
+
+    }
+
+    private void onBindChildHolder(ChildHolder holder, int childPosition) {
+        //Character character = mSections.get(parentPosition).getCharacters().get(childPosition);
+        Feed feed = mFeeds.get(childPosition);
         if(feed == null)
             return;
         Context context = App.getContext();
@@ -139,14 +274,50 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         showToolbarContent(holder,feed);//显示工具栏
         other(holder,feed.getFeedCategory());//工具栏是否隐藏
 
-
     }
 
 
 
+    int getChildPosition(int position) {
 
-    class FeedHolder extends RecyclerView.ViewHolder {
+        int childPositionInGroup = position - 1 - 1 -1;//评论的位置在header详情和和group的下面所以要 -1 -1 -1
+        return childPositionInGroup;
+    }
 
+
+
+    static class MaleHolder extends RecyclerView.ViewHolder {
+        ImageView maleImage;
+        LinearLayout haibiIndex;
+        public MaleHolder(View itemView) {
+            super(itemView);
+            maleImage = (ImageView) itemView.findViewById(R.id.item_male_image);
+            haibiIndex = (LinearLayout) itemView.findViewById(R.id.explore_haibi_index_layout);
+
+        }
+    }
+
+    static class HaibiIndexHolder extends RecyclerView.ViewHolder {
+        RecyclerView recyclerView;
+
+        public HaibiIndexHolder(View itemView) {
+            super(itemView);
+            recyclerView = (RecyclerView) itemView.findViewById(R.id.item_recycler);
+        }
+    }
+
+    static class GroupHolder extends RecyclerView.ViewHolder {
+
+
+        public GroupHolder(View itemView) {
+            super(itemView);
+
+
+
+        }
+    }
+
+    static class ChildHolder extends RecyclerView.ViewHolder {
         ImageView avatarUser;
         TextView nicknameUser;
         ImageView imageContent;
@@ -156,7 +327,10 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
 
-
+        LinearLayout loveBtn;
+        LinearLayout favBtn;
+        LinearLayout shareBtn;
+        LinearLayout commentBtn;
 
         LinearLayout userLayout;
         LinearLayout toolbarLayout;
@@ -174,11 +348,9 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         TextView shareText;
         TextView commentText;
 
-        Button imageNum;
 
-        public FeedHolder(View itemView) {
+        public ChildHolder(View itemView) {
             super(itemView);
-
             userLayout = (LinearLayout) itemView.findViewById(R.id.item_user_layout);
             contentImageLayout = (RelativeLayout) itemView.findViewById(R.id.item_content_image_layout);
             contentTextLayout = (LinearLayout) itemView.findViewById(R.id.item_content_text_layout);
@@ -207,14 +379,18 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             shareText = (TextView) itemView.findViewById(R.id.toolbar_share_text);
             favText = (TextView) itemView.findViewById(R.id.toolbar_fav_text);
             commentText = (TextView) itemView.findViewById(R.id.toolbar_comment_text);
-            imageNum = (Button) itemView.findViewById(R.id.item_image_num);
 
+
+            loveBtn = (LinearLayout) itemView.findViewById(R.id.toolbar_love_btn);
+            favBtn = (LinearLayout) itemView.findViewById(R.id.toolbar_fav_btn);
+            shareBtn = (LinearLayout) itemView.findViewById(R.id.toolbar_share_btn);
+            commentBtn = (LinearLayout) itemView.findViewById(R.id.toolbar_comment_btn);
 
 
         }
     }
 
-    private void other(FeedHolder holder, int type){
+    private void other(ChildHolder holder, int type){
         if( type == 8 || type == 10){//彩蛋和抽奖 没有头像
             holder.userLayout.setVisibility(View.GONE);
             holder.toolbarLayout.setVisibility(View.GONE);
@@ -230,7 +406,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
 
-    private void showContent(FeedHolder holder, Feed feed,Context context){
+    private void showContent(ChildHolder holder, Feed feed, Context context){
 
         WeakReference<ImageView> imageViewWeakReference = new WeakReference<>(holder.imageContent);
         ImageView target = imageViewWeakReference.get();
@@ -242,8 +418,6 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         if(feed.getFeedCategory() == 1){//视频
             holder.textContent.setText(feed.getContent());
-            holder.imageNum.setVisibility(View.GONE);
-            holder.contentImageLayout.setVisibility(View.VISIBLE);
             holder.imagePlay.setImageResource(R.mipmap.shouye_shipin_bofang);
             if(TextUtils.isEmpty(feed.getContent())){
                 holder.contentTextLayout.setVisibility(View.GONE);
@@ -300,12 +474,10 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         }else if(feed.getFeedCategory() == 4){//段子
             holder.textContent.setText(feed.getContent());
-            holder.imageNum.setVisibility(View.GONE);
             holder.contentImageLayout.setVisibility(View.GONE);
             feed.setImageUrl(App.getUserLogo());//给分享时候图片赋值为用户头像
         }else if(feed.getFeedCategory() == 5){//图片
             holder.textContent.setText(feed.getContent());
-            holder.contentImageLayout.setVisibility(View.VISIBLE);
             holder.imagePlay.setImageResource(R.mipmap.shouye_tupian_kan);
             if(TextUtils.isEmpty(feed.getContent())){
                 holder.contentTextLayout.setVisibility(View.GONE);
@@ -316,8 +488,6 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             List<Image> images = feed.getResList();
             if(images != null){
                 if(images.size() > 0){
-                    holder.imageNum.setVisibility(View.VISIBLE);
-                    holder.imageNum.setText(""+images.size());
                     Image image = images.get(0);
                     if (target != null) {
                         Glide.with(context)
@@ -330,7 +500,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                                 .transform(new RoundTransform(context,10))
                                 .error(R.mipmap.bg_image)
                                 //.override(width, height)
-                                .into(new GlideDrawableImageViewTarget(target, 0));
+                                .into(new GlideDrawableImageViewTarget(target, 1));
                     }
 
                 }
@@ -341,8 +511,6 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }else if(feed.getFeedCategory() == 7){//分割线
 
         }else if(feed.getFeedCategory() == 8){//彩蛋
-            holder.imageNum.setVisibility(View.GONE);
-            holder.contentImageLayout.setVisibility(View.VISIBLE);
             holder.imagePlay.setImageResource(R.mipmap.shouye_huodong_kai);
             holder.contentTextLayout.setVisibility(View.GONE);
             if (target != null) {
@@ -359,9 +527,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         .into(target);
             }
         }else if(feed.getFeedCategory() == 9){//webview
-            holder.imageNum.setVisibility(View.GONE);
             holder.textContent.setText(feed.getSummary());
-            holder.contentImageLayout.setVisibility(View.VISIBLE);
             holder.imagePlay.setImageResource(R.mipmap.shouye_tupian_kan);
             if(TextUtils.isEmpty(feed.getSummary())){
                 holder.contentTextLayout.setVisibility(View.GONE);
@@ -386,8 +552,6 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         }else if(feed.getFeedCategory() == 10){//抽奖
             //holder.textContent.setText(feed.getMaskContent());
-            holder.imageNum.setVisibility(View.GONE);
-            holder.contentImageLayout.setVisibility(View.VISIBLE);
             holder.imagePlay.setImageResource(R.mipmap.shouye_huodong_kai);
             holder.contentTextLayout.setVisibility(View.GONE);
             if (target != null) {
@@ -408,7 +572,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     }
 
-    private void showToolbarContent(FeedHolder holder, Feed feed){
+    private void showToolbarContent(ChildHolder holder, Feed feed){
 
         if(feed.getLikeCount() == 0){
             holder.loveText.setText("");
@@ -450,9 +614,12 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }else{
             holder.favImage.setImageResource(R.mipmap.shouye_icon_shoucang);
         }
-        ClickUtil.toolbarClick(holder.loveImage, holder.favImage,holder.loveText,holder.favText,holder.favImage,holder.loveImage,holder.shareImage,holder.commentImage,holder.itemView,feed);
+        //ClickUtil.toolbarClick(holder.loveImage, holder.favImage,holder.loveText,holder.favText,holder.favBtn,holder.loveBtn,holder.shareBtn,holder.commentBtn,holder.itemView,feed);
 
     }
+
+
+
 
 
 

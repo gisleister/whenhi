@@ -60,7 +60,7 @@ public class ShareIndexListFragment extends BaseFragment implements OnRefreshLis
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new FeedListAdapter((BaseFragment) ShareIndexListFragment.newInstance());
+        mAdapter = new FeedListAdapter();
     }
 
     @Override

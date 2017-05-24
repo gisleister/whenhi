@@ -65,7 +65,7 @@ public class FavListFragment extends BaseFragment implements OnRefreshListener, 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new FeedListAdapter((BaseFragment) FavListFragment.newInstance());
+        mAdapter = new FeedListAdapter();
     }
 
     @Override

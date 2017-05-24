@@ -56,7 +56,7 @@ public class XXListFragment extends BaseFragment implements OnRefreshListener, O
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new FeedListAdapter((BaseFragment) XXListFragment.newInstance());
+        mAdapter = new FeedListAdapter();
     }
 
     @Override

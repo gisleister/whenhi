@@ -31,7 +31,7 @@ import com.whenhi.hi.util.ClickUtil;
 public class VideoListFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener,
         OnItemClickListener<Feed>,
         OnItemLongClickListener<Feed> {
-    private static final String TAG = VideoListFragment.class.getSimpleName();
+    private static final String TAG = FunnyListFragment.class.getSimpleName();
 
     private SwipeToLoadLayout mSwipeToLoadLayout;
 
@@ -40,15 +40,8 @@ public class VideoListFragment extends BaseFragment implements OnRefreshListener
     private FeedListAdapter mAdapter;
 
     private int mPageNo = 1;
-    private boolean viewCreate;
 
-    public boolean getViewCreate() {
-        return viewCreate;
-    }
 
-    public void setViewCreate(boolean viewCreate) {
-        this.viewCreate = viewCreate;
-    }
 
     public static Fragment newInstance() {
         VideoListFragment fragment = new VideoListFragment();
@@ -62,7 +55,7 @@ public class VideoListFragment extends BaseFragment implements OnRefreshListener
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new FeedListAdapter((BaseFragment) VideoListFragment.newInstance());
+        mAdapter = new FeedListAdapter();
     }
 
     @Override
@@ -85,7 +78,6 @@ public class VideoListFragment extends BaseFragment implements OnRefreshListener
 
         //mRecyclerView.getRecycledViewPool().setMaxRecycledViews(mAdapter.getItemViewType(0),3);
 
-        setViewCreate(true);
 
         mSwipeToLoadLayout.setOnRefreshListener(this);
         mSwipeToLoadLayout.setOnLoadMoreListener(this);
@@ -103,6 +95,7 @@ public class VideoListFragment extends BaseFragment implements OnRefreshListener
                 }
             }
         });
+
 
     }
 
@@ -137,6 +130,7 @@ public class VideoListFragment extends BaseFragment implements OnRefreshListener
     @Override
     public void onLoadMore() {
         mPageNo++;
+
         HttpAPI.requestList("video",App.getExtras("video"),mPageNo, new HttpAPI.Callback<FeedModel>() {
             @Override
             public void onSuccess(FeedModel feedModel) {
@@ -149,8 +143,6 @@ public class VideoListFragment extends BaseFragment implements OnRefreshListener
                     Toast.makeText(App.getContext(), feedModel.getMsgText(), Toast.LENGTH_SHORT).show();
                 }
 
-
-
             }
 
             @Override
@@ -162,11 +154,9 @@ public class VideoListFragment extends BaseFragment implements OnRefreshListener
     }
     @Override
     public void onRefresh() {
-        if(!isVisible)
-            return;
 
         mPageNo = 1;
-        HttpAPI.requestList("video",App.getExtras("video"),mPageNo, new HttpAPI.Callback<FeedModel>() {
+       /**/ HttpAPI.requestList("video",App.getExtras("video"),mPageNo, new HttpAPI.Callback<FeedModel>() {
             @Override
             public void onSuccess(FeedModel feedModel) {
                 mSwipeToLoadLayout.setRefreshing(false);
@@ -177,7 +167,6 @@ public class VideoListFragment extends BaseFragment implements OnRefreshListener
                 }else{
                     Toast.makeText(App.getContext(), feedModel.getMsgText(), Toast.LENGTH_SHORT).show();
                 }
-
 
 
             }
@@ -203,28 +192,18 @@ public class VideoListFragment extends BaseFragment implements OnRefreshListener
     public boolean onClickItemLongClick(int groupPosition, Feed feed, View view) {
         ClickUtil.goToShare(view.getContext(),feed);
 
+
         return true;
     }
 
 
-    @Override
-    public void destroy() {
-        if(viewCreate){
-            mRecyclerView.removeAllViews();
-            mRecyclerView.setAdapter(null);
-            mAdapter.setList(null);
-            mRecyclerView.setAdapter(mAdapter);
-            mAdapter.notifyDataSetChanged();
-        }
-    }
 
     @Override
     public void onvisible() {
-        if(viewCreate) {
+        /*if(viewCreate) {
             mSwipeToLoadLayout.setRefreshing(true);
         }
-        onRefresh();
+        onRefresh();*/
     }
-
 
 }

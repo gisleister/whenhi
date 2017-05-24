@@ -28,10 +28,10 @@ import com.whenhi.hi.util.ClickUtil;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MaleListFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener,
+public class LookListFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener,
         OnItemClickListener<Feed>,
         OnItemLongClickListener<Feed> {
-    private static final String TAG = MaleListFragment.class.getSimpleName();
+    private static final String TAG = LookListFragment.class.getSimpleName();
 
 
     private SwipeToLoadLayout mSwipeToLoadLayout;
@@ -53,12 +53,12 @@ public class MaleListFragment extends BaseFragment implements OnRefreshListener,
         this.viewCreate = viewCreate;
     }
 
-    public static MaleListFragment newInstance() {
-        MaleListFragment fragment = new MaleListFragment();
+    public static LookListFragment newInstance() {
+        LookListFragment fragment = new LookListFragment();
         return fragment;
     }
 
-    public MaleListFragment() {
+    public LookListFragment() {
         // Required empty public constructor
     }
 
@@ -138,8 +138,7 @@ public class MaleListFragment extends BaseFragment implements OnRefreshListener,
     @Override
     public void onLoadMore() {
         mPageNo++;
-
-        HttpAPI.maleList(mExtras,mPageNo, new HttpAPI.Callback<FeedModel>() {
+        HttpAPI.lookList(mExtras,mPageNo, new HttpAPI.Callback<FeedModel>() {
             @Override
             public void onSuccess(FeedModel feedModel) {
                 mSwipeToLoadLayout.setLoadingMore(false);
@@ -163,8 +162,7 @@ public class MaleListFragment extends BaseFragment implements OnRefreshListener,
     @Override
     public void onRefresh() {
         mPageNo = 1;
-
-       /**/ HttpAPI.maleList(mExtras,mPageNo, new HttpAPI.Callback<FeedModel>() {
+        HttpAPI.lookList(mExtras,mPageNo, new HttpAPI.Callback<FeedModel>() {
             @Override
             public void onSuccess(FeedModel feedModel) {
                 mSwipeToLoadLayout.setRefreshing(false);
@@ -198,7 +196,6 @@ public class MaleListFragment extends BaseFragment implements OnRefreshListener,
     @Override
     public boolean onClickItemLongClick(int groupPosition, Feed feed, View view) {
         ClickUtil.goToShare(view.getContext(),feed);
-
         return true;
     }
 

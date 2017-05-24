@@ -1,16 +1,19 @@
 package com.whenhi.hi.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
+import com.whenhi.hi.activity.IncomeIndexActivity;
 import com.whenhi.hi.image.CircleTransform;
 import com.whenhi.hi.listener.GlideListener;
 import com.whenhi.hi.listener.OnItemClickListener;
@@ -67,25 +70,16 @@ public class IncomeIndexAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View itemView = inflate(viewGroup, R.layout.item_ecplore_income);
+        View itemView = inflate(viewGroup, R.layout.item_explore_income);
         final FeedHolder holder = new FeedHolder(itemView);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int position = holder.getAdapterPosition();
-                User user = mDataList.get(position);
-                mOnItemClickListener.onItemClick(position, user, view);
+                Intent intent = new Intent(view.getContext(), IncomeIndexActivity.class);
+                view.getContext().startActivity(intent);
             }
         });
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                int position = holder.getAdapterPosition();
-                User user = mDataList.get(position);
-                mOnItemLongClickListener.onClickItemLongClick(position, user, view);
-                return true;
-            }
-        });
+
         return holder;
     }
 
@@ -105,17 +99,19 @@ public class IncomeIndexAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 
         holder.nicknameUser.setText(user.getUserName());
-        holder.textContent.setText(""+user.getScore());
 
         if(position == 0){
-            holder.incomeIndex.setText("No.2");
-            holder.incomeImage.setImageResource(R.mipmap.no2);
+            holder.incomeText.setText(""+user.getScore());
+            holder.incomeText.setBackgroundResource(R.drawable.shape_no2);
+            holder.incomeImage.setImageResource(R.mipmap.tansuo_paihang2);
         }else if(position == 1){
-            holder.incomeIndex.setText("No.1");
-            holder.incomeImage.setImageResource(R.mipmap.no1);
+            holder.incomeText.setText(""+user.getScore());
+            holder.incomeImage.setImageResource(R.mipmap.tansuo_paihang1);
+            holder.incomeText.setBackgroundResource(R.drawable.shape_no1);
         }else if(position == 2){
-            holder.incomeIndex.setText("No.3");
-            holder.incomeImage.setImageResource(R.mipmap.no3);
+            holder.incomeText.setText(""+user.getScore());
+            holder.incomeImage.setImageResource(R.mipmap.tansuo_paihang3);
+            holder.incomeText.setBackgroundResource(R.drawable.shape_no3);
         }
 
 
@@ -137,8 +133,7 @@ public class IncomeIndexAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         ImageView avatarUser;
         TextView nicknameUser;
-        TextView textContent;
-        TextView incomeIndex;
+        Button incomeText;
         ImageView incomeImage;
 
 
@@ -147,9 +142,7 @@ public class IncomeIndexAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             avatarUser = (ImageView) itemView.findViewById(R.id.user_avatar);
             nicknameUser = (TextView) itemView.findViewById(R.id.user_nickname);
 
-            textContent = (TextView) itemView.findViewById(R.id.user_income);
-
-            incomeIndex = (TextView) itemView.findViewById(R.id.user_income_index);
+            incomeText = (Button) itemView.findViewById(R.id.user_income_text);
             incomeImage = (ImageView) itemView.findViewById(R.id.user_income_image);
 
 
