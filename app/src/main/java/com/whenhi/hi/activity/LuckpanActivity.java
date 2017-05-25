@@ -57,12 +57,7 @@ public class LuckpanActivity extends BaseActivity implements RotatePan.Animation
         TextView textView = (TextView) findViewById(R.id.toolbar).findViewById(R.id.toolbar_title);
         textView.setText("幸运大抽奖");
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.mipmap.fanhui);
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
-            actionBar.setDisplayHomeAsUpEnabled(false);
-            actionBar.setDisplayShowTitleEnabled(false);
-        }
+
         initData();
 
     }

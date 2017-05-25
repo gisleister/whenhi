@@ -32,13 +32,7 @@ public class LoveIndexActivity extends BaseActivity{
         mToolbar = (Toolbar) findViewById(R.id.toolbar).findViewById(R.id.toolbar);
         mTextView = (TextView) findViewById(R.id.toolbar).findViewById(R.id.toolbar_title);
         mTextView.setText("人气排行榜");
-        setSupportActionBar(mToolbar);
-        mToolbar.setNavigationIcon(R.mipmap.fanhui);
-        mActionBar = getSupportActionBar();
-        if (mActionBar != null){
-            mActionBar.setDisplayHomeAsUpEnabled(false);
-            mActionBar.setDisplayShowTitleEnabled(false);
-        }
+
 
     }
 

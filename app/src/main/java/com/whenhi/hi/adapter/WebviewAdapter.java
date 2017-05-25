@@ -47,7 +47,7 @@ public class WebviewAdapter {
 
 
             //设置Web视图
-            //mWebView.setWebViewClient(new MyWebViewClient());
+            mWebView.setWebViewClient(new MyWebViewClient());
             //mWebView.setWebChromeClient(new MyWebChromeClient());
 
             //new MyAsnycTask().execute();
@@ -87,7 +87,7 @@ public class WebviewAdapter {
                 }
             }*/
 
-            return true;
+            return false;
         }
 
         @Override

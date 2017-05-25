@@ -32,13 +32,7 @@ public class ProblemActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar).findViewById(R.id.toolbar);
         TextView textView = (TextView) findViewById(R.id.toolbar).findViewById(R.id.toolbar_title);
         textView.setText("问题反馈");
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.mipmap.fanhui);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
-            actionBar.setDisplayHomeAsUpEnabled(false);
-            actionBar.setDisplayShowTitleEnabled(false);
-        }
+
 
         TextView problemButton = (TextView)findViewById(R.id.user_problem_button);
         final EditText problemText = (EditText)findViewById(R.id.user_problem_text);

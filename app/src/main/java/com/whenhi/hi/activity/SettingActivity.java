@@ -38,16 +38,11 @@ public class SettingActivity extends BaseActivity {
         setContentView(R.layout.activity_setting);
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar).findViewById(R.id.toolbar);
-        TextView textView = (TextView) findViewById(R.id.toolbar).findViewById(R.id.toolbar_title);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        TextView textView = (TextView) findViewById(R.id.toolbar_title);
         textView.setText("设置");
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.mipmap.fanhui);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
-            actionBar.setDisplayHomeAsUpEnabled(false);
-            actionBar.setDisplayShowTitleEnabled(false);
-        }
+
         long cacheSize = 0;
         final TextView cacheText = (TextView)findViewById(R.id.setting_cache_text);
         try {

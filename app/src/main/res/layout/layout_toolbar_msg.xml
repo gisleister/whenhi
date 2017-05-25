@@ -2,7 +2,7 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:minHeight="?attr/actionBarSize"
+    android:minHeight="60dp"
     android:background="#fafafa">
 
     <TextView

@@ -3,8 +3,6 @@
     android:id="@+id/item_feed_rec"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="15dp"
-    android:paddingBottom="15dp"
     android:background="#ffffff"
     android:orientation="vertical" >
 
@@ -48,7 +46,8 @@
             android:id="@+id/item_content_image_layout"
             android:layout_width="match_parent"
             android:layout_height="195dp"
-            android:paddingTop="15dp">
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp">
 
             <ImageView
                 android:id="@+id/item_content_image"
@@ -82,7 +81,7 @@
             android:id="@+id/item_content_text_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="15dp">
+            android:paddingBottom="15dp">
 
             <TextView
                 android:id="@+id/item_content_text"
@@ -104,7 +103,7 @@
             android:id="@+id/item_toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
             android:layout_gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -212,7 +211,10 @@
 
 
     </LinearLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@drawable/bg_space"/>
 
 
 </LinearLayout>

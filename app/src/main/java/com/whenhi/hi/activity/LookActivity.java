@@ -31,16 +31,11 @@ public class LookActivity extends BaseActivity{
         setContentView(R.layout.activity_look);
         Intent intent = getIntent();
         initView(savedInstanceState);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar).findViewById(R.id.toolbar);
-        mTextView = (TextView) findViewById(R.id.toolbar).findViewById(R.id.toolbar_title);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mTextView = (TextView) findViewById(R.id.toolbar_title);
         mTextView.setText("历史记录");
         setSupportActionBar(mToolbar);
-        mToolbar.setNavigationIcon(R.mipmap.fanhui);
-        mActionBar = getSupportActionBar();
-        if (mActionBar != null){
-            mActionBar.setDisplayHomeAsUpEnabled(false);
-            mActionBar.setDisplayShowTitleEnabled(false);
-        }
+
 
     }
 

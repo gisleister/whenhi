@@ -31,16 +31,11 @@ public class FavActivity extends BaseActivity{
         setContentView(R.layout.activity_fav);
         Intent intent = getIntent();
         initView(savedInstanceState);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar).findViewById(R.id.toolbar);
-        mTextView = (TextView) findViewById(R.id.toolbar).findViewById(R.id.toolbar_title);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mTextView = (TextView) findViewById(R.id.toolbar_title);
         mTextView.setText("我的收藏");
         setSupportActionBar(mToolbar);
-        mToolbar.setNavigationIcon(R.mipmap.fanhui);
-        mActionBar = getSupportActionBar();
-        if (mActionBar != null){
-            mActionBar.setDisplayHomeAsUpEnabled(false);
-            mActionBar.setDisplayShowTitleEnabled(false);
-        }
+
 
     }
 

@@ -30,16 +30,11 @@ public class MoneyActivity extends BaseActivity {
         setContentView(R.layout.activity_money);
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar).findViewById(R.id.toolbar);
-        TextView textView = (TextView) findViewById(R.id.toolbar).findViewById(R.id.toolbar_title);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        TextView textView = (TextView) findViewById(R.id.toolbar_title);
         textView.setText("如何提现");
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.mipmap.fanhui);
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
-            actionBar.setDisplayHomeAsUpEnabled(false);
-            actionBar.setDisplayShowTitleEnabled(false);
-        }
+
 
         setUrl("http://www.whenhi.cn/static/cash/instruction.html?random"+Math.random());
         initWebView();
@@ -67,7 +62,7 @@ public class MoneyActivity extends BaseActivity {
             mWebView.loadUrl(mUrl);
 
             //设置Web视图
-            //mWebView.setWebViewClient(new MyWebViewClient());
+            mWebView.setWebViewClient(new MyWebViewClient());
             //mWebView.setWebChromeClient(new MyWebChromeClient());
             //new MyAsnycTask().execute();
         }

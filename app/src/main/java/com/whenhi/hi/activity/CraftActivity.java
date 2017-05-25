@@ -32,12 +32,7 @@ public class CraftActivity extends BaseActivity{
         mTextView = (TextView) findViewById(R.id.toolbar).findViewById(R.id.toolbar_title);
         mTextView.setText("时光穿梭");
         setSupportActionBar(mToolbar);
-        mToolbar.setNavigationIcon(R.mipmap.fanhui);
-        mActionBar = getSupportActionBar();
-        if (mActionBar != null){
-            mActionBar.setDisplayHomeAsUpEnabled(false);
-            mActionBar.setDisplayShowTitleEnabled(false);
-        }
+
 
         initView(savedInstanceState);
 
