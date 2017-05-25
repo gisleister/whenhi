@@ -98,8 +98,8 @@ public class MoreNavFragment extends BaseFragment {
             }
         });
 
-        LinearLayout income = (LinearLayout)view.findViewById(R.id.user_haibi_layout);
-        income.setOnClickListener(new RelativeLayout.OnClickListener(){//创建监听
+        LinearLayout haibi = (LinearLayout)view.findViewById(R.id.user_haibi_layout);
+        haibi.setOnClickListener(new RelativeLayout.OnClickListener(){//创建监听
             public void onClick(View v) {
 
                 if(App.isLogin()){
@@ -149,8 +149,8 @@ public class MoreNavFragment extends BaseFragment {
 
         });
 
-        LinearLayout chargeRecord = (LinearLayout)view.findViewById(R.id.user_money_layout);
-        chargeRecord.setOnClickListener(new View.OnClickListener() {
+        LinearLayout gomoney = (LinearLayout)view.findViewById(R.id.user_money_layout);
+        gomoney.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -203,9 +203,15 @@ public class MoreNavFragment extends BaseFragment {
         look.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(view.getContext(), LookActivity.class);
 
-                view.getContext().startActivity(intent);
+                if(App.isLogin()){
+                    Intent intent = new Intent(view.getContext(), LookActivity.class);
+
+                    view.getContext().startActivity(intent);
+                }else{
+                    ClickUtil.goToLogin(view.getContext());
+                }
+
             }
         });
 
@@ -290,6 +296,8 @@ public class MoreNavFragment extends BaseFragment {
             public void onSuccess(UserModel userModel) {
                 if(userModel.getState() == 0){
 
+                    if(userModel.getData() == null)
+                        return;
                     haibiCount.setText(""+userModel.getData().getScore());
                     favCount.setText(""+userModel.getData().getFavoriteCount());
 
@@ -398,7 +406,9 @@ public class MoreNavFragment extends BaseFragment {
 
         @Override
         public void refresh() {
-            getUserInfo();
+            if(App.isLogin()){
+                getUserInfo();
+            }
         }
 
         @Override

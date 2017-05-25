@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.whenhi.hi.R;
+import com.whenhi.hi.adapter.FeedListAdapter;
 import com.whenhi.hi.adapter.LoveIndexAdapter;
 import com.whenhi.hi.listener.OnItemClickListener;
 import com.whenhi.hi.listener.OnItemLongClickListener;
@@ -28,7 +29,7 @@ public class LoveIndexFragment extends BaseFragment implements OnItemClickListen
 
     private RecyclerView mRecyclerView;
 
-    private LoveIndexAdapter mAdapter;
+    private FeedListAdapter mAdapter;
     private static List<Feed> mFeeds;
 
     private int mPageNo = 1;
@@ -47,7 +48,7 @@ public class LoveIndexFragment extends BaseFragment implements OnItemClickListen
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new LoveIndexAdapter();
+        mAdapter = new FeedListAdapter();
     }
 
     @Override

@@ -414,7 +414,7 @@
                         android:paddingLeft="6dp"
                         android:textColor="#333333"
                         android:textSize="14sp"
-                        android:text="历史记录"/>
+                        android:text="浏览历史"/>
 
 
                 </LinearLayout>

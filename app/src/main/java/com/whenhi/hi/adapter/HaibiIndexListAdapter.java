@@ -56,7 +56,7 @@ public class HaibiIndexListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View itemView = inflate(viewGroup, R.layout.item_user_income_index);
+        View itemView = inflate(viewGroup, R.layout.item_haibi_index);
         final UserScoreHolder holder = new UserScoreHolder(itemView);
 
         return holder;

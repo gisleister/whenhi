@@ -29,9 +29,10 @@ public class ProblemActivity extends BaseActivity {
         setContentView(R.layout.activity_problem);
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar).findViewById(R.id.toolbar);
-        TextView textView = (TextView) findViewById(R.id.toolbar).findViewById(R.id.toolbar_title);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        TextView textView = (TextView) findViewById(R.id.toolbar_title);
         textView.setText("问题反馈");
+        setSupportActionBar(toolbar);
 
 
         TextView problemButton = (TextView)findViewById(R.id.user_problem_button);

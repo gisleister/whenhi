@@ -26,7 +26,7 @@
         android:paddingBottom="12dp"
         android:ellipsize="end"
         android:gravity="center_horizontal"
-        android:text="登录即可领取手机话费，还等什么？赶紧点击登录吧"/>
+        android:text="没事偷着乐，红包领不停，赶紧登录领取"/>
 
 
     <LinearLayout

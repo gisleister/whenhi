@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -324,10 +325,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
 
 
-        LinearLayout loveBtn;
-        LinearLayout favBtn;
-        LinearLayout shareBtn;
-        LinearLayout commentBtn;
+
 
         LinearLayout userLayout;
         LinearLayout toolbarLayout;
@@ -344,6 +342,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         TextView favText;
         TextView shareText;
         TextView commentText;
+
+        Button imageNum;
 
 
         public ChildHolder(View itemView) {
@@ -376,13 +376,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             shareText = (TextView) itemView.findViewById(R.id.toolbar_share_text);
             favText = (TextView) itemView.findViewById(R.id.toolbar_fav_text);
             commentText = (TextView) itemView.findViewById(R.id.toolbar_comment_text);
-
-
-            loveBtn = (LinearLayout) itemView.findViewById(R.id.toolbar_love_btn);
-            favBtn = (LinearLayout) itemView.findViewById(R.id.toolbar_fav_btn);
-            shareBtn = (LinearLayout) itemView.findViewById(R.id.toolbar_share_btn);
-            commentBtn = (LinearLayout) itemView.findViewById(R.id.toolbar_comment_btn);
-
+            imageNum = (Button) itemView.findViewById(R.id.item_image_num);
 
         }
     }
@@ -415,6 +409,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         if(feed.getFeedCategory() == 1){//视频
             holder.textContent.setText(feed.getContent());
+            holder.imageNum.setVisibility(View.GONE);
+            holder.contentImageLayout.setVisibility(View.VISIBLE);
             holder.imagePlay.setImageResource(R.mipmap.shouye_shipin_bofang);
             if(TextUtils.isEmpty(feed.getContent())){
                 holder.contentTextLayout.setVisibility(View.GONE);
@@ -471,10 +467,12 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         }else if(feed.getFeedCategory() == 4){//段子
             holder.textContent.setText(feed.getContent());
+            holder.imageNum.setVisibility(View.GONE);
             holder.contentImageLayout.setVisibility(View.GONE);
             feed.setImageUrl(App.getUserLogo());//给分享时候图片赋值为用户头像
         }else if(feed.getFeedCategory() == 5){//图片
             holder.textContent.setText(feed.getContent());
+            holder.contentImageLayout.setVisibility(View.VISIBLE);
             holder.imagePlay.setImageResource(R.mipmap.shouye_tupian_kan);
             if(TextUtils.isEmpty(feed.getContent())){
                 holder.contentTextLayout.setVisibility(View.GONE);
@@ -485,6 +483,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             List<Image> images = feed.getResList();
             if(images != null){
                 if(images.size() > 0){
+                    holder.imageNum.setVisibility(View.VISIBLE);
+                    holder.imageNum.setText(""+images.size());
                     Image image = images.get(0);
                     if (target != null) {
                         Glide.with(context)
@@ -497,7 +497,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                                 .transform(new RoundTransform(context,10))
                                 .error(R.mipmap.bg_image)
                                 //.override(width, height)
-                                .into(new GlideDrawableImageViewTarget(target, 1));
+                                .into(new GlideDrawableImageViewTarget(target, 0));
                     }
 
                 }
@@ -508,6 +508,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }else if(feed.getFeedCategory() == 7){//分割线
 
         }else if(feed.getFeedCategory() == 8){//彩蛋
+            holder.imageNum.setVisibility(View.GONE);
+            holder.contentImageLayout.setVisibility(View.VISIBLE);
             holder.imagePlay.setImageResource(R.mipmap.shouye_huodong_kai);
             holder.contentTextLayout.setVisibility(View.GONE);
             if (target != null) {
@@ -524,7 +526,9 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         .into(target);
             }
         }else if(feed.getFeedCategory() == 9){//webview
+            holder.imageNum.setVisibility(View.GONE);
             holder.textContent.setText(feed.getSummary());
+            holder.contentImageLayout.setVisibility(View.VISIBLE);
             holder.imagePlay.setImageResource(R.mipmap.shouye_tupian_kan);
             if(TextUtils.isEmpty(feed.getSummary())){
                 holder.contentTextLayout.setVisibility(View.GONE);
@@ -549,6 +553,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         }else if(feed.getFeedCategory() == 10){//抽奖
             //holder.textContent.setText(feed.getMaskContent());
+            holder.imageNum.setVisibility(View.GONE);
+            holder.contentImageLayout.setVisibility(View.VISIBLE);
             holder.imagePlay.setImageResource(R.mipmap.shouye_huodong_kai);
             holder.contentTextLayout.setVisibility(View.GONE);
             if (target != null) {
@@ -565,6 +571,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         .into(target);
             }
         }
+
 
 
     }
@@ -611,8 +618,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }else{
             holder.favImage.setImageResource(R.mipmap.shouye_icon_shoucang);
         }
-        //ClickUtil.toolbarClick(holder.loveImage, holder.favImage,holder.loveText,holder.favText,holder.favBtn,holder.loveBtn,holder.shareBtn,holder.commentBtn,holder.itemView,feed);
-
+        ClickUtil.toolbarClick(holder.loveImage, holder.favImage,holder.loveText,holder.favText,holder.favImage,holder.loveImage,holder.shareImage,holder.commentImage,holder.itemView,feed);
     }
 
 
