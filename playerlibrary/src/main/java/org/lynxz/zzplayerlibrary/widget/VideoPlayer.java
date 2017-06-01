@@ -291,7 +291,7 @@ public class VideoPlayer extends RelativeLayout implements View.OnTouchListener 
                 mController.updateProgress(mLastPlayingPos, getBufferProgress());
                 mVv.setBackgroundColor(Color.TRANSPARENT);
             } else if (what == MSG_AUTO_HIDE_BARS) {
-                animateShowOrHideControlBar(false);
+                animateShowOrHideBars(false);
             }
         }
     };
@@ -484,6 +484,14 @@ public class VideoPlayer extends RelativeLayout implements View.OnTouchListener 
         mTitleBar.setTitle(title);
     }
 
+    /*
+    *设置返回按钮
+     */
+
+    public void setIconBack(@DrawableRes int resId) {
+        mTitleBar.setIconBack(resId);
+    }
+
     /**
      * 加载视频
      * 在这里才真正把视频路径设置到VideoView中
@@ -619,9 +627,9 @@ public class VideoPlayer extends RelativeLayout implements View.OnTouchListener 
      */
     private void showOrHideBars(boolean show, boolean animateEffect) {
         if (animateEffect) {
-            animateShowOrHideControlBar(show);
+            animateShowOrHideBars(show);
         } else {
-            forceShowOrHideTitleBar(show);
+            forceShowOrHideBars(show);
         }
     }
 
@@ -633,37 +641,11 @@ public class VideoPlayer extends RelativeLayout implements View.OnTouchListener 
         mController.clearAnimation();
 
         if (show) {
-            mController.setVisibility(VISIBLE);
-            mTitleBar.setVisibility(VISIBLE);
-        } else {
             mController.setVisibility(GONE);
             mTitleBar.setVisibility(GONE);
-        }
-    }
-
-    /**
-     * 直接显隐标题栏
-     */
-    private void forceShowOrHideTitleBar(boolean show) {
-        mTitleBar.clearAnimation();
-
-        if (show) {
-            mTitleBar.setVisibility(VISIBLE);
         } else {
-            mTitleBar.setVisibility(GONE);
-        }
-    }
-
-    /**
-     * 直接显隐控制栏
-     */
-    private void forceShowOrHideControlBar(boolean show) {
-        mController.clearAnimation();
-
-        if (show) {
             mController.setVisibility(VISIBLE);
-        } else {
-            mController.setVisibility(GONE);
+            mTitleBar.setVisibility(VISIBLE);
         }
     }
 
@@ -675,49 +657,22 @@ public class VideoPlayer extends RelativeLayout implements View.OnTouchListener 
         mController.clearAnimation();
 
         if (show) {
-            if (mTitleBar.getVisibility() != VISIBLE) {
+            /*if (mTitleBar.getVisibility() != VISIBLE) {
                 mTitleBar.startAnimation(mEnterFromTop);
                 mController.startAnimation(mEnterFromBottom);
-            }
+            }*/
+            mTitleBar.startAnimation(mEnterFromTop);
+            mController.startAnimation(mEnterFromBottom);
         } else {
-            if (mTitleBar.getVisibility() != GONE) {
+
+            /*if (mTitleBar.getVisibility() != GONE) {
                 mTitleBar.startAnimation(mExitFromTop);
                 mController.startAnimation(mExitFromBottom);
-            }
-        }
-    }
+            }*/
 
-    /**
-     * 带动画效果的显隐标题栏
-     */
-    private void animateShowOrHideTitleBar(boolean show) {
-        mTitleBar.clearAnimation();
+            mTitleBar.startAnimation(mExitFromTop);
+            mController.startAnimation(mExitFromBottom);
 
-        if (show) {
-            if (mTitleBar.getVisibility() != VISIBLE) {
-                mTitleBar.startAnimation(mEnterFromTop);
-            }
-        } else {
-            if (mTitleBar.getVisibility() != GONE) {
-                mTitleBar.startAnimation(mExitFromTop);
-            }
-        }
-    }
-
-    /**
-     * 带动画效果的显隐控制栏
-     */
-    private void animateShowOrHideControlBar(boolean show) {
-        mController.clearAnimation();
-
-        if (show) {
-            if (mController.getVisibility() != VISIBLE) {
-                mController.startAnimation(mEnterFromBottom);
-            }
-        } else {
-            if (mController.getVisibility() != GONE) {
-                mController.startAnimation(mExitFromBottom);
-            }
         }
     }
 
@@ -808,7 +763,7 @@ public class VideoPlayer extends RelativeLayout implements View.OnTouchListener 
         getLayoutParams().width = (int) width;
 
         //需要强制显示再隐藏控制条,不然若切换为横屏时控制条是隐藏的,首次触摸显示时,会显示在200dp的位置
-        forceShowOrHideTitleBar(true);
+        forceShowOrHideBars(true);
         sendAutoHideBarsMsg();
 
         //更新全屏图标
@@ -827,7 +782,7 @@ public class VideoPlayer extends RelativeLayout implements View.OnTouchListener 
         }
 
         //强制弹出标题栏和控制栏
-        forceShowOrHideTitleBar(false);
+        forceShowOrHideBars(false);
         sendAutoHideBarsMsg();
     }
 

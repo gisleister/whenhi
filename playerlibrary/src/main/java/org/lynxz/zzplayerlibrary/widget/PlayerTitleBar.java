@@ -3,9 +3,11 @@ package org.lynxz.zzplayerlibrary.widget;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.DrawableRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,6 +22,7 @@ public class PlayerTitleBar extends LinearLayout implements View.OnClickListener
 
     private TextView mTvTitle;
     private ITitleBarImpl mTitleBarImpl;
+    private ImageView mBack;
 
     public PlayerTitleBar(Context context) {
         super(context);
@@ -45,6 +48,7 @@ public class PlayerTitleBar extends LinearLayout implements View.OnClickListener
     private void initView(Context context) {
         inflate(context, R.layout.zz_video_player_title_bar, this);
         View rlBack = findViewById(R.id.rl_back);
+        mBack = (ImageView)findViewById(R.id.iv_back);
         mTvTitle = (TextView) findViewById(R.id.tv_title);
 
         rlBack.setOnClickListener(this);
@@ -54,6 +58,10 @@ public class PlayerTitleBar extends LinearLayout implements View.OnClickListener
         if (!TextUtils.isEmpty(title)) {
             mTvTitle.setText(title);
         }
+    }
+    public void setIconBack(@DrawableRes int resId){
+
+        mBack.setImageResource(resId);
     }
 
     public void setTitleBarImpl(ITitleBarImpl titleBarImpl) {

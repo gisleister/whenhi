@@ -19,6 +19,7 @@ public class DetailFragmentAdapter implements FragmentNavigatorAdapter {
     private PicFragment mPicFragment;
     private VideoFragment mVideoFragment;
     private TextFragment mTextFragment;
+    private CommentFragment mCommentFragment;
 
     public DetailFragmentAdapter(Feed feed, Activity activity){
         mFeed = feed;
@@ -40,6 +41,9 @@ public class DetailFragmentAdapter implements FragmentNavigatorAdapter {
             case Constants.DETAIL_TEXT:
                 mTextFragment = TextFragment.newInstance(mFeed);
                 return mTextFragment;
+            case Constants.DETAIL_COMMENT:
+                mCommentFragment = CommentFragment.newInstance(mFeed);
+                return mCommentFragment;
         }
         return null;
     }
@@ -80,6 +84,6 @@ public class DetailFragmentAdapter implements FragmentNavigatorAdapter {
 
     @Override
     public int getCount() {
-        return 4;
+        return 5;
     }
 }

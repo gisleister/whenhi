@@ -6,13 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.whenhi.hi.R;
-import com.whenhi.hi.image.RoundTransform;
 import com.whenhi.hi.listener.GlideListener;
 
 import java.lang.ref.WeakReference;
@@ -55,7 +52,7 @@ public class ImageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.item_pic_preview, container, false);
+        View view = inflater.inflate(R.layout.item_pic_new, container, false);
         image = (PhotoView) view.findViewById(R.id.image);
         //Glide.with(getContext()).load(imageUrl).into(image);
 

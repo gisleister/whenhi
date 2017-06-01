@@ -74,8 +74,9 @@ public class VideoFullActivity extends BaseActivity {
         //设置控制栏播放/暂停/全屏/退出全屏按钮图标
         mVideoPlayer.setIconPlay(R.mipmap.play);
         mVideoPlayer.setIconPause(R.mipmap.pause);
-        mVideoPlayer.setIconExpand(R.mipmap.shrink);
+        mVideoPlayer.setIconExpand(R.mipmap.expand);
         mVideoPlayer.setIconShrink(R.mipmap.shrink);
+        mVideoPlayer.setIconBack(R.mipmap.qita_icon_fanhui);
         //隐藏/显示控制栏时间值信息
         // mVp.hideTimes();
         mVideoPlayer.showTimes();

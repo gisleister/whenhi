@@ -76,7 +76,7 @@
                             android:textSize="12sp"
                             android:textColor="#999999"
                             android:ellipsize="end"
-                            android:text="点击查看个人资料"/>
+                            android:text="个人详细资料"/>
 
 
                     </LinearLayout>

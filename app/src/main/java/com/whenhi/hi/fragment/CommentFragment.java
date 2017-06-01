@@ -1,70 +1,73 @@
 package com.whenhi.hi.fragment;
 
+
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
-import com.whenhi.hi.App;
 import com.whenhi.hi.R;
-import com.whenhi.hi.adapter.ExploreAdapter;
-import com.whenhi.hi.adapter.MessageAdapter;
-import com.whenhi.hi.listener.NoticeListener;
-import com.whenhi.hi.listener.OnItemClickListener;
-import com.whenhi.hi.listener.OnItemLongClickListener;
+import com.whenhi.hi.activity.PicActivity;
+import com.whenhi.hi.adapter.CommentAdapter;
+import com.whenhi.hi.adapter.PicCommentAdapter;
+import com.whenhi.hi.listener.OnChildItemClickListener;
+import com.whenhi.hi.model.Comment;
+import com.whenhi.hi.model.CommentModel;
 import com.whenhi.hi.model.Feed;
-import com.whenhi.hi.model.FeedModel;
-import com.whenhi.hi.model.Message;
-import com.whenhi.hi.model.MessageModel;
 import com.whenhi.hi.network.HttpAPI;
-import com.whenhi.hi.receiver.NoticeTransfer;
-import com.whenhi.hi.util.ClickUtil;
 
 /**
- * Created by 王雷 on 2016/12/25.
+ * Created by 王雷 on 2016/12/26.
  */
 
-public class ExploreListFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener,
-        OnItemClickListener<Feed>,
-        OnItemLongClickListener<Feed> {
-    private static final String TAG = ExploreListFragment.class.getSimpleName();
+public class CommentFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener,OnChildItemClickListener<Comment> {
+    private static final String TAG = CommentFragment.class.getSimpleName();
 
-    public static final int TYPE_LINEAR = 0;
 
     private SwipeToLoadLayout mSwipeToLoadLayout;
 
     private RecyclerView mRecyclerView;
 
-    private ExploreAdapter mAdapter;
+    private CommentAdapter mAdapter;
+
 
     private int mPageNo = 1;
     private String mExtras = "";
-    String mUserId;
-    String mToken;
 
-    public static Fragment newInstance() {
-        ExploreListFragment fragment = new ExploreListFragment();
+    private static Feed mFeed;
+
+    private boolean viewCreate;
+
+    public boolean getViewCreate() {
+        return viewCreate;
+    }
+
+    public void setViewCreate(boolean viewCreate) {
+        this.viewCreate = viewCreate;
+    }
+
+    public static CommentFragment newInstance(Feed feed) {
+        CommentFragment fragment = new CommentFragment();
+        mFeed = feed;
         return fragment;
     }
 
-    public ExploreListFragment() {
-        NoticeTransfer noticeTransfer = new NoticeTransfer();
-        noticeTransfer.setNoticeListener(mNoticeListener);
+    public CommentFragment() {
+        // Required empty public constructor
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new ExploreAdapter();
+        mAdapter = new CommentAdapter();
     }
 
     @Override
@@ -81,14 +84,19 @@ public class ExploreListFragment extends BaseFragment implements OnRefreshListen
         mRecyclerView = (RecyclerView) view.findViewById(R.id.swipe_target);
         RecyclerView.LayoutManager layoutManager = null;
         layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setAutoMeasureEnabled(true);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
+
+        //mRecyclerView.getRecycledViewPool().setMaxRecycledViews(mAdapter.getItemViewType(1),3);
+
+        setViewCreate(true);
 
         mSwipeToLoadLayout.setOnRefreshListener(this);
         mSwipeToLoadLayout.setOnLoadMoreListener(this);
 
-        mAdapter.setOnItemClickListener(this);
-        mAdapter.setOnItemLongClickListener(this);
+        mAdapter.setOnChildItemClickListener(this);
+        // mAdapter.setOnChildItemLongClickListener(this);
 
         mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -129,60 +137,83 @@ public class ExploreListFragment extends BaseFragment implements OnRefreshListen
         }
     }
 
-    @Override
-    public void onItemClick(int position, Feed feed, View view) {
 
-        ClickUtil.click(feed,view.getContext());
-    }
-
-    @Override
-    public boolean onClickItemLongClick(int groupPosition, Feed feed, View view) {
-        ClickUtil.goToShare(view.getContext(),feed);
-
-        return true;
-    }
 
     @Override
     public void onLoadMore() {
-
-    }
-
-    @Override
-    public void onRefresh() {
-        mPageNo = 1;
-
-       /**/ HttpAPI.loveList(App.getExtras("love"),mPageNo, new HttpAPI.Callback<FeedModel>() {
+        mPageNo++;
+        HttpAPI.requestComment(mFeed.getId(),mExtras,mPageNo, new HttpAPI.Callback<CommentModel>() {
             @Override
-            public void onSuccess(FeedModel feedModel) {
-                mSwipeToLoadLayout.setRefreshing(false);
-                if(feedModel.getState() == 0){
-                    App.setExtras("love",feedModel.getData().getExtras());
-                    mAdapter.setList(feedModel.getData().getList());
-
+            public void onSuccess(CommentModel commentModel) {
+                if(commentModel.getState() == 0){
+                    mExtras = commentModel.getData().getExtras();
+                    mAdapter.append(commentModel.getData().getList());
+                    mSwipeToLoadLayout.setLoadingMore(false);
                 }else{
-                    Toast.makeText(App.getContext(), feedModel.getMsgText(), Toast.LENGTH_SHORT).show();
+                    //// TODO: 2017/1/10 提示用户系统出问题
                 }
-
 
             }
 
             @Override
             public void onFailure(Exception e) {
-                Toast.makeText(App.getContext(), "服务器异常", Toast.LENGTH_SHORT).show();
+                mSwipeToLoadLayout.setLoadingMore(false);
+            }
+        });
+    }
+
+    @Override
+    public void onRefresh() {
+        mPageNo = 1;
+        HttpAPI.requestComment(mFeed.getId(),mExtras,mPageNo, new HttpAPI.Callback<CommentModel>() {
+            @Override
+            public void onSuccess(CommentModel commentModel) {
+                if(commentModel.getState() == 0){
+                    mExtras = commentModel.getData().getExtras();
+                    mAdapter.setList(commentModel.getData().getList());
+                    mSwipeToLoadLayout.setRefreshing(false);
+                }else{
+                    //// TODO: 2017/1/10 提示用户系统出问题
+                }
+
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                e.printStackTrace();
                 mSwipeToLoadLayout.setRefreshing(false);
             }
         });
 
 
-
     }
 
-    private NoticeListener mNoticeListener = new NoticeListener() {
-        @Override
-        public void refreshMeesage() {
-            onRefresh();
-        }
-    };
 
+    @Override
+    public void onChildItemClick(int childPosition, Comment comment, View view) {
+        Context context = view.getContext();
+        if (context instanceof PicActivity){
+            PicActivity activity = (PicActivity)context;
+            activity.acceptCommentClick(comment);
+        }
+    }
+
+    @Override
+    public void destroy() {
+        if(viewCreate){
+            /*mRecyclerView.removeAllViews();
+            mRecyclerView.setAdapter(null);
+            mRecyclerView.setAdapter(mAdapter);*/
+            //mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onvisible() {
+        if(viewCreate) {
+            mSwipeToLoadLayout.setRefreshing(true);
+        }
+        onRefresh();
+    }
 
 }

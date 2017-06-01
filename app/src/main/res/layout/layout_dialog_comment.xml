@@ -1,59 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/item_feed_detail_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
+    <EditText
+        android:id="@+id/comment_edit_text"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:gravity="top"
+        android:minLines="1"
+        android:hint="我来评论..."/>
 
-    <LinearLayout
-        android:id="@+id/toolbar_love_btn"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="56dp"
+    <TextView
+        android:id="@+id/comment_send"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center"
         android:gravity="center"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/comment_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/shape_edit"
-            android:textCursorDrawable="@drawable/style_edittext_cursor"
-            android:textSize="12sp"
-            android:hint="我来评论..."/>
+        android:text="发送"
+        android:textColor="#ffa015"
+        android:textSize="16sp" />
 
 
-    </LinearLayout>
-
-
-
-
-
-
-    <LinearLayout
-        android:id="@+id/toolbar_share_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:paddingRight="16dp"
-        android:layout_alignParentRight="true"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/comment_send"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="发送"
-            android:textColor="#ffa015"
-            android:textSize="14sp" />
-
-
-    </LinearLayout>
-
-
-
-</RelativeLayout>
+</LinearLayout>
 

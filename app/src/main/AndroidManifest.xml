@@ -177,7 +177,16 @@
             android:name=".activity.LookActivity"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".activity.PicPreviewActivity"
+            android:name=".activity.PicNewActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+        android:name=".activity.VideoNewActivity"
+        android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.CommentActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.TextNewActivity"
             android:screenOrientation="portrait"></activity>
 
 

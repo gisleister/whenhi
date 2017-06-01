@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="34dp">
+
+        <ImageView
+            android:id = "@+id/pic_close"
+            android:layout_width="40dp"
+            android:layout_height="34dp"
+            android:layout_gravity="left"
+            android:src="@mipmap/xiangqing_icon_guanbi"/>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_below="@id/top_layout">
+
+        <TextView
+            android:id="@+id/duanzi_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="#999999"
+            android:layout_gravity="center_vertical"
+            android:text=""/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="15dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/comment_button_image"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/shape_edit"
+            android:gravity="left|center_vertical"
+            android:text="我来评论..."/>
+
+        <ImageView
+            android:id = "@+id/toolbar_love_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:src="@mipmap/xiangqing_icon_zan"/>
+        <ImageView
+            android:id = "@+id/toolbar_fav_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:src="@mipmap/xiangqing_icon_shoucang"/>
+        <ImageView
+            android:id = "@+id/toolbar_share_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:src="@mipmap/xiangqing_icon_fenxiang"/>
+        <ImageView
+            android:id = "@+id/comment_list_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:src="@mipmap/xiangqing_icon_pinglun"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

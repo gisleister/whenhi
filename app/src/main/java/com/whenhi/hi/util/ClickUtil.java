@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,10 +17,11 @@ import com.whenhi.hi.activity.LoginActivity;
 import com.whenhi.hi.activity.LuckpanActivity;
 import com.whenhi.hi.activity.OtherActivity;
 import com.whenhi.hi.activity.PicActivity;
-import com.whenhi.hi.activity.PicPreviewActivity;
+import com.whenhi.hi.activity.PicNewActivity;
 import com.whenhi.hi.activity.ShareActivity;
 import com.whenhi.hi.activity.TextActivity;
-import com.whenhi.hi.activity.VideoActivity;
+import com.whenhi.hi.activity.TextNewActivity;
+import com.whenhi.hi.activity.VideoNewActivity;
 import com.whenhi.hi.activity.WebViewActivity;
 import com.whenhi.hi.model.BaseModel;
 import com.whenhi.hi.model.Feed;
@@ -54,11 +54,12 @@ public class ClickUtil {
             goToPic(context,feed);
 
         }else if(feed.getFeedCategory() == 4){//段子
-            goToText(context,feed);
+            //goToText(context,feed);
+            goToTextNew(context,feed);
 
         }else if(feed.getFeedCategory() == 5){//图片
             //goToPic(context,feed);
-            goToPicPreview(context,feed);
+            goToPicNew(context,feed);
 
         }else if(feed.getFeedCategory() == 6){//广告
             goToWeb(context,feed);
@@ -132,8 +133,14 @@ public class ClickUtil {
         });
     }
 
-    private static void goToPicPreview(Context context, Feed feed){
-        Intent intent = new Intent(context, PicPreviewActivity.class);
+    private static void goToPicNew(Context context, Feed feed){
+        Intent intent = new Intent(context, PicNewActivity.class);
+        intent.putExtra("Feed", feed);
+        context.startActivity(intent);
+    }
+
+    private static void goToTextNew(Context context, Feed feed){
+        Intent intent = new Intent(context, TextNewActivity.class);
         intent.putExtra("Feed", feed);
         context.startActivity(intent);
     }
@@ -146,7 +153,11 @@ public class ClickUtil {
     }
 
     private static void goToVideo(Context context, Feed feed){
-        Intent intent = new Intent(context, VideoActivity.class);
+        /*Intent intent = new Intent(context, VideoActivity.class);
+        intent.putExtra("Feed", feed);
+        context.startActivity(intent);*/
+
+        Intent intent = new Intent(context, VideoNewActivity.class);
         intent.putExtra("Feed", feed);
         context.startActivity(intent);
     }
@@ -360,7 +371,7 @@ public class ClickUtil {
                             @Override
                             public void onSuccess(BaseModel baseModel) {
                                 if(baseModel.getState() == 0){
-                                    loveImage.setImageResource(R.mipmap.zan1);
+                                    loveImage.setImageResource(R.mipmap.xiangqing_icon_zan);
 
                                     feed.setLikeCount(feed.getLikeCount()-1);
                                     feed.setLikeState(0);
@@ -381,7 +392,7 @@ public class ClickUtil {
                             @Override
                             public void onSuccess(BaseModel baseModel) {
                                 if(baseModel.getState() == 0){
-                                    loveImage.setImageResource(R.mipmap.zan_click1);
+                                    loveImage.setImageResource(R.mipmap.xiangqing_icon_zan_click);
                                     feed.setLikeCount(feed.getLikeCount()+1);
                                     feed.setLikeState(1);
                                 }else {
@@ -423,7 +434,7 @@ public class ClickUtil {
                             public void onSuccess(BaseModel baseModel) {
 
                                 if(baseModel.getState() == 0){
-                                    favImage.setImageResource(R.mipmap.shoucang1);
+                                    favImage.setImageResource(R.mipmap.xiangqing_icon_shoucang);
                                     feed.setFavoriteCount(feed.getFavoriteCount()-1);
                                     feed.setFavoriteState(0);
                                     NoticeTransfer.refresh();
@@ -443,7 +454,7 @@ public class ClickUtil {
                             @Override
                             public void onSuccess(BaseModel baseModel) {
                                 if(baseModel.getState() == 0){
-                                    favImage.setImageResource(R.mipmap.shoucang_click1);
+                                    favImage.setImageResource(R.mipmap.xiangqing_icon_shoucang_click);
                                     feed.setFavoriteCount(feed.getFavoriteCount()+1);
                                     feed.setFavoriteState(1);
                                     NoticeTransfer.refresh();

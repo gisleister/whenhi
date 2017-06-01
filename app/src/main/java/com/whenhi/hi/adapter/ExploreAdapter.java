@@ -29,6 +29,8 @@ import com.whenhi.hi.listener.OnChildItemClickListener;
 import com.whenhi.hi.listener.OnChildItemLongClickListener;
 import com.whenhi.hi.listener.OnGroupItemClickListener;
 import com.whenhi.hi.listener.OnGroupItemLongClickListener;
+import com.whenhi.hi.listener.OnItemClickListener;
+import com.whenhi.hi.listener.OnItemLongClickListener;
 import com.whenhi.hi.model.DiscoveryModel;
 import com.whenhi.hi.model.Feed;
 import com.whenhi.hi.model.Image;
@@ -60,20 +62,16 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
 
 
-    protected OnGroupItemClickListener mOnGroupItemClickListener;
+    protected OnItemClickListener mOnItemClickListener;
 
-    protected OnGroupItemLongClickListener mOnGroupItemLongClickListener;
+    protected OnItemLongClickListener mOnItemLongClickListener;
 
-    protected OnChildItemClickListener mOnChildItemClickListener;
-
-    protected OnChildItemLongClickListener mOnChildItemLongClickListener;
-
-    public void setOnChildItemClickListener(OnChildItemClickListener onChildItemClickListener) {
-        mOnChildItemClickListener = onChildItemClickListener;
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.mOnItemClickListener = onItemClickListener;
     }
 
-    public void setOnChildItemLongClickListener(OnChildItemLongClickListener onChildItemLongClickListener) {
-        mOnChildItemLongClickListener = onChildItemLongClickListener;
+    public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener) {
+        this.mOnItemLongClickListener = onItemLongClickListener;
     }
 
 
@@ -142,7 +140,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         int position = holder.getAdapterPosition();
                         int childPosition = getChildPosition(position);
                         Feed feed = mFeeds.get(childPosition);
-                        mOnChildItemClickListener.onChildItemClick(childPosition, feed, view);
+                        mOnItemClickListener.onItemClick(childPosition, feed, view);
                     }
                 });
                 return holder;

@@ -78,6 +78,7 @@ public class Constants {
  public static final int DETAIL_PIC = 1;
  public static final int DETAIL_VIDEO = 2;
  public static final int DETAIL_TEXT = 3;
+ public static final int DETAIL_COMMENT = 4;
 
  public static final int OTHER_FAV = 0;
  public static final int OTHER_INCOME_RECORD = 1;

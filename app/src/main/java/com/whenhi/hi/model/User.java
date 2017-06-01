@@ -27,9 +27,16 @@ public class User {
     private String userLogo;
     private int checkinState;
     private String mobile;
+    private String money;
 
 
+    public String getMoney() {
+        return money;
+    }
 
+    public void setMoney(String money) {
+        this.money = money;
+    }
 
     public String getMobile() {
         return mobile;

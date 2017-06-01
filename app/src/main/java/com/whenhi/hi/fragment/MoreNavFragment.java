@@ -53,6 +53,8 @@ public class MoreNavFragment extends BaseFragment {
     private TextView userNickname;
     private TextView haibiCount;
     private TextView favCount;
+    private TextView userContent;
+    private TextView userMoney;
 
 
     public static Fragment newInstance() {
@@ -255,6 +257,8 @@ public class MoreNavFragment extends BaseFragment {
         userNickname= (TextView) view.findViewById(R.id.user_nickname);
         haibiCount = (TextView)view.findViewById(R.id.user_haibi_count);
         favCount = (TextView)view.findViewById(R.id.user_fav_count);
+        userContent = (TextView)view.findViewById(R.id.user_content);
+        userMoney = (TextView) view.findViewById(R.id.user_money);
 
         if(App.isLogin()){
             getUserInfo();
@@ -300,6 +304,16 @@ public class MoreNavFragment extends BaseFragment {
                         return;
                     haibiCount.setText(""+userModel.getData().getScore());
                     favCount.setText(""+userModel.getData().getFavoriteCount());
+                    if(userModel.getData().getGender().equals("M")){
+                        userContent.setText("性别:男");
+                    }else if(userModel.getData().getGender().equals("F")){
+                        userContent.setText("性别:女");
+                    }else{
+                        userContent.setText("性别:不男不女");
+                    }
+
+                    userMoney.setText(userModel.getData().getMoney());
+
 
                     App.setHaibiNum(userModel.getData().getScore());
 

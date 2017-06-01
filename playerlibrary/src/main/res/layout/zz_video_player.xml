@@ -16,8 +16,7 @@
         android:id="@+id/pt_title_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/normal_bar_height"
-        android:layout_alignParentTop="true"
-        android:visibility="gone"/>
+        android:layout_alignParentTop="true"/>
 
     <org.lynxz.zzplayerlibrary.widget.PlayerController
         android:id="@+id/pc_controller"
