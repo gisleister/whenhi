@@ -542,6 +542,12 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         //.override(width, height)
                         .into(target);
             }
+            holder.contentImageLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ClickUtil.click(feed,v.getContext());
+                }
+            });
         }else if(feed.getFeedCategory() == 9){//webview
             holder.imageNum.setVisibility(View.GONE);
             holder.textContent.setText(feed.getSummary());
@@ -567,6 +573,12 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }
 
             feed.setContent(feed.getSummary());
+            holder.contentImageLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ClickUtil.click(feed,v.getContext());
+                }
+            });
 
         }else if(feed.getFeedCategory() == 10){//抽奖
             //holder.textContent.setText(feed.getMaskContent());
@@ -587,6 +599,13 @@ public class ExploreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         //.override(width, height)
                         .into(target);
             }
+
+            holder.contentImageLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ClickUtil.click(feed,v.getContext());
+                }
+            });
         }
 
 

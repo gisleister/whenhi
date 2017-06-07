@@ -144,7 +144,7 @@ public class ExploreListFragment extends BaseFragment implements OnRefreshListen
 
     @Override
     public void onLoadMore() {
-
+        mSwipeToLoadLayout.setLoadingMore(false);
     }
 
     @Override

@@ -36,7 +36,8 @@
             android:layout_width="160dp"
             android:layout_height="34dp"
             android:background="@drawable/shape_edit"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="6dp"
             android:layout_weight="1"
             android:gravity="left|center_vertical"
             android:text="我来评论..."/>
