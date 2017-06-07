@@ -33,7 +33,7 @@ public class LookActivity extends BaseActivity{
         initView(savedInstanceState);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mTextView = (TextView) findViewById(R.id.toolbar_title);
-        mTextView.setText("历史记录");
+        mTextView.setText("浏览历史");
         setSupportActionBar(mToolbar);
 
 

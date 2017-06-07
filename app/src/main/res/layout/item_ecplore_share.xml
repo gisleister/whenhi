@@ -6,7 +6,6 @@
     android:orientation="vertical" >
 
     <RelativeLayout
-        android:id="@+id/item_explore_share_content_image_layout"
         android:layout_width="match_parent"
         android:layout_height="135dp">
 

@@ -66,9 +66,9 @@ public class RotatePan extends View {
         mDetector = new GestureDetectorCompat(context,new RotatePanGestureListener());
         scroller = ScrollerCompat.create(context);
 
-        dPaint.setColor(Color.rgb(255,133,132));
-        sPaint.setColor(Color.rgb(254,104,105));
-        textPaint.setColor(Color.WHITE);
+        dPaint.setColor(Color.rgb(255,255,255));
+        sPaint.setColor(Color.rgb(255,160,21));
+        textPaint.setColor(Color.RED);
         textPaint.setTextSize(Util.dip2px(context,16));
         setClickable(true);
 

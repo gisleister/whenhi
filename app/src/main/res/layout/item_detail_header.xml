@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#f0f0f0"
-    android:paddingTop="16dp"
-    android:orientation="vertical">
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:visibility="visible">
 
 
     <LinearLayout
@@ -14,7 +14,8 @@
         android:background="#ffffff"
         android:paddingTop="16dp"
         android:paddingLeft="16dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="visible">
 
         <ImageView
             android:id="@+id/user_avatar"
@@ -50,10 +51,10 @@
         android:textSize="16sp"
         android:textColor="#333333"
         android:ellipsize="end"
-        android:textStyle="bold"
         android:lineSpacingExtra="8dp"
         android:lineSpacingMultiplier="1"
-        android:text="内容"/>
+        android:text="内容"
+        android:visibility="visible"/>
 
 
 

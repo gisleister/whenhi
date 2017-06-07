@@ -1,9 +1,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main_content"
     android:scrollbars="none"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginBottom="40dp">
+    android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,7 +19,6 @@
 
 
             <LinearLayout
-                android:id="@+id/user_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -29,6 +26,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/user_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -118,7 +116,6 @@
 
 
             <LinearLayout
-                android:id="@+id/user_other_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="15dp"
@@ -143,7 +140,6 @@
                         android:text="0"/>
 
                     <TextView
-                        android:id="@+id/user_haibi_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="8dp"
@@ -191,7 +187,6 @@
                         android:text="0"/>
 
                     <TextView
-                        android:id="@+id/user_fav_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="8dp"
@@ -258,7 +253,7 @@
                             android:textSize="22sp"
                             android:textColor="#333333"
                             android:ellipsize="end"
-                            android:text="100元"/>
+                            android:text="0元"/>
 
 
                     </LinearLayout>
@@ -283,7 +278,6 @@
                     android:layout_gravity="center_vertical">
 
                     <TextView
-                        android:id="@+id/go_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -381,7 +375,6 @@
             android:layout_gravity="center_vertical"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:paddingTop="15dp"
             android:paddingBottom="15dp"
             android:orientation="vertical">
 

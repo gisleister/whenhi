@@ -214,7 +214,7 @@ public class WebViewCommentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     private void onBindGroupHolder(GroupHolder holder) {
-        holder.headerText.setText("热门评论");
+        holder.headerText.setText("#热门评论");
 
         Context context = holder.itemView.getContext();
 

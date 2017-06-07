@@ -58,12 +58,17 @@ public class ImageFragment extends Fragment {
 
         WeakReference<PhotoView> imageViewWeakReference = new WeakReference<>(image);
         PhotoView target = imageViewWeakReference.get();
+
         Glide.with(getContext())
                 .load(imageUrl)
-                .listener(mGlideListener.getListener())
-                //.transform(new RoundTransform(context,10))
+                //.placeholder(R.drawable.shape_progressbar_mini)
+                //.centerCrop()
+                .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .listener(mGlideListener.getListener())
                 .error(R.mipmap.bg_image)
+                //.override(600, 200)
+                //.fitCenter()
                 .into(target);
         return view;
     }

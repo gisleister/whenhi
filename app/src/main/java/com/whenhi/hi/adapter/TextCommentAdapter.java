@@ -197,7 +197,7 @@ public class TextCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     private void onBindGroupHolder(final GroupHolder holder) {
-        holder.headerText.setText("热门评论");
+        holder.headerText.setText("#热门评论");
         if(mFeed == null)
             return;
         final Context context = holder.itemView.getContext();

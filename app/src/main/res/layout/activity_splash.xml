@@ -5,12 +5,11 @@
     android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/splash_image"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
-        android:background="@mipmap/loading"/>
+        android:background="@mipmap/splash"/>
     <TextView
         android:id="@+id/splash_skip"
         android:layout_width="wrap_content"

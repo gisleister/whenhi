@@ -1,204 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.whenhi.hi.activity.AboutActivity">
+    android:background="#1d0d34">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/layout_toolbar" />
 
-    <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        android:background="#7CD8E3"
-        >
-        <RelativeLayout
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="wrap_content"
+            app:collapsedTitleGravity="center"
+            app:contentScrim="?attr/colorPrimaryDark"
 
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <!--<com.hr.nipuream.luckpan.view.EnvironmentLayout-->
-            <!--android:id="@+id/evironmentLayout"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--/>-->
-
-
-
-            <!--<ImageView-->
-            <!--android:id="@+id/imageview"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@mipmap/ic_launcher"-->
-            <!--android:layout_centerInParent="true"-->
-            <!--/>-->
-
-
-            <!--<ImageView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:src="@mipmap/background"-->
-            <!--android:scaleType="fitXY"-->
-            <!--/>-->
-
-            <ImageView
-                android:id="@+id/shan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/shan"
-                android:scaleType="fitXY"
-                android:layout_alignParentBottom="true"
-                android:visibility="gone"/>
-
-            <ImageView
-                android:id="@+id/yun"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/yun"
-                android:scaleType="fitXY"
-                android:visibility="gone"/>
-
-            <com.whenhi.hi.view.luckpan.LuckPanLayout
-                android:id="@+id/luckpan_layout"
+            <!-- <ImageView
+                android:id="@+id/main.backdrop"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:layout_centerHorizontal="true"
-                />
+                android:layout_height="60dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/bg_image"
+                app:layout_collapseMode="parallax" />-->
 
-            <com.whenhi.hi.view.luckpan.RotatePan
-                android:id="@+id/rotatePan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="78dp"
-                android:layout_centerHorizontal="true"
-                />
-
-            <!--<Button-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="旋转"-->
-            <!--android:onClick="rotation"-->
-            <!--/>-->
-
-            <ImageView
-                android:id="@+id/go"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/kaishi"
-                android:clickable="true"
-                android:onClick="rotation"
-                android:layout_marginTop="50dp"
-                android:layout_centerHorizontal="true"
-                />
-
-
-            <RelativeLayout
-                android:id="@+id/hit_user"
-                android:layout_below="@+id/luckpan_layout"
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp">
+                android:layout_height="60dp"
+                app:navigationIcon="@mipmap/qita_icon_fanhui"
+                android:background="#fafafa">
 
                 <TextView
-                    android:id="@+id/hit_user_text"
+                    android:id="@+id/toolbar_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/text_background"
-                    android:text="截止到目前已经有:1899人中奖"
-                    android:padding="10dp"
-                    android:layout_centerVertical="true"
+                    app:expandedTitleGravity="center"
+                    android:layout_marginRight="60dp"
                     android:gravity="center"
-                    android:singleLine="true"
-                    android:ellipsize="marquee"
-                    android:marqueeRepeatLimit="marquee_forever"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="10dp"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    >
-                    <requestFocus/>
-                </TextView>
+                    android:textColor="#333333"
+                    android:textSize="16sp"
+                    android:text="@string/app_name"/>
+            </android.support.v7.widget.Toolbar>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="中奖人数"
-                    android:textColor="#ffffff"
-                    android:background="@drawable/hit_backgroud"
-                    android:padding="3dp"
-                    android:layout_alignTop="@+id/hit_user_text"
-                    android:layout_centerVertical="true"
-                    />
-            </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/game_rule"
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_below="@+id/hit_user"
-                >
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-                <LinearLayout
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/text_background"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="10dp"
-                    >
-
-                    <View
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"/>
-
-                    <TextView
-                        android:id="@+id/game_rule_text"
-                        android:layout_below="@+id/huodong_rule"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="1.点击抽奖按钮。\n2.抽奖不限次数。\n3.活动期间。"
-                        android:padding="10dp"
-                        />
-
-
-                </LinearLayout>
-
-
+                    android:src="@mipmap/bg_left"/>
                 <TextView
-                    android:id="@+id/huodong_rule"
+                    android:id="@+id/hit_user_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="活动规则"
-                    android:background="@drawable/rule_background"
-                    android:padding="5dp"
-                    android:textColor="#ffffff"
-                    android:layout_marginTop="5dp"
-                    />
+                    android:layout_marginLeft="8dp"
+                    android:background="@mipmap/choujiang_bg"
+                    android:text=""
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:textColor="#fbed5e"
+                    android:singleLine="true">
+                </TextView>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:src="@mipmap/bg_right"/>
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="30dp"
+                android:background="@mipmap/lunpan_bg"
+                android:layout_marginBottom="30dp">
+
+                <com.whenhi.hi.view.luckpan.LuckPanLayout
+                    android:id="@+id/luckpan_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"/>
+
+                <com.whenhi.hi.view.luckpan.RotatePan
+                    android:id="@+id/rotatePan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:layout_centerHorizontal="true"/>
+
+                <ImageView
+                    android:id="@+id/go"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/zhuanpan_btn"
+                    android:clickable="true"
+                    android:onClick="rotation"
+                    android:layout_centerHorizontal="true"
+                    android:visibility="gone"/>
 
             </RelativeLayout>
 
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_below="@+id/game_rule"
-                android:layout_marginBottom="80dp"
-                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@mipmap/guize_bg">
+
+                <TextView
+                    android:id="@+id/game_rule_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="14sp"
+                    android:textColor="#feffff"
+                    android:ellipsize="end"
+                    android:lineSpacingExtra="4dp"
+                    android:lineSpacingMultiplier="1"
+                    android:text=""/>
+            </LinearLayout>
 
 
 
-        </RelativeLayout>
-    </ScrollView>
-</LinearLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+
+</android.support.design.widget.CoordinatorLayout>

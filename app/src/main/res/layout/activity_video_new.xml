@@ -20,18 +20,36 @@
 
     </LinearLayout>
 
+
+    <LinearLayout
+        android:id="@+id/video_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_below="@id/top_layout"
+        android:visibility="visible">
+
+        <org.lynxz.zzplayerlibrary.widget.VideoPlayer
+            android:id="@+id/video"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_gravity="top"/>
+
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/text_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_gravity="center"
-        android:layout_below="@id/top_layout"
+        android:layout_below="@id/video_layout"
         android:visibility="gone">
 
         <TextView
-            android:id="@+id/pic_text"
+            android:id="@+id/video_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -43,34 +61,6 @@
 
     </LinearLayout>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="40dp"
-        android:gravity="center"
-        android:layout_below="@id/text_layout"
-        android:visibility="visible">
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:scrollbars="none">
-            <com.whenhi.hi.view.pager.WhenhiViewPager
-                android:id="@+id/pager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center">
-
-            </com.whenhi.hi.view.pager.WhenhiViewPager>
-        </ScrollView>
-
-
-    </LinearLayout>
 
 
 
@@ -184,5 +174,4 @@
 
 
     </LinearLayout>
-
 </RelativeLayout>

@@ -42,10 +42,10 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 
 
-    private static final int TYPE_HEADER = 0;
-    private static final int TYPE_DETAIL = 1;
-    private static final int TYPE_GROUP = 2;
-    private static final int TYPE_CHILD = 3;
+    private static final int TYPE_FIRST = 0;
+    private static final int TYPE_SECOND = 1;
+    private static final int TYPE_THREE = 2;
+    private static final int TYPE_FOURE = 3;
 
 
     private final List<Comment> mComments;
@@ -116,13 +116,13 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public int getItemViewType(int position) {
         if (position == 0) {
-            return TYPE_HEADER;
+            return TYPE_FIRST;
         } else if (position == 1) {
-            return TYPE_DETAIL;
+            return TYPE_SECOND;
         } else if (position == 2) {
-            return TYPE_GROUP;
+            return TYPE_THREE;
         } else {
-            return TYPE_CHILD;
+            return TYPE_FOURE;
         }
     }
 
@@ -137,18 +137,18 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         int type = getItemViewType(i);
         View itemView = null;
         switch (type) {
-            case TYPE_HEADER:
-                itemView = inflate(viewGroup, R.layout.item_detail_header);
-                return new HeaderHolder(itemView);
-            case TYPE_DETAIL:
-                itemView = inflate(viewGroup, R.layout.item_video);
-                return new DetailHolder(itemView);
-            case TYPE_GROUP:
-                itemView = inflate(viewGroup, R.layout.item_detail_group);
-                return new GroupHolder(itemView);
-            case TYPE_CHILD:
+            case TYPE_FIRST:
+                itemView = inflate(viewGroup, R.layout.item_first);
+                return new FirstHolder(itemView);
+            case TYPE_SECOND:
+                itemView = inflate(viewGroup, R.layout.item_second);
+                return new SecondHolder(itemView);
+            case TYPE_THREE:
+                itemView = inflate(viewGroup, R.layout.item_three);
+                return new ThreeHolder(itemView);
+            case TYPE_FOURE:
                 itemView = inflate(viewGroup, R.layout.item_comment);
-                final ChildHolder holder = new ChildHolder(itemView);
+                final FoureHolder holder = new FoureHolder(itemView);
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -171,99 +171,46 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
         int type = getItemViewType(i);
         switch (type) {
-            case TYPE_HEADER:
-                onBindHeaderHolder((HeaderHolder) viewHolder);
+            case TYPE_FIRST:
+                onBindFirstHolder((FirstHolder) viewHolder);
                 break;
-            case TYPE_DETAIL:
-                onBindDetailHolder((DetailHolder) viewHolder);
+            case TYPE_SECOND:
+                onBindSecondHolder((SecondHolder) viewHolder);
                 break;
-            case TYPE_GROUP:
-                onBindGroupHolder((GroupHolder) viewHolder);
+            case TYPE_THREE:
+                onBindThreeHolder((ThreeHolder) viewHolder);
                 break;
-            case TYPE_CHILD:
-                onBindChildHolder((ChildHolder) viewHolder, getChildPosition(i));
+            case TYPE_FOURE:
+                onBindFoureHolder((FoureHolder) viewHolder, getChildPosition(i));
                 break;
         }
     }
 
-    private void onBindHeaderHolder(HeaderHolder holder) {
+    private void onBindFirstHolder(FirstHolder holder) {
 
         if(mFeed == null)
             return;
-        holder.detailText.setText(mFeed.getContent());
 
-        if(TextUtils.isEmpty(mFeed.getContent())){
-            holder.detailText.setVisibility(View.GONE);
-        }else{
-            holder.detailText.setVisibility(View.VISIBLE);
-        }
-
-        holder.userNickName.setText(mFeed.getUserName());
-        final WeakReference<ImageView> imageViewWeakReference = new WeakReference<>(holder.userAvatar);
-        ImageView target = imageViewWeakReference.get();
-        Context context = App.getContext();
-        if (target != null) {
-            Glide.with(context)
-                    .load(mFeed.getUserLogo())
-                    .transform(new CircleTransform(context))
-                    .error(R.mipmap.logo)
-                    .into(target);
-        }
+        holder.mText.setText(mFeed.getContent());
 
     }
 
-    private void onBindDetailHolder(final DetailHolder holder) {
+    private void onBindSecondHolder(final SecondHolder holder) {
 
         if(mFeed == null)
             return;
-        final WeakReference<ImageView> imageViewWeakReference = new WeakReference<>(holder.imageContent);
-        ImageView target = imageViewWeakReference.get();
-        Context context = App.getContext();
-        if (target != null) {
-            Glide.with(context)
-                    .load(mFeed.getImageUrl())
-                    .transform(new RoundTransform(context,10))
-                    .error(R.mipmap.bg_image)
-                    .into(target);
-        }
 
-
-
-
-
-
-        holder.imageContent.setOnClickListener(new Button.OnClickListener(){//创建监听
-            public void onClick(View v) {
-
-                Log.d("video click start url:",mFeed.getPlayUrl());
-
-                String videoUrl = mFeed.getPlayUrl();
-
-                String vUrl = videoUrl.replaceFirst("https","http");
-
-                Log.d("video click doing url:",vUrl);
-
-                mFeed.setPlayUrl(vUrl);
-
-                mVideoAdapter = new VideoAdapter(mActivity,mFeed,holder.videoPlayer);
-                holder.videoPlayer.setVisibility(View.VISIBLE);
-                holder.imageContent.setVisibility(View.GONE);
-                holder.imagePlay.setVisibility(View.GONE);
-                Log.d("video click end ","ok");
-            }
-        });
-
+        holder.mText.setText("#热门评论");
 
 
 
     }
 
-    private void onBindGroupHolder(final GroupHolder holder) {
-        holder.headerText.setText("热门评论");
-        showToolbarContent(holder,mFeed);
+    private void onBindThreeHolder(final ThreeHolder holder) {
+        holder.mText.setText("");
     }
 
-    private void onBindChildHolder(ChildHolder holder, int childPosition) {
+    private void onBindFoureHolder(FoureHolder holder, int childPosition) {
         //Character character = mSections.get(parentPosition).getCharacters().get(childPosition);
         Comment comment = mComments.get(childPosition);
         holder.commentText.setText(comment.getContent());
@@ -296,43 +243,28 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 
 
-    class HeaderHolder extends RecyclerView.ViewHolder {
-        ImageView userAvatar;
-        TextView userNickName;
-        TextView detailText;
+    class FirstHolder extends RecyclerView.ViewHolder {
+        TextView mText;
 
 
 
-        public HeaderHolder(View itemView) {
+        public FirstHolder(View itemView) {
             super(itemView);
-            userAvatar = (ImageView) itemView.findViewById(R.id.user_avatar);
-            userNickName = (TextView) itemView.findViewById(R.id.user_nickname);
-
-            detailText = (TextView) itemView.findViewById(R.id.detail_text);
+            mText = (TextView) itemView.findViewById(R.id.detail_text);
 
         }
     }
 
-    class DetailHolder extends RecyclerView.ViewHolder {
+    class SecondHolder extends RecyclerView.ViewHolder {
 
 
-        VideoPlayer videoPlayer;
-
-        ImageView imageContent;
-        ImageView imagePlay;
+        TextView mText;
 
 
 
-        public DetailHolder(View itemView) {
+        public SecondHolder(View itemView) {
             super(itemView);
-            //superVideoPlayer = (SuperVideoPlayer) itemView.findViewById(R.id.detail_video);
-            //playerContainer = (FrameLayout) itemView.findViewById(R.id.detail_video);
-
-            videoPlayer = (VideoPlayer) itemView.findViewById(R.id.detail_video);
-            imageContent = (ImageView) itemView.findViewById(R.id.item_detail_content_image);
-            imagePlay = (ImageView) itemView.findViewById(R.id.item_detail_content_play);
-
-
+            mText = (TextView) itemView.findViewById(R.id.pinglun_title_text);
 
 
 
@@ -340,54 +272,24 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     }
 
-    class GroupHolder extends RecyclerView.ViewHolder {
-        TextView headerText;
-
-        ImageView loveImage;
-        ImageView favImage;
-        ImageView shareImage;
-        ImageView commentImage;
+    class ThreeHolder extends RecyclerView.ViewHolder {
+        TextView mText;
 
 
-        TextView loveText;
-        TextView favText;
-        TextView shareText;
-        TextView commentText;
 
-        LinearLayout loveBtn;
-        LinearLayout favBtn;
-        LinearLayout shareBtn;
-        LinearLayout commentBtn;
-
-
-        public GroupHolder(View itemView) {
+        public ThreeHolder(View itemView) {
             super(itemView);
-            headerText = (TextView) itemView.findViewById(R.id.item_comment_header_text);
-            loveImage = (ImageView) itemView.findViewById(R.id.toolbar_love_image);
-            shareImage = (ImageView) itemView.findViewById(R.id.toolbar_share_image);
-            favImage = (ImageView) itemView.findViewById(R.id.toolbar_fav_image);
-            commentImage = (ImageView) itemView.findViewById(R.id.toolbar_comment_image);
-
-
-            loveText = (TextView) itemView.findViewById(R.id.toolbar_love_text);
-            shareText = (TextView) itemView.findViewById(R.id.toolbar_share_text);
-            favText = (TextView) itemView.findViewById(R.id.toolbar_fav_text);
-            commentText = (TextView) itemView.findViewById(R.id.toolbar_comment_text);
-
-            loveBtn = (LinearLayout) itemView.findViewById(R.id.toolbar_love_btn);
-            favBtn = (LinearLayout) itemView.findViewById(R.id.toolbar_fav_btn);
-            shareBtn = (LinearLayout) itemView.findViewById(R.id.toolbar_share_btn);
-            commentBtn = (LinearLayout) itemView.findViewById(R.id.toolbar_comment_btn);
+            mText = (TextView) itemView.findViewById(R.id.detail_text);
         }
     }
 
-    static class ChildHolder extends RecyclerView.ViewHolder {
+    static class FoureHolder extends RecyclerView.ViewHolder {
         ImageView userAvatar;
         TextView userNickName;
         TextView commentText;
 
 
-        public ChildHolder(View itemView) {
+        public FoureHolder(View itemView) {
             super(itemView);
             userNickName = (TextView) itemView.findViewById(R.id.user_nickname);
             userAvatar = (ImageView) itemView.findViewById(R.id.user_avatar);
@@ -398,28 +300,6 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 
 
-    private void showToolbarContent(GroupHolder holder, Feed feed){
-
-        holder.loveText.setText(""+feed.getLikeCount() + "赞");
-        holder.favText.setText(" · "+feed.getFavoriteCount() + "收藏");
-        holder.shareText.setText(" · "+feed.getShareCount() + "分享");
-        holder.commentText.setText(" · "+feed.getCommentCount() + "评论");
-
-        if(feed.getLikeState() == 1){
-            holder.loveImage.setImageResource(R.mipmap.zan_click);
-        }else{
-            holder.loveImage.setImageResource(R.mipmap.zan);
-        }
-
-        if(feed.getFavoriteState() == 1){
-            holder.favImage.setImageResource(R.mipmap.shoucang_click);
-
-        }else{
-            holder.favImage.setImageResource(R.mipmap.shoucang);
-        }
-       // ClickUtil.toolbarClick(holder.loveImage, holder.favImage,holder.loveText,holder.favText,holder.favBtn,holder.loveBtn,holder.shareBtn,holder.commentBtn,holder.itemView,feed);
-
-    }
 
 
 

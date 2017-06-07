@@ -81,7 +81,7 @@ public class VideoFullActivity extends BaseActivity {
         // mVp.hideTimes();
         mVideoPlayer.showTimes();
         // 自定义加载框图标
-        mVideoPlayer.setIconLoading(R.mipmap.loading_red_rotate);
+        mVideoPlayer.setIconLoading(R.drawable.shape_video_loading_rotate);
 
         // 设置进度条样式
         mVideoPlayer.setProgressThumbDrawable(R.mipmap.progress_thumb);

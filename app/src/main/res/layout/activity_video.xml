@@ -4,18 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff">
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/layout_toolbar_detail" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <org.lynxz.zzplayerlibrary.widget.VideoPlayer
+            android:id="@+id/detail_video"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:visibility="visible"/>
+    </LinearLayout>
     <FrameLayout
         android:id="@+id/fragment_detail_video_container"
-        android:paddingTop="40dp"
+        android:paddingTop="200dp"
         android:paddingBottom="48dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
         android:orientation="vertical"/>
 
 
@@ -42,7 +47,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="1"
-            android:src="@mipmap/zan1"/>
+            android:src="@mipmap/xiangqing_icon_zan"/>
 
         <ImageView
             android:id = "@+id/toolbar_fav_image"
@@ -50,7 +55,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="1"
-            android:src="@mipmap/shoucang1"/>
+            android:src="@mipmap/xiangqing_icon_shoucang"/>
 
 
         <ImageView
@@ -59,7 +64,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="1"
-            android:src="@mipmap/fenxiang1"/>
+            android:src="@mipmap/xiangqing_icon_fenxiang"/>
 
 
 

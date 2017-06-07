@@ -12,7 +12,6 @@
         android:layout_height="1dp"
         android:background="@drawable/bg_space"/>
     <RelativeLayout
-        android:id="@+id/item_charge_record_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
@@ -23,7 +22,6 @@
 
 
         <LinearLayout
-            android:id="@+id/charge_record_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

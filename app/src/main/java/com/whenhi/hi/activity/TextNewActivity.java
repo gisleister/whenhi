@@ -5,13 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.Holder;
@@ -20,14 +19,12 @@ import com.orhanobut.dialogplus.OnDismissListener;
 import com.orhanobut.dialogplus.ViewHolder;
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
-import com.whenhi.hi.adapter.PicPreviewAdapter;
+import com.whenhi.hi.model.BaseModel;
+import com.whenhi.hi.model.Comment;
 import com.whenhi.hi.model.Feed;
-import com.whenhi.hi.model.Image;
+import com.whenhi.hi.network.HttpAPI;
+import com.whenhi.hi.receiver.NoticeTransfer;
 import com.whenhi.hi.util.ClickUtil;
-import com.whenhi.hi.view.pager.WhenhiViewPager;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TextNewActivity extends BaseActivity{
 
@@ -39,11 +36,15 @@ public class TextNewActivity extends BaseActivity{
     private DialogPlus dialog;
     private EditText commentEditText;
 
+    private int targetType = 1;
+    private int targetId = 0;
+    private String content;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);//去掉信息栏
+        //requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+         //       WindowManager.LayoutParams.FLAG_FULLSCREEN);//去掉信息栏
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_new);
         Intent intent = getIntent();
@@ -98,7 +99,7 @@ public class TextNewActivity extends BaseActivity{
         dialog = DialogPlus.newDialog(this)
                 .setContentHolder(holder)
                 .setCancelable(true)
-                .setGravity(Gravity.CENTER)
+                .setGravity(Gravity.BOTTOM)
                 .setOnDismissListener(new OnDismissListener() {
                     @Override
                     public void onDismiss(DialogPlus dialog) {
@@ -118,6 +119,7 @@ public class TextNewActivity extends BaseActivity{
                     public void onClick(final DialogPlus dialog, View view) {
                         switch (view.getId()) {
                             case R.id.comment_send:
+                                updateComment();
                                 break;
                         }
 
@@ -160,7 +162,64 @@ public class TextNewActivity extends BaseActivity{
 
 
 
+    private void updateComment(){
+        boolean isLogin = App.isLogin();
 
+        if(isLogin){
+            content = commentEditText.getText().toString();
+
+            if(targetType == 1){
+                targetId = mFeed.getId();
+            }
+
+            if(content.equals("")){
+                Toast.makeText(App.getContext(), "多少要写点东西哦", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            HttpAPI.addComment(mFeed.getId(),targetId,targetType,content,new HttpAPI.Callback<BaseModel>() {
+                @Override
+                public void onSuccess(BaseModel baseModel) {
+                    if(baseModel.getState() == 0){
+                        Toast.makeText(App.getContext(), "评论成功", Toast.LENGTH_SHORT).show();
+                        Comment comment = new Comment();
+                        comment.setUserId(Integer.parseInt(App.getUserId()));
+                        comment.setUserLogo(App.getUserLogo());
+                        comment.setUserName(App.getNickname());
+                        comment.setContent(content);
+                        comment.setFeedId(mFeed.getId());
+                        NoticeTransfer.commentSuccess(comment);
+                        commentEditText.setText("继续写点东西");
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        if (imm != null) {
+                            View v = getCurrentFocus();
+                            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                        }
+                        dialog.dismiss();
+
+                    }else{
+                        Toast.makeText(App.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+                    Toast.makeText(App.getContext(), "服务器貌似出问题了", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }else{
+            Intent intent = new Intent(TextNewActivity.this, LoginActivity.class);
+            startActivity(intent);
+
+            overridePendingTransition(R.anim.activity_open,0);
+        }
+    }
+
+    public void acceptCommentClick(Comment comment){
+        targetType = 2;
+        targetId = comment.getId();
+        commentBtn.setText("@"+comment.getUserName());
+    }
 
 }
 

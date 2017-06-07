@@ -26,7 +26,11 @@ import com.orhanobut.dialogplus.OnDismissListener;
 import com.orhanobut.dialogplus.ViewHolder;
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
+import com.whenhi.hi.model.BaseModel;
+import com.whenhi.hi.model.Comment;
 import com.whenhi.hi.model.Feed;
+import com.whenhi.hi.network.HttpAPI;
+import com.whenhi.hi.receiver.NoticeTransfer;
 import com.whenhi.hi.util.ClickUtil;
 
 import org.lynxz.zzplayerlibrary.controller.IPlayerImpl;
@@ -47,12 +51,17 @@ public class VideoNewActivity extends BaseActivity {
     public static final int VERTICAL = 0x00;
     public static final int HORIZONTAL = 0x01;
     private  Toolbar mToolbar;
-    private TextView mTextView;
+    private TextView mVideoText;
 
 
     private Button commentBtn;
     private DialogPlus dialog;
     private EditText commentEditText;
+
+
+    private int targetType = 1;
+    private int targetId = 0;
+    private String content;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +94,11 @@ public class VideoNewActivity extends BaseActivity {
 
     private void initView() {
 
-        mVideoPlayer = (VideoPlayer) findViewById(R.id.video_full);
+        mVideoPlayer = (VideoPlayer) findViewById(R.id.video);
         mVideoPlayer.setTitle("");
+        String videoUrl = mFeed.getPlayUrl();
+        String vUrl = videoUrl.replaceFirst("https","http");
+        mFeed.setPlayUrl(vUrl);
         mVideoPlayer.loadAndStartVideo(this, mFeed.getPlayUrl());
         //设置控制栏播放/暂停/全屏/退出全屏按钮图标
         mVideoPlayer.setIconPlay(R.mipmap.play);
@@ -98,7 +110,7 @@ public class VideoNewActivity extends BaseActivity {
         // mVp.hideTimes();
         mVideoPlayer.showTimes();
         // 自定义加载框图标
-        mVideoPlayer.setIconLoading(R.mipmap.loading_red_rotate);
+        mVideoPlayer.setIconLoading(R.drawable.shape_video_loading_rotate);
 
         // 设置进度条样式
         mVideoPlayer.setProgressThumbDrawable(R.mipmap.progress_thumb);
@@ -128,6 +140,17 @@ public class VideoNewActivity extends BaseActivity {
 
 
                 commentInput();
+            }
+        });
+
+        mVideoText = (TextView) findViewById(R.id.video_text);
+        mVideoText.setText(mFeed.getContent());
+
+        ImageView close = (ImageView) findViewById(R.id.pic_close);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
@@ -252,6 +275,7 @@ public class VideoNewActivity extends BaseActivity {
                     public void onClick(final DialogPlus dialog, View view) {
                         switch (view.getId()) {
                             case R.id.comment_send:
+                                updateComment();
                                 break;
                         }
 
@@ -265,8 +289,8 @@ public class VideoNewActivity extends BaseActivity {
         commentEditText.setFocusableInTouchMode(true);
         commentEditText.requestFocus();
 
-        //InputMethodManager imm = (InputMethodManager) commentEditText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        //imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+        InputMethodManager imm = (InputMethodManager) commentEditText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
 
     }
 
@@ -286,8 +310,68 @@ public class VideoNewActivity extends BaseActivity {
         }
 
 
-        ClickUtil.toolbarClickDetail(fav,zan,share,getWindow().getDecorView(),mFeed);
+        ClickUtil.toolbarClickDetailNew(fav,zan,share,getWindow().getDecorView(),mFeed);
 
+    }
+
+
+    private void updateComment(){
+        boolean isLogin = App.isLogin();
+
+        if(isLogin){
+            content = commentEditText.getText().toString();
+
+            if(targetType == 1){
+                targetId = mFeed.getId();
+            }
+
+            if(content.equals("")){
+                Toast.makeText(App.getContext(), "多少要写点东西哦", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            HttpAPI.addComment(mFeed.getId(),targetId,targetType,content,new HttpAPI.Callback<BaseModel>() {
+                @Override
+                public void onSuccess(BaseModel baseModel) {
+                    if(baseModel.getState() == 0){
+                        Toast.makeText(App.getContext(), "评论成功", Toast.LENGTH_SHORT).show();
+                        Comment comment = new Comment();
+                        comment.setUserId(Integer.parseInt(App.getUserId()));
+                        comment.setUserLogo(App.getUserLogo());
+                        comment.setUserName(App.getNickname());
+                        comment.setContent(content);
+                        comment.setFeedId(mFeed.getId());
+                        NoticeTransfer.commentSuccess(comment);
+                        commentEditText.setText("继续写点东西");
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        if (imm != null) {
+                            View v = getCurrentFocus();
+                            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                        }
+                        dialog.dismiss();
+
+                    }else{
+                        Toast.makeText(App.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+                    Toast.makeText(App.getContext(), "服务器貌似出问题了", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }else{
+            Intent intent = new Intent(VideoNewActivity.this, LoginActivity.class);
+            startActivity(intent);
+
+            overridePendingTransition(R.anim.activity_open,0);
+        }
+    }
+
+    public void acceptCommentClick(Comment comment){
+        targetType = 2;
+        targetId = comment.getId();
+        commentBtn.setText("@"+comment.getUserName());
     }
 
 

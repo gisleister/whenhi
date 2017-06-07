@@ -74,18 +74,10 @@ public class TextActivity extends BaseActivity{
             initView(savedInstanceState);
         }
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar).findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-
-        mTextView = (TextView) findViewById(R.id.toolbar).findViewById(R.id.toolbar_title);
-        mTextView.setText("很嗨-段子");
-
-        mToolbar.setNavigationIcon(R.mipmap.fanhui);
-        mActionBar = getSupportActionBar();
-        if (mActionBar != null){
-            mActionBar.setDisplayHomeAsUpEnabled(false);
-            mActionBar.setDisplayShowTitleEnabled(false);
-        }
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        TextView textView = (TextView) findViewById(R.id.toolbar_title);
+        textView.setText("段子");
+        setSupportActionBar(toolbar);
 
         commentBtn = (Button) findViewById(R.id.toolbar_comment_image);
         commentBtn.setOnClickListener(new Button.OnClickListener() {
@@ -105,20 +97,20 @@ public class TextActivity extends BaseActivity{
     private void showToolbarContent(ImageView zan, ImageView fav,ImageView share){
 
         if(mFeed.getLikeState() == 1){
-            zan.setImageResource(R.mipmap.zan_click1);
+            zan.setImageResource(R.mipmap.xiangqing_icon_zan_click);
         }else{
-            zan.setImageResource(R.mipmap.zan1);
+            zan.setImageResource(R.mipmap.xiangqing_icon_zan);
         }
 
         if(mFeed.getFavoriteState() == 1){
-            fav.setImageResource(R.mipmap.shoucang_click1);
+            fav.setImageResource(R.mipmap.xiangqing_icon_shoucang_click);
 
         }else{
-            fav.setImageResource(R.mipmap.shoucang1);
+            fav.setImageResource(R.mipmap.xiangqing_icon_shoucang);
         }
 
 
-        ClickUtil.toolbarClickDetail(fav,zan,share,getWindow().getDecorView(),mFeed);
+        ClickUtil.toolbarClickDetailNew(fav,zan,share,getWindow().getDecorView(),mFeed);
 
     }
 
@@ -244,6 +236,7 @@ public class TextActivity extends BaseActivity{
         commentEditText.setFocusable(true);
         commentEditText.setFocusableInTouchMode(true);
         commentEditText.requestFocus();
+        commentEditText.setHint(commentBtn.getText().toString());
 
         InputMethodManager imm = (InputMethodManager) commentEditText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);

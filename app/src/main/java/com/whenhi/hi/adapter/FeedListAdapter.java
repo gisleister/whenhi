@@ -230,7 +230,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
 
-    private void showContent(FeedHolder holder, Feed feed,Context context){
+    private void showContent(FeedHolder holder, final Feed feed, Context context){
 
         WeakReference<ImageView> imageViewWeakReference = new WeakReference<>(holder.imageContent);
         ImageView target = imageViewWeakReference.get();
@@ -264,6 +264,14 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         //.override(width, height)
                         .into(target);
             }
+
+            holder.contentImageLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ClickUtil.goToVideoNew(v.getContext(),feed);
+                    ClickUtil.reportClickInfo(feed);
+                }
+            });
 
         }else if(feed.getFeedCategory() == 2){//动图
 
@@ -299,6 +307,9 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
         }else if(feed.getFeedCategory() == 4){//段子
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(0, 15, 0, 0);
+            holder.textContent.setLayoutParams(lp);
             holder.textContent.setText(feed.getContent());
             holder.imageNum.setVisibility(View.GONE);
             holder.contentImageLayout.setVisibility(View.GONE);
@@ -335,6 +346,14 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
                 }
             }
+
+            holder.contentImageLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ClickUtil.goToPicNew(v.getContext(),feed);
+                    ClickUtil.reportClickInfo(feed);
+                }
+            });
 
         }else if(feed.getFeedCategory() == 6){//广告
 

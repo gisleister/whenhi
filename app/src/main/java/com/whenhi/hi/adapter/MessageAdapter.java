@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
+import com.whenhi.hi.image.CircleTransform;
 import com.whenhi.hi.image.RoundTransform;
 import com.whenhi.hi.listener.OnItemClickListener;
 import com.whenhi.hi.listener.OnItemLongClickListener;
@@ -119,12 +120,12 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         Glide.with(App.getContext())
                 .load(message.getUserLogo())
-                .placeholder(R.mipmap.bg_image)
+                .placeholder(R.mipmap.xitong)
                 .centerCrop()
                 .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .transform(new RoundTransform(App.getContext(),10))
-                .error(R.mipmap.bg_image)
+                .transform(new CircleTransform(App.getContext()))
+                .error(R.mipmap.xitong)
                 //.override(600, 200)
                 //.fitCenter()
                 .into(holder.messageImage);

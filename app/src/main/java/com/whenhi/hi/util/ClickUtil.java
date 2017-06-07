@@ -21,6 +21,7 @@ import com.whenhi.hi.activity.PicNewActivity;
 import com.whenhi.hi.activity.ShareActivity;
 import com.whenhi.hi.activity.TextActivity;
 import com.whenhi.hi.activity.TextNewActivity;
+import com.whenhi.hi.activity.VideoActivity;
 import com.whenhi.hi.activity.VideoNewActivity;
 import com.whenhi.hi.activity.WebViewActivity;
 import com.whenhi.hi.model.BaseModel;
@@ -54,12 +55,12 @@ public class ClickUtil {
             goToPic(context,feed);
 
         }else if(feed.getFeedCategory() == 4){//段子
-            //goToText(context,feed);
-            goToTextNew(context,feed);
+            goToText(context,feed);
+            //goToTextNew(context,feed);
 
         }else if(feed.getFeedCategory() == 5){//图片
-            //goToPic(context,feed);
-            goToPicNew(context,feed);
+            goToPic(context,feed);
+            //goToPicNew(context,feed);
 
         }else if(feed.getFeedCategory() == 6){//广告
             goToWeb(context,feed);
@@ -133,7 +134,7 @@ public class ClickUtil {
         });
     }
 
-    private static void goToPicNew(Context context, Feed feed){
+    public static void goToPicNew(Context context, Feed feed){
         Intent intent = new Intent(context, PicNewActivity.class);
         intent.putExtra("Feed", feed);
         context.startActivity(intent);
@@ -153,10 +154,13 @@ public class ClickUtil {
     }
 
     private static void goToVideo(Context context, Feed feed){
-        /*Intent intent = new Intent(context, VideoActivity.class);
+        Intent intent = new Intent(context, VideoActivity.class);
         intent.putExtra("Feed", feed);
-        context.startActivity(intent);*/
+        context.startActivity(intent);
 
+    }
+
+    public static void goToVideoNew(Context context, Feed feed){
         Intent intent = new Intent(context, VideoNewActivity.class);
         intent.putExtra("Feed", feed);
         context.startActivity(intent);
@@ -358,7 +362,7 @@ public class ClickUtil {
     }
 
 
-    public static void toolbarClickDetail(final ImageView favImage, final ImageView loveImage, final ImageView shareImage, final View view, final Feed feed){
+    public static void toolbarClickDetailNew(final ImageView favImage, final ImageView loveImage, final ImageView shareImage, final View view, final Feed feed){
 
         if(feed == null)
             return;
@@ -455,6 +459,132 @@ public class ClickUtil {
                             public void onSuccess(BaseModel baseModel) {
                                 if(baseModel.getState() == 0){
                                     favImage.setImageResource(R.mipmap.xiangqing_icon_shoucang_click);
+                                    feed.setFavoriteCount(feed.getFavoriteCount()+1);
+                                    feed.setFavoriteState(1);
+                                    NoticeTransfer.refresh();
+                                }else {
+                                    Toast.makeText(view.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+
+                            @Override
+                            public void onFailure(Exception e) {
+
+                            }
+                        });
+                    }
+
+                }else{
+                    goToLogin(view.getContext());
+                }
+
+            }
+
+        });
+
+
+
+    }
+
+
+    public static void toolbarClickDetail(final ImageView favImage, final ImageView loveImage, final ImageView shareImage, final View view, final Feed feed){
+
+        if(feed == null)
+            return;
+        loveImage.setOnClickListener(new View.OnClickListener(){//创建监听
+            public void onClick(View v) {
+
+                if(App.isLogin()){
+                    if(feed.getLikeState() == 1){
+                        HttpAPI.disLoveFeed(feed.getId(),new HttpAPI.Callback<BaseModel>() {
+                            @Override
+                            public void onSuccess(BaseModel baseModel) {
+                                if(baseModel.getState() == 0){
+                                    loveImage.setImageResource(R.mipmap.zan1);
+
+                                    feed.setLikeCount(feed.getLikeCount()-1);
+                                    feed.setLikeState(0);
+                                }else {
+                                    Toast.makeText(view.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
+                                }
+
+
+                            }
+
+                            @Override
+                            public void onFailure(Exception e) {
+
+                            }
+                        });
+                    }else{
+                        HttpAPI.loveFeed(feed.getId(),new HttpAPI.Callback<BaseModel>() {
+                            @Override
+                            public void onSuccess(BaseModel baseModel) {
+                                if(baseModel.getState() == 0){
+                                    loveImage.setImageResource(R.mipmap.zan_click1);
+                                    feed.setLikeCount(feed.getLikeCount()+1);
+                                    feed.setLikeState(1);
+                                }else {
+                                    Toast.makeText(view.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
+                                }
+
+
+                            }
+
+                            @Override
+                            public void onFailure(Exception e) {
+
+                            }
+                        });
+                    }
+
+
+                }else{
+                    goToLogin(view.getContext());
+                }
+
+            }
+
+        });
+
+        shareImage.setOnClickListener(new View.OnClickListener(){//创建监听
+            public void onClick(View v) {
+                goToShare(view.getContext(),feed);
+            }
+
+        });
+
+        favImage.setOnClickListener(new View.OnClickListener(){//创建监听
+            public void onClick(View v) {
+                if(App.isLogin()){
+                    if(feed.getFavoriteState() == 1){
+                        HttpAPI.disFavFeed(feed.getId(),feed.getFeedCategory(),new HttpAPI.Callback<BaseModel>() {
+                            @Override
+                            public void onSuccess(BaseModel baseModel) {
+
+                                if(baseModel.getState() == 0){
+                                    favImage.setImageResource(R.mipmap.shoucang1);
+                                    feed.setFavoriteCount(feed.getFavoriteCount()-1);
+                                    feed.setFavoriteState(0);
+                                    NoticeTransfer.refresh();
+                                }else {
+                                    Toast.makeText(view.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+
+                            @Override
+                            public void onFailure(Exception e) {
+
+                            }
+                        });
+                    }else{
+                        HttpAPI.favFeed(feed.getId(),feed.getFeedCategory(),new HttpAPI.Callback<BaseModel>() {
+                            @Override
+                            public void onSuccess(BaseModel baseModel) {
+                                if(baseModel.getState() == 0){
+                                    favImage.setImageResource(R.mipmap.shoucang_click1);
                                     feed.setFavoriteCount(feed.getFavoriteCount()+1);
                                     feed.setFavoriteState(1);
                                     NoticeTransfer.refresh();

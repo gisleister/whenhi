@@ -39,9 +39,9 @@ public class LuckPanLayout extends View {
     public LuckPanLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.context = context;
-        backgroundPaint.setColor(Color.rgb(255,92,93));
-        whitePaint.setColor(Color.WHITE);
-        yellowPaint.setColor(Color.YELLOW);
+        backgroundPaint.setColor(Color.rgb(112,165,211));
+        whitePaint.setColor(Color.rgb(109,238,230));
+        yellowPaint.setColor(Color.rgb(232,252,251));
     }
 
     @Override

@@ -2,9 +2,13 @@ package com.whenhi.hi.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.media.MediaMetadataRetriever;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -35,7 +39,10 @@ import com.whenhi.hi.network.HttpAPI;
 import com.whenhi.hi.receiver.NoticeTransfer;
 import com.whenhi.hi.util.ClickUtil;
 
+import org.lynxz.zzplayerlibrary.controller.IPlayerImpl;
 import org.lynxz.zzplayerlibrary.widget.VideoPlayer;
+
+import java.util.HashMap;
 
 
 public class VideoActivity extends BaseActivity{
@@ -78,19 +85,6 @@ public class VideoActivity extends BaseActivity{
         }
 
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar).findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-
-        mTextView = (TextView) findViewById(R.id.toolbar).findViewById(R.id.toolbar_title);
-        mTextView.setText("很嗨-视频");
-
-        mToolbar.setNavigationIcon(R.mipmap.fanhui);
-        mActionBar = getSupportActionBar();
-        if (mActionBar != null) {
-            mActionBar.setDisplayHomeAsUpEnabled(false);
-            mActionBar.setDisplayShowTitleEnabled(false);
-        }
-
         commentBtn = (Button) findViewById(R.id.toolbar_comment_image);
         commentBtn.setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -113,22 +107,93 @@ public class VideoActivity extends BaseActivity{
     private void showToolbarContent(ImageView zan, ImageView fav,ImageView share){
 
         if(mFeed.getLikeState() == 1){
-            zan.setImageResource(R.mipmap.zan_click1);
+            zan.setImageResource(R.mipmap.xiangqing_icon_zan_click);
         }else{
-            zan.setImageResource(R.mipmap.zan1);
+            zan.setImageResource(R.mipmap.xiangqing_icon_zan);
         }
 
         if(mFeed.getFavoriteState() == 1){
-            fav.setImageResource(R.mipmap.shoucang_click1);
+            fav.setImageResource(R.mipmap.xiangqing_icon_shoucang_click);
 
         }else{
-            fav.setImageResource(R.mipmap.shoucang1);
+            fav.setImageResource(R.mipmap.xiangqing_icon_shoucang);
         }
 
 
-        ClickUtil.toolbarClickDetail(fav,zan,share,getWindow().getDecorView(),mFeed);
+        ClickUtil.toolbarClickDetailNew(fav,zan,share,getWindow().getDecorView(),mFeed);
 
     }
+
+
+    private VideoPlayer.IOrientationImpl iOrientationImpl = new VideoPlayer.IOrientationImpl() {
+        @Override
+        public void onOrientationChange() {
+            boolean isPortrait = false;
+
+            MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+            if (Build.VERSION.SDK_INT >= 14)
+                mmr.setDataSource(mFeed.getPlayUrl(), new HashMap<String, String>());
+            else
+                mmr.setDataSource(mFeed.getPlayUrl());
+            int width = Integer.parseInt(mmr.extractMetadata(android.media.MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH));
+            int height = Integer.parseInt(mmr.extractMetadata(android.media.MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT));
+            if(height > width){
+                isPortrait = true;
+            }
+
+            mVideoPlayer.pausePlay();
+            Intent intent = new Intent(VideoActivity.this, VideoFullActivity.class);
+            Bundle bundle=new Bundle();
+            //传递name参数为tinyphp
+            bundle.putString("VideoUrl", mFeed.getPlayUrl());
+            bundle.putString("QiniuUrl", mFeed.getQiniuPlayUrl());
+            bundle.putInt("LastUpdateTime",mVideoPlayer.getCurrentTime());
+            bundle.putBoolean("isPortrait",isPortrait);
+            String title = mFeed.getContent();
+            if(TextUtils.isEmpty(title)){
+                title = "很嗨视频";
+            }
+            bundle.putString("title", title);
+            intent.putExtras(bundle);
+            startActivity(intent);
+
+
+        }
+    };
+
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (mVideoPlayer != null) {
+            mVideoPlayer.updateActivityOrientation();
+        }
+    }
+
+    private void initListener() {
+        mVideoPlayer.setPlayerController(playerImpl);
+    }
+    public IPlayerImpl playerImpl = new IPlayerImpl() {
+
+        @Override
+        public void onNetWorkError() {
+
+        }
+
+        @Override
+        public void onBack() {
+            // 全屏播放时,单击左上角返回箭头,先回到竖屏状态,再关闭
+            // 这里功能最好跟onBackPressed()操作一致
+            finish();
+
+        }
+
+        @Override
+        public void onError() {
+            Toast.makeText(VideoActivity.this, "视频有点小问题，正自我纠正中，稍等一秒", Toast.LENGTH_SHORT).show();
+            mVideoPlayer.loadAndStartVideo(VideoActivity.this, mFeed.getQiniuPlayUrl());
+        }
+    };
 
 
 
@@ -183,6 +248,31 @@ public class VideoActivity extends BaseActivity{
         ImageView fav = (ImageView)findViewById(R.id.toolbar_fav_image);
         ImageView share = (ImageView)findViewById(R.id.toolbar_share_image);
         showToolbarContent(zan,fav,share);
+
+        mVideoPlayer = (VideoPlayer) findViewById(R.id.detail_video);
+        mVideoPlayer.setTitle("");
+        String videoUrl = mFeed.getPlayUrl();
+        String vUrl = videoUrl.replaceFirst("https","http");
+        mFeed.setPlayUrl(vUrl);
+        mVideoPlayer.loadAndStartVideo(this, mFeed.getPlayUrl());
+        //设置控制栏播放/暂停/全屏/退出全屏按钮图标
+        mVideoPlayer.setIconPlay(R.mipmap.play);
+        mVideoPlayer.setIconPause(R.mipmap.pause);
+        mVideoPlayer.setIconExpand(R.mipmap.expand);
+        mVideoPlayer.setIconShrink(R.mipmap.shrink);
+        mVideoPlayer.setIconBack(R.mipmap.qita_icon_fanhui);
+        //隐藏/显示控制栏时间值信息
+        // mVp.hideTimes();
+        mVideoPlayer.showTimes();
+        // 自定义加载框图标
+        mVideoPlayer.setIconLoading(R.drawable.shape_video_loading_rotate);
+
+        // 设置进度条样式
+        mVideoPlayer.setProgressThumbDrawable(R.mipmap.progress_thumb);
+        mVideoPlayer.setProgressLayerDrawables(R.drawable.shape_video_progressbar);//自定义的layer-list
+
+        mVideoPlayer.setIOrientationImpl(iOrientationImpl);
+        initListener();
     }
 
 
@@ -289,6 +379,7 @@ public class VideoActivity extends BaseActivity{
         commentEditText.setFocusable(true);
         commentEditText.setFocusableInTouchMode(true);
         commentEditText.requestFocus();
+        commentEditText.setHint(commentBtn.getText().toString());
 
         InputMethodManager imm = (InputMethodManager) commentEditText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);

@@ -100,6 +100,16 @@ public class MoreNavFragment extends BaseFragment {
             }
         });
 
+        LinearLayout user = (LinearLayout)view.findViewById(R.id.user_layout);
+        user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!App.isLogin()) {
+                    ClickUtil.goToLogin(view.getContext());
+                }
+            }
+        });
+
         LinearLayout haibi = (LinearLayout)view.findViewById(R.id.user_haibi_layout);
         haibi.setOnClickListener(new RelativeLayout.OnClickListener(){//创建监听
             public void onClick(View v) {
@@ -260,6 +270,7 @@ public class MoreNavFragment extends BaseFragment {
         userContent = (TextView)view.findViewById(R.id.user_content);
         userMoney = (TextView) view.findViewById(R.id.user_money);
 
+
         if(App.isLogin()){
             getUserInfo();
         }
@@ -409,6 +420,8 @@ public class MoreNavFragment extends BaseFragment {
             mobile = null;
             checkIn.setBackgroundResource(R.drawable.shape_button);
             checkIn.setText("签到");
+            userMoney.setText("0元");
+            userContent.setText("个人详细资料");
             NoticeTransfer.refreshMeesage();
 
             Glide.with(App.getContext())

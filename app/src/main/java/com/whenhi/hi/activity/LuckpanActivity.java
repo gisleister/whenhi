@@ -34,7 +34,6 @@ public class LuckpanActivity extends BaseActivity implements RotatePan.Animation
     private RotatePan rotatePan;
     private LuckPanLayout luckPanLayout;
     private ImageView goBtn;
-    private ImageView yunIv;
     private TextView hitUser;
     private TextView gameRule;
 
@@ -53,8 +52,8 @@ public class LuckpanActivity extends BaseActivity implements RotatePan.Animation
         mFeed = (Feed)intent.getSerializableExtra("Feed");
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar).findViewById(R.id.toolbar);
-        TextView textView = (TextView) findViewById(R.id.toolbar).findViewById(R.id.toolbar_title);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        TextView textView = (TextView) findViewById(R.id.toolbar_title);
         textView.setText("幸运大抽奖");
         setSupportActionBar(toolbar);
 
@@ -72,6 +71,7 @@ public class LuckpanActivity extends BaseActivity implements RotatePan.Animation
                 if(baseFeedModel.getState() == 0){
                     List<Rule> rules = baseFeedModel.getData().getRules();
                     initView(rules,baseFeedModel.getData());
+                    goBtn.setVisibility(View.VISIBLE);
                 }else{
                     Toast.makeText(App.getContext(), baseFeedModel.getMsgText(), Toast.LENGTH_SHORT).show();
                 }
@@ -106,7 +106,6 @@ public class LuckpanActivity extends BaseActivity implements RotatePan.Animation
         rotatePan.setPrizes(prizes);
         rotatePan.setAnimationEndListener(this);
         goBtn = (ImageView)findViewById(R.id.go);
-        yunIv = (ImageView)findViewById(R.id.yun);
 
         luckPanLayout.post(new Runnable() {
             @Override
