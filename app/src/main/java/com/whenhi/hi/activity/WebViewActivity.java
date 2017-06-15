@@ -77,18 +77,10 @@ public class WebViewActivity extends BaseActivity {
             initView(savedInstanceState);
         }
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar).findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-
-        mTextView = (TextView) findViewById(R.id.toolbar).findViewById(R.id.toolbar_title);
-        mTextView.setText("很嗨-详情");
-
-        mToolbar.setNavigationIcon(R.mipmap.fanhui);
-        mActionBar = getSupportActionBar();
-        if (mActionBar != null){
-            mActionBar.setDisplayHomeAsUpEnabled(false);
-            mActionBar.setDisplayShowTitleEnabled(false);
-        }
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        TextView textView = (TextView) findViewById(R.id.toolbar_title);
+        textView.setText("详情");
+        setSupportActionBar(toolbar);
 
         commentBtn = (Button) findViewById(R.id.toolbar_comment_image);
         commentBtn.setOnClickListener(new Button.OnClickListener() {

@@ -32,14 +32,10 @@ android {
     }
 
     productFlavors {
-        office {}
-        baidu {}
-        xiaomi {}
-        market360 {}
-        yingyongbao {}
-        huawei {}
-        lenovo {}
-        taobao {}
+        f002001002 {}
+        f002001003 {}
+        f002001004 {}
+        f005001001 {}
     }
 
     productFlavors.all {
@@ -81,4 +77,5 @@ dependencies {
     compile 'com.orhanobut:dialogplus:1.11@aar'
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.sina.weibo.sdk:core:2.0.3:openDefaultRelease@aar'
+
 }

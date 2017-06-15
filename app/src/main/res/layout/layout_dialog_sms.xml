@@ -30,7 +30,7 @@
         android:textStyle="bold"
         android:ellipsize="end"
         android:gravity="center"
-        android:text="免费充值"/>
+        android:text="嗨币提现"/>
 
 
 

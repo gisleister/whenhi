@@ -1477,6 +1477,42 @@ public class HttpAPI {
     }
 
 
+    public static void feedRecAdd(int feedId, int feedCategory, final Callback<BaseModel> callback) {
+        Map<String, String> params = new HashMap<>();
+        params.put("appId", Constants.APP_ID);
+        params.put("v", Constants.APP_INTERFACE_VERSION);
+        params.put("callId", ""+System.currentTimeMillis());
+        params.put("lon", ""+App.getLongitude());
+        params.put("lat", ""+App.getLatitude());
+        params.put("bno", ""+App.getAppVersionCode());
+
+        /**/params.put("uid", App.getUserId());
+        params.put("t", App.getToken());
+        params.put("did",App.getDeviceId());
+
+        params.put("feedId", ""+feedId);
+        params.put("feedCategory", ""+feedCategory);
+
+
+
+        String str = ParamUtil.generateOrderedParamString(params,"",null);
+        String sig = ParamUtil.generateSignature(str,Constants.APP_SECRET_KEY);
+
+        //Map<String, String> params = new HashMap<>();
+        params.put("sig", sig);
+
+        String url = buildUrl(Constants.API_FEED_REC_ADD_URL, params);
+        Log.d(TAG,"url="+url);
+        final Request request = new Request.Builder().get().url(url).build();
+        OkHttpClient okHttpClient = OkHttp.getOkHttpClient();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new GsonCallbackWrapper<BaseModel>(callback, new TypeToken<BaseModel>() {
+        }));
+    }
+
+
+
+
 
 
 

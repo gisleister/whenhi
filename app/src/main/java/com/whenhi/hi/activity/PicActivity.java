@@ -165,6 +165,31 @@ public class PicActivity extends BaseActivity{
         ImageView fav = (ImageView)findViewById(R.id.toolbar_fav_image);
         ImageView share = (ImageView)findViewById(R.id.toolbar_share_image);
         showToolbarContent(zan,fav,share);
+
+        ImageView rec = (ImageView)findViewById(R.id.toolbar_rec_image);
+
+        rec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HttpAPI.feedRecAdd(mFeed.getId(),mFeed.getFeedCategory(),new HttpAPI.Callback<BaseModel>() {
+                    @Override
+                    public void onSuccess(BaseModel baseModel) {
+                        if(baseModel.getState() == 0){
+                            Toast.makeText(App.getContext(), "推荐成功", Toast.LENGTH_SHORT).show();
+
+                        }else{
+                            Toast.makeText(App.getContext(), baseModel.getMsgText(), Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Exception e) {
+                        Toast.makeText(App.getContext(), "服务器貌似出问题了", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
     }
 
 

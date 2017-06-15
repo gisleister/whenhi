@@ -386,7 +386,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             });
         }else if(feed.getFeedCategory() == 9){//webview
             holder.imageNum.setVisibility(View.GONE);
-            holder.textContent.setText(feed.getSummary());
+            holder.textContent.setText(feed.getTitle());
             holder.contentImageLayout.setVisibility(View.VISIBLE);
             holder.imagePlay.setImageResource(R.mipmap.shouye_tupian_kan);
             if(TextUtils.isEmpty(feed.getSummary())){

@@ -175,12 +175,12 @@ public class WebViewCommentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         if(mFeed == null)
             return;
         holder.detailText.setText(mFeed.getTitle());
-
-        if(TextUtils.isEmpty(mFeed.getTitle())){
+        holder.detailText.setVisibility(View.GONE);
+        /*if(TextUtils.isEmpty(mFeed.getTitle())){
             holder.detailText.setVisibility(View.GONE);
         }else{
             holder.detailText.setVisibility(View.VISIBLE);
-        }
+        }*/
 
         holder.userNickName.setText(mFeed.getUserName());
         final WeakReference<ImageView> imageViewWeakReference = new WeakReference<>(holder.userAvatar);
