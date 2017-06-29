@@ -191,7 +191,10 @@
             android:name=".activity.TextNewActivity"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"></activity>
-
+        <activity
+            android:name=".activity.AdActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"></activity>
 
 
 

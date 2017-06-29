@@ -256,12 +256,14 @@ public class OtherActivity extends BaseActivity {
                                         public void onSuccess(BaseModel baseModel) {
                                             if(baseModel.getState() == 0){
                                                 NoticeTransfer.mobile(mobile);
-                                                if(smsType == 1){
+                                                if(smsType == 1){//代表直接进入如提现界面
                                                     goToMoney(view);
-                                                }else if(smsType == 2){
+                                                }else if(smsType == 2){//代表输入邀请码界面
                                                     smsType = 1;
                                                     userCode();
 
+                                                }else if(smsType == 3){//代表进入我的提现列表界面
+                                                    goToUserMoney(view);
                                                 }
 
                                                 dialog.dismiss();
@@ -304,6 +306,14 @@ public class OtherActivity extends BaseActivity {
     private void goToMoney(View view){
 
         Intent intent = new Intent(view.getContext(), MoneyActivity.class);
+
+        view.getContext().startActivity(intent);
+
+    }
+
+    private void goToUserMoney(View view){
+
+        Intent intent = new Intent(view.getContext(), MoneyRecordActivity.class);
 
         view.getContext().startActivity(intent);
 

@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.whenhi.hi.App;
 import com.whenhi.hi.R;
+import com.whenhi.hi.activity.AdActivity;
 import com.whenhi.hi.activity.LoginActivity;
 import com.whenhi.hi.activity.LuckpanActivity;
 import com.whenhi.hi.activity.OtherActivity;
@@ -63,7 +64,7 @@ public class ClickUtil {
             //goToPicNew(context,feed);
 
         }else if(feed.getFeedCategory() == 6){//广告
-            goToWeb(context,feed);
+            goToAd(context,feed);
 
         }else if(feed.getFeedCategory() == 7){//分割线
 
@@ -155,6 +156,13 @@ public class ClickUtil {
 
     private static void goToVideo(Context context, Feed feed){
         Intent intent = new Intent(context, VideoActivity.class);
+        intent.putExtra("Feed", feed);
+        context.startActivity(intent);
+
+    }
+
+    private static void goToAd(Context context, Feed feed){
+        Intent intent = new Intent(context, AdActivity.class);
         intent.putExtra("Feed", feed);
         context.startActivity(intent);
 

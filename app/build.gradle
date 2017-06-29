@@ -16,8 +16,8 @@ android {
         applicationId "com.whenhi.hi"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 112
-        versionName "1.1.2"
+        versionCode 114
+        versionName "1.1.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -32,10 +32,14 @@ android {
     }
 
     productFlavors {
-        f002001002 {}
-        f002001003 {}
-        f002001004 {}
-        f005001001 {}
+        office {}
+        baidu {}
+        xiaomi {}
+        market360 {}
+        yingyongbao {}
+        huawei {}
+        lenovo {}
+        taobao {}
     }
 
     productFlavors.all {
@@ -77,5 +81,6 @@ dependencies {
     compile 'com.orhanobut:dialogplus:1.11@aar'
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.sina.weibo.sdk:core:2.0.3:openDefaultRelease@aar'
+    compile 'com.meituan.android.walle:library:1.0.5'
 
 }

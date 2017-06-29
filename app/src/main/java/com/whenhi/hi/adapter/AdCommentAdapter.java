@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,17 +22,17 @@ import com.whenhi.hi.listener.OnGroupItemLongClickListener;
 import com.whenhi.hi.model.Comment;
 import com.whenhi.hi.model.Feed;
 import com.whenhi.hi.receiver.NoticeTransfer;
-import com.whenhi.hi.util.ClickUtil;
 import com.whenhi.hi.view.web.ProgressWebView;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Created by 王雷 on 2017/2/21.
  */
 
-public class WebViewCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AdCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_DETAIL = 1;
@@ -67,7 +66,7 @@ public class WebViewCommentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
 
 
-    public WebViewCommentAdapter(Feed feed) {
+    public AdCommentAdapter(Feed feed) {
         mFeed = feed;
         mComments = new ArrayList<>();
         NoticeTransfer noticeTransfer = new NoticeTransfer();
@@ -78,12 +77,12 @@ public class WebViewCommentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public void setList(List<Comment> comments) {
         mComments.clear();
 
-        if(comments.size() == 0){
+        /*if(comments.size() == 0){
             Comment comment = new Comment();
             comment.setId(-1);
             comment.setContent("暂时没有任何评论，赶紧坐沙发吧，再晚就没了。嘻嘻！");
             comments.add(comment);
-        }
+        }*/
         append(comments);
     }
 
@@ -200,7 +199,7 @@ public class WebViewCommentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         if(mFeed == null)
             return;
         mAdapter = new WebviewAdapter(holder.webView);
-        mAdapter.setUrl(mFeed.getLinkUrl());
+        mAdapter.setUrl(mFeed.getLink());
         //mAdapter.setUrl("http://www.sina.com");
         mAdapter.initWebView();
 
@@ -216,10 +215,11 @@ public class WebViewCommentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     private void onBindGroupHolder(GroupHolder holder) {
         holder.headerText.setText("#热门评论");
+        holder.headerText.setVisibility(View.GONE);
 
-        Context context = holder.itemView.getContext();
+        //Context context = holder.itemView.getContext();
 
-        showToolbarContent(holder,mFeed,context);
+        //showToolbarContent(holder,mFeed,context);
 
     }
 
@@ -227,7 +227,11 @@ public class WebViewCommentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         //Character character = mSections.get(parentPosition).getCharacters().get(childPosition);
         Comment comment = mComments.get(childPosition);
 
-        holder.commentText.setText(comment.getContent());
+        holder.commentText.setVisibility(View.GONE);
+        holder.userNickName.setVisibility(View.GONE);
+        holder.userAvatar.setVisibility(View.GONE);
+
+        /*holder.commentText.setText(comment.getContent());
 
         if(TextUtils.isEmpty(comment.getUserName())){
             holder.userNickName.setVisibility(View.GONE);
@@ -244,7 +248,7 @@ public class WebViewCommentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     .transform(new CircleTransform(context))
                     .error(R.mipmap.user_default)
                     .into(target);
-        }
+        }*/
 
     }
 

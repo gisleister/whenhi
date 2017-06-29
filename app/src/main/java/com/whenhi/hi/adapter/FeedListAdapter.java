@@ -219,6 +219,9 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             holder.userLayout.setVisibility(View.GONE);
             holder.toolbarLayout.setVisibility(View.GONE);
 
+        }else if(type == 6){
+            holder.userLayout.setVisibility(View.VISIBLE);
+            holder.toolbarLayout.setVisibility(View.GONE);
         }else{
             holder.userLayout.setVisibility(View.VISIBLE);
             holder.toolbarLayout.setVisibility(View.VISIBLE);
@@ -356,7 +359,36 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             });
 
         }else if(feed.getFeedCategory() == 6){//广告
+            holder.textContent.setText(feed.getContent());
+            holder.imageNum.setVisibility(View.GONE);
+            holder.contentImageLayout.setVisibility(View.VISIBLE);
+            holder.imagePlay.setImageResource(R.mipmap.shouye_tupian_kan);
+            if(TextUtils.isEmpty(feed.getContent())){
+                holder.contentTextLayout.setVisibility(View.GONE);
+            }else{
+                holder.contentTextLayout.setVisibility(View.VISIBLE);
+            }
 
+            if (target != null) {
+                Glide.with(context)
+                        .load(feed.getImageUrl()+para)
+                        .placeholder(R.mipmap.bg_image)
+                        .centerCrop()
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        .listener(mGlideListener.getListener())
+                        .transform(new RoundTransform(context,10))
+                        .error(R.mipmap.bg_image)
+                        //.override(width, height)
+                        .into(target);
+            }
+
+            holder.contentImageLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ClickUtil.click(feed, v.getContext());
+                }
+            });
         }else if(feed.getFeedCategory() == 7){//分割线
 
         }else if(feed.getFeedCategory() == 8){//彩蛋
@@ -389,7 +421,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             holder.textContent.setText(feed.getTitle());
             holder.contentImageLayout.setVisibility(View.VISIBLE);
             holder.imagePlay.setImageResource(R.mipmap.shouye_tupian_kan);
-            if(TextUtils.isEmpty(feed.getSummary())){
+            if(TextUtils.isEmpty(feed.getTitle())){
                 holder.contentTextLayout.setVisibility(View.GONE);
             }else{
                 holder.contentTextLayout.setVisibility(View.VISIBLE);
@@ -408,7 +440,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         .into(target);
             }
 
-            feed.setContent(feed.getSummary());
+            feed.setContent(feed.getTitle());
             holder.contentImageLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

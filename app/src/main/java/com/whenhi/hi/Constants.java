@@ -19,8 +19,8 @@ public class Constants {
 
  //public static  final boolean DEBUG = true;//此处在发版本时候必须修改为false
 
-    //public static final String host = "http://api.whenhi.cn/";
-public static final String host = "http://123.56.101.33/";
+ public static final String host = "http://api.whenhi.cn/";
+ //public static final String host = "http://123.56.101.33/";
 
 
  public static final String API_FEED_LIST_URL = host+"api/feed/list/";
@@ -80,6 +80,7 @@ public static final String host = "http://123.56.101.33/";
  public static final int DETAIL_VIDEO = 2;
  public static final int DETAIL_TEXT = 3;
  public static final int DETAIL_COMMENT = 4;
+ public static final int DETAIL_AD = 5;
 
  public static final int OTHER_FAV = 0;
  public static final int OTHER_INCOME_RECORD = 1;

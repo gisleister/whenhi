@@ -36,6 +36,7 @@ import com.whenhi.hi.model.Feed;
 import com.whenhi.hi.model.UserModel;
 import com.whenhi.hi.network.HttpAPI;
 import com.whenhi.hi.receiver.NoticeTransfer;
+import com.whenhi.hi.util.BindUtil;
 import com.whenhi.hi.util.ClickUtil;
 
 /**
@@ -167,9 +168,13 @@ public class MoreNavFragment extends BaseFragment {
             public void onClick(View v) {
 
                 if(App.isLogin()){
-                    Intent intent = new Intent(view.getContext(), MoneyRecordActivity.class);
+                    if(TextUtils.isEmpty(mobile)){//当用户已经登录但是没有绑定手机号时执行
+                        smsCode(view,3);
+                    }else{
+                        Intent intent = new Intent(view.getContext(), MoneyRecordActivity.class);
 
-                    view.getContext().startActivity(intent);
+                        view.getContext().startActivity(intent);
+                    }
                 }else{
                     ClickUtil.goToLogin(view.getContext());
                 }
@@ -404,6 +409,7 @@ public class MoreNavFragment extends BaseFragment {
         public void login(boolean is) {
             if(is){
                 getUserInfo();
+                BindUtil.bindJPush();
             }
         }
 

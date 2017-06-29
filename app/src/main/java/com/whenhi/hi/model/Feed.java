@@ -46,7 +46,16 @@ public class Feed implements Serializable {
     private String picUrl;
     private int lotteryCount;
     private String lotteryCountDesc;
+    private String link;
 
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
 
     public String getLotteryCountDesc() {
         return lotteryCountDesc;

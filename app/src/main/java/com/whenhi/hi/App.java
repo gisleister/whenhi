@@ -23,6 +23,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.bumptech.glide.Glide;
+import com.meituan.android.walle.WalleChannelReader;
+import com.umeng.analytics.AnalyticsConfig;
+import com.umeng.analytics.MobclickAgent;
 import com.whenhi.hi.model.LoginModel;
 import com.whenhi.hi.model.User;
 import com.whenhi.hi.network.OkHttp;
@@ -58,6 +61,7 @@ public class App extends Application {
     private String locationProvider;
     private static Location mLocation;
     private static String deviceId = "";
+    public static String sChannel;
 
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -119,6 +123,13 @@ public class App extends Application {
                 .initQQ("1105930594", "re8QnkQX5hONzBw0");
 
         initGPS();
+        initChannel();
+    }
+
+    private void initChannel(){
+        sChannel = getChannel("UMENG_CHANNEL");
+        MobclickAgent.UMAnalyticsConfig config = new MobclickAgent.UMAnalyticsConfig(sContext, "588342358630f5258d000d67", sChannel, MobclickAgent.EScenarioType.E_UM_NORMAL);
+        MobclickAgent. startWithConfigure(config);
     }
 
     public static Context getContext() {
@@ -382,26 +393,30 @@ public class App extends Application {
      * @return 如果没有获取成功(没有对应值，或者异常)，则返回值为空
      */
     public static String getChannel(String key) {
-        String resultData = "";
-        try {
-            PackageManager packageManager = sContext.getPackageManager();
-            if (packageManager != null) {
-                ApplicationInfo applicationInfo = packageManager.getApplicationInfo(sContext.getPackageName(), PackageManager.GET_META_DATA);
-                if (applicationInfo != null) {
-                    if (applicationInfo.metaData != null) {
-                        resultData = applicationInfo.metaData.getString(key);
-                        if(resultData == null){
-                            resultData = "";
+        sChannel = WalleChannelReader.getChannel(sContext);
+        if(TextUtils.isEmpty(sChannel)){
+            try {
+                PackageManager packageManager = sContext.getPackageManager();
+                if (packageManager != null) {
+                    ApplicationInfo applicationInfo = packageManager.getApplicationInfo(sContext.getPackageName(), PackageManager.GET_META_DATA);
+                    if (applicationInfo != null) {
+                        if (applicationInfo.metaData != null) {
+                            sChannel = applicationInfo.metaData.getString(key);
+                            if(sChannel == null){
+                                sChannel = "";
+                            }
                         }
                     }
-                }
 
+                }
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
             }
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
         }
 
-        return resultData;
+
+
+        return sChannel;
     }
 
     /**
